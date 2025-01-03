@@ -64,6 +64,38 @@ export const ResumePDFText = ({
     </Text>
   );
 };
+export const ResumePDFProgressBar = ({
+  progress,
+  themeColor,
+}: {
+  progress: number;
+  themeColor: string;
+}) => {
+  console.log(progress);
+  return (
+    <View
+      style={{
+        height: "3pt",
+        width: "120pt",
+        backgroundColor: "#2f3d5a",
+        borderRadius: "0.5pt",
+        overflow: "hidden",
+        marginTop: "2pt",
+        position: "relative",
+      }}
+    >
+      <View
+        style={{
+          height: "100%",
+          width: `${progress}%`,
+          position: "absolute",
+          backgroundColor: "white",
+        }}
+      />
+    </View>
+  );
+}
+
 
 export const ResumePDFBulletList = ({
   items,
@@ -145,7 +177,7 @@ export const ResumeFeaturedSkill = ({
   const numCircles = 5;
 
   return (
-    <View style={{ ...styles.flexRow, alignItems: "center", ...style, }}>
+    <View style={{ ...styles.flexCol, ...style, }}>
       <ResumePDFText>
         {skill}
       </ResumePDFText>

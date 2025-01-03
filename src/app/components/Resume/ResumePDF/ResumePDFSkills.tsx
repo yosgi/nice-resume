@@ -3,6 +3,7 @@ import {
   ResumePDFSection,
   ResumePDFBulletList,
   ResumeFeaturedSkill,
+  ResumePDFProgressBar
 } from "components/Resume/ResumePDF/common";
 import { styles, spacing } from "components/Resume/ResumePDF/styles";
 import type { ResumeSkills } from "lib/redux/types";
@@ -20,47 +21,43 @@ export const ResumePDFSkills = ({
 }) => {
   const { descriptions, featuredSkills } = skills;
   const featuredSkillsWithText = featuredSkills.filter((item) => item.skill);
-  const featuredSkillsPair = [
-    [featuredSkillsWithText[0], featuredSkillsWithText[3]],
-    [featuredSkillsWithText[1], featuredSkillsWithText[4]],
-    [featuredSkillsWithText[2], featuredSkillsWithText[5]],
-  ];
+  console.log(featuredSkills);
 
   return (
     <ResumePDFSection themeColor={themeColor} heading={heading}>
-      {featuredSkillsWithText.length > 0 && (
-        <View >
-          {featuredSkillsPair.map((pair, idx) => (
+      {descriptions.length > 0 && (
+        <ResumePDFBulletList
+          items={descriptions}
+          showBulletPoints={showBulletPoints}
+        />
+      )}
+      {featuredSkills.length > 0 && (
+        <View style={{
+          gap: spacing["2"],
+          ...styles.flexCol,
+        }}>
+          {featuredSkills.map((featuredSkill, idx) => (
             <View
               key={idx}
               style={{
                 ...styles.flexCol,
               }}
             >
-              {pair.map((featuredSkill, idx) => {
-                if (!featuredSkill) return null;
-                return (
-                  <ResumeFeaturedSkill
-                    key={idx}
-                    skill={featuredSkill.skill}
-                    rating={featuredSkill.rating}
-                    themeColor={themeColor}
-                    style={{
-                      justifyContent: "flex-start",
-                    }}
-                  />
-                );
-              })}
+              <ResumeFeaturedSkill
+                key={idx}
+                skill={featuredSkill.skill}
+                rating={featuredSkill.rating}
+                themeColor={themeColor}
+              />
+              <ResumePDFProgressBar
+                progress={featuredSkill.rating / 5 * 100}
+                themeColor={themeColor}
+              />
             </View>
           ))}
         </View>
       )}
-      {/* <View style={{ ...styles.flexCol }}>
-        <ResumePDFBulletList
-          items={descriptions}
-          showBulletPoints={showBulletPoints}
-        />
-      </View> */}
+
     </ResumePDFSection>
   );
 };

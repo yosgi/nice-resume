@@ -26,7 +26,7 @@ export const ResumePDFDetails = ({
 
   return (
     <ResumePDFSection style={{ marginTop: spacing["44"] }}
-    heading="Contact">
+    heading="CONTACT">
       <View
         style={{
           ...styles.flexCol,

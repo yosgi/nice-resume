@@ -68,7 +68,7 @@ export const AutoTypingResume = () => {
             fontSize: "12",
             formToHeading: {
               workExperiences: resume.workExperiences[0].company
-                ? "WORK EXPERIENCE"
+                ? "Employment History"
                 : "",
               educations: resume.educations[0].school ? "EDUCATION" : "",
               projects: resume.projects[0].project ? "PROJECT" : "",
