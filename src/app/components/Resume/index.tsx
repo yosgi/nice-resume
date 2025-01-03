@@ -39,7 +39,7 @@ export const Resume = () => {
             <ResumeIframeCSR
               documentSize={settings.documentSize}
               scale={scale}
-              // enablePDFViewer={DEBUG_RESUME_PDF_FLAG}
+              enablePDFViewer={DEBUG_RESUME_PDF_FLAG}
             >
               <ResumePDF
                 resume={resume}

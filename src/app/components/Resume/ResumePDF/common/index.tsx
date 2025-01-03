@@ -25,17 +25,6 @@ export const ResumePDFSection = ({
   >
     {heading && (
       <View style={{ ...styles.flexRow, alignItems: "center" }}>
-        {themeColor && (
-          <View
-            style={{
-              height: "3.75pt",
-              width: "30pt",
-              backgroundColor: themeColor,
-              marginRight: spacing["3.5"],
-            }}
-            debug={DEBUG_RESUME_PDF_FLAG}
-          />
-        )}
         <Text
           style={{
             fontWeight: "bold",
@@ -65,7 +54,7 @@ export const ResumePDFText = ({
   return (
     <Text
       style={{
-        color: themeColor || DEFAULT_FONT_COLOR,
+        // color: themeColor || DEFAULT_FONT_COLOR,
         fontWeight: bold ? "bold" : "normal",
         ...style,
       }}
@@ -144,7 +133,8 @@ export const ResumeFeaturedSkill = ({
   skill,
   rating,
   themeColor,
-  style = {},
+  style = {
+  },
 }: {
   skill: string;
   rating: number;
@@ -155,10 +145,10 @@ export const ResumeFeaturedSkill = ({
 
   return (
     <View style={{ ...styles.flexRow, alignItems: "center", ...style }}>
-      <ResumePDFText style={{ marginRight: spacing[0.5] }}>
+      <ResumePDFText>
         {skill}
       </ResumePDFText>
-      {[...Array(numCircles)].map((_, idx) => (
+      {/* {[...Array(numCircles)].map((_, idx) => (
         <View
           key={idx}
           style={{
@@ -169,7 +159,7 @@ export const ResumeFeaturedSkill = ({
             borderRadius: "100%",
           }}
         />
-      ))}
+      ))} */}
     </View>
   );
 };

@@ -10,6 +10,7 @@ import { DEFAULT_FONT_COLOR } from "lib/redux/settingsSlice";
 import type { Settings, ShowForm } from "lib/redux/settingsSlice";
 import type { Resume } from "lib/redux/types";
 import { SuppressResumePDFErrorMessage } from "components/Resume/ResumePDF/common/SuppressResumePDFErrorMessage";
+import { ResumePDFDetails } from "components/Resume/ResumePDF/ResumePDFDetails";
 
 /**
  * Note: ResumePDF is supposed to be rendered inside PDFViewer. However,
@@ -117,8 +118,8 @@ export const ResumePDF = ({
             style={{
               ...styles.flexCol,
               padding: `${spacing[0]} ${spacing[20]}`,
-              width: "67%",
               marginTop: spacing[10],
+              width:"67vw"
             }}
           >
             <ResumePDFProfile
@@ -134,9 +135,17 @@ export const ResumePDF = ({
           <View
             style={{
               backgroundColor: themeColor,
-              color: "white"
+              color: "white",
+              minHeight: "100vh",
+              width:"33vw",
+              paddingLeft: spacing["5"]
             }}
           >
+          <ResumePDFDetails
+            profile={profile}
+            themeColor={themeColor}
+            isPDF={isPDF}
+          />
           <ResumePDFSkills
               heading={formToHeading["skills"]}
               skills={skills}
