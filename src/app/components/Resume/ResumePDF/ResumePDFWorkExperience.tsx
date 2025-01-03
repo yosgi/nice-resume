@@ -22,7 +22,6 @@ export const ResumePDFWorkExperience = ({
         // Hide company name if it is the same as the previous company
         const hideCompanyName =
           idx > 0 && company === workExperiences[idx - 1].company;
-
         return (
           <View key={idx} style={idx !== 0 ? { marginTop: spacing["2"] } : {}}>
             {!hideCompanyName && (
@@ -36,8 +35,11 @@ export const ResumePDFWorkExperience = ({
                   : spacing["1.5"],
               }}
             >
-              <ResumePDFText>{jobTitle}</ResumePDFText>
-              <ResumePDFText>{date}</ResumePDFText>
+              <ResumePDFText >{jobTitle}</ResumePDFText>
+              <ResumePDFText style={{
+                fontStyle: "italic",
+                color:"#aeb1b9"
+              }}>{date}</ResumePDFText>
             </View>
             <View style={{ ...styles.flexCol, marginTop: spacing["1.5"] }}>
               <ResumePDFBulletList items={descriptions} />

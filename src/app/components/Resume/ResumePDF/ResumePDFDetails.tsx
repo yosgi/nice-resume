@@ -25,8 +25,8 @@ export const ResumePDFDetails = ({
   const iconProps = { email, phone, location, url };
 
   return (
-    <ResumePDFSection style={{ marginTop: spacing["44"] }}
-    heading="CONTACT">
+    <ResumePDFSection style={{ marginTop: spacing["40"] }}
+    heading="Contact">
       <View
         style={{
           ...styles.flexCol,

@@ -76,12 +76,7 @@ export const ResumePDF = ({
       />
     ),
     skills: () => (
-      <ResumePDFSkills
-        heading={formToHeading["skills"]}
-        skills={skills}
-        themeColor={themeColor}
-        showBulletPoints={showBulletPoints["skills"]}
-      />
+      <></>
     ),
     custom: () => (
       <ResumePDFCustom
@@ -105,21 +100,12 @@ export const ResumePDF = ({
             fontSize: fontSize + "pt",
           }}
         >
-          {/* {Boolean(settings.themeColor) && (
-            <View
-              style={{
-                width: spacing["full"],
-                height: spacing[3.5],
-                backgroundColor: themeColor,
-              }}
-            />
-          )} */}
           <View
             style={{
               ...styles.flexCol,
               padding: `${spacing[0]} ${spacing[20]}`,
               marginTop: spacing[10],
-              width:"67vw"
+              width: "67vw"
             }}
           >
             <ResumePDFProfile
@@ -137,21 +123,25 @@ export const ResumePDF = ({
               backgroundColor: themeColor,
               color: "white",
               minHeight: "100vh",
-              width:"33vw",
+              width: "33vw",
               paddingLeft: spacing["5"]
             }}
           >
-          <ResumePDFDetails
-            profile={profile}
-            themeColor={themeColor}
-            isPDF={isPDF}
-          />
-          <ResumePDFSkills
-              heading={formToHeading["skills"]}
-              skills={skills}
+            <ResumePDFDetails
+              profile={profile}
               themeColor={themeColor}
-              showBulletPoints={showBulletPoints["skills"]}
+              isPDF={isPDF}
             />
+            {
+              formToShow["skills"] && (
+                <ResumePDFSkills
+                  heading={formToHeading["skills"]}
+                  skills={skills}
+                  themeColor={themeColor}
+                  showBulletPoints={showBulletPoints["skills"]}
+                />
+              )
+            }
           </View>
         </Page>
       </Document>

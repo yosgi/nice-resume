@@ -21,8 +21,6 @@ export const ResumePDFSkills = ({
 }) => {
   const { descriptions, featuredSkills } = skills;
   const featuredSkillsWithText = featuredSkills.filter((item) => item.skill);
-  console.log(featuredSkills);
-
   return (
     <ResumePDFSection themeColor={themeColor} heading={heading}>
       {descriptions.length > 0 && (
@@ -50,7 +48,7 @@ export const ResumePDFSkills = ({
                 themeColor={themeColor}
               />
               <ResumePDFProgressBar
-                progress={featuredSkill.rating / 5 * 100}
+                progress={featuredSkill.rating / 4 * 100}
                 themeColor={themeColor}
               />
             </View>

@@ -28,7 +28,7 @@ export const ResumePDFSection = ({
         <Text
           style={{
             fontWeight: "bold",
-            letterSpacing: "0.3pt", // tracking-wide -> 0.025em * 12 pt = 0.3pt
+            letterSpacing: "0.3pt", 
             fontSize: "12pt",
           }}
           debug={DEBUG_RESUME_PDF_FLAG}
@@ -71,7 +71,6 @@ export const ResumePDFProgressBar = ({
   progress: number;
   themeColor: string;
 }) => {
-  console.log(progress);
   return (
     <View
       style={{
@@ -108,18 +107,6 @@ export const ResumePDFBulletList = ({
     <>
       {items.map((item, idx) => (
         <View style={{ ...styles.flexRow }} key={idx}>
-          {showBulletPoints && (
-            <ResumePDFText
-              style={{
-                paddingLeft: spacing["2"],
-                paddingRight: spacing["2"],
-                lineHeight: "1.3",
-              }}
-              bold={true}
-            >
-              {"•"}
-            </ResumePDFText>
-          )}
           {/* A breaking change was introduced causing text layout to be wider than node's width
               https://github.com/diegomura/react-pdf/issues/2182. flexGrow & flexBasis fixes it */}
           <ResumePDFText

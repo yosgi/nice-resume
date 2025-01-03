@@ -1,4 +1,4 @@
-import { View } from "@react-pdf/renderer";
+import { View, Text } from "@react-pdf/renderer";
 import {
   ResumePDFIcon,
   type IconType,
@@ -20,7 +20,7 @@ export const ResumePDFProfile = ({
   themeColor: string;
   isPDF: boolean;
 }) => {
-  const { name, email, phone, url, summary, location } = profile;
+  const { name, email, phone, url, summary, location, title } = profile;
   const iconProps = { email, phone, location, url };
 
   return (
@@ -31,6 +31,24 @@ export const ResumePDFProfile = ({
         style={{ fontSize: "20pt" }}
       >
         {name}
+      </ResumePDFText>
+      <Text
+        style={{
+          fontWeight: "light",
+          letterSpacing: "0.3pt",
+          fontSize: "11pt",
+          fontStyle: "italic",
+          marginBottom: spacing["8"]
+        }}
+      >
+        {title}
+      </Text>
+      <ResumePDFText
+        bold={true}
+        themeColor={themeColor}
+        style={{ fontSize: "12pt" }}
+      >
+        Profile
       </ResumePDFText>
       {summary && <ResumePDFText>{summary}</ResumePDFText>}
       <View
