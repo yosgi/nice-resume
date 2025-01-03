@@ -29,7 +29,7 @@ export const ResumePDFSkills = ({
   return (
     <ResumePDFSection themeColor={themeColor} heading={heading}>
       {featuredSkillsWithText.length > 0 && (
-        <View style={{ marginTop: spacing["0.5"] }}>
+        <View >
           {featuredSkillsPair.map((pair, idx) => (
             <View
               key={idx}
@@ -47,7 +47,6 @@ export const ResumePDFSkills = ({
                     themeColor={themeColor}
                     style={{
                       justifyContent: "flex-start",
-                      // paddingLeft: spacing["5"],
                     }}
                   />
                 );

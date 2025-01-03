@@ -29,6 +29,7 @@ export const ResumePDFSection = ({
           style={{
             fontWeight: "bold",
             letterSpacing: "0.3pt", // tracking-wide -> 0.025em * 12 pt = 0.3pt
+            fontSize: "12pt",
           }}
           debug={DEBUG_RESUME_PDF_FLAG}
         >
@@ -54,7 +55,6 @@ export const ResumePDFText = ({
   return (
     <Text
       style={{
-        // color: themeColor || DEFAULT_FONT_COLOR,
         fontWeight: bold ? "bold" : "normal",
         ...style,
       }}
@@ -134,6 +134,7 @@ export const ResumeFeaturedSkill = ({
   rating,
   themeColor,
   style = {
+   
   },
 }: {
   skill: string;
@@ -144,7 +145,7 @@ export const ResumeFeaturedSkill = ({
   const numCircles = 5;
 
   return (
-    <View style={{ ...styles.flexRow, alignItems: "center", ...style }}>
+    <View style={{ ...styles.flexRow, alignItems: "center", ...style, }}>
       <ResumePDFText>
         {skill}
       </ResumePDFText>

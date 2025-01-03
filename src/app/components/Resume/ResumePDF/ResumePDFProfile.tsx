@@ -87,10 +87,6 @@ export const ResumePDFProfile = ({
                 gap: spacing["1"],
               }}
             >
-              <ResumePDFIcon type={iconType} isPDF={isPDF} />
-              <Wrapper>
-                <ResumePDFText>{value}</ResumePDFText>
-              </Wrapper>
             </View>
           );
         })}

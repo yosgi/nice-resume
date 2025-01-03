@@ -1,4 +1,4 @@
-import { View } from "@react-pdf/renderer";
+import { View,Text } from "@react-pdf/renderer";
 import {
   ResumePDFIcon,
   type IconType,
@@ -10,6 +10,7 @@ import {
   ResumePDFText,
 } from "components/Resume/ResumePDF/common";
 import type { ResumeProfile } from "lib/redux/types";
+
 
 export const ResumePDFDetails = ({
   profile,
@@ -24,22 +25,16 @@ export const ResumePDFDetails = ({
   const iconProps = { email, phone, location, url };
 
   return (
-    <ResumePDFSection style={{ marginTop: spacing["4"] }}>
-      {/* <ResumePDFText
-        bold={true}
-        themeColor={themeColor}
-        style={{ fontSize: "20pt" }}
-      >
-        {name}
-      </ResumePDFText>
-      {summary && <ResumePDFText>{summary}</ResumePDFText>} */}
+    <ResumePDFSection style={{ marginTop: spacing["44"] }}
+    heading="Contact">
       <View
         style={{
-          ...styles.flexRowBetween,
+          ...styles.flexCol,
           flexWrap: "wrap",
-          marginTop: spacing["0.5"],
+          gap: spacing["2"],
         }}
       >
+        
         {Object.entries(iconProps).map(([key, value]) => {
           if (!value) return null;
 
@@ -52,7 +47,7 @@ export const ResumePDFDetails = ({
             }
           }
 
-          const shouldUseLinkWrapper = ["email", "url", "phone"].includes(key);
+          const shouldUseLinkWrapper = ["phone", "url","email" ].includes(key);
           const Wrapper = ({ children }: { children: React.ReactNode }) => {
             if (!shouldUseLinkWrapper) return <>{children}</>;
 
@@ -84,12 +79,14 @@ export const ResumePDFDetails = ({
               style={{
                 ...styles.flexRow,
                 alignItems: "center",
-                gap: spacing["1"],
               }}
             >
-              <ResumePDFIcon type={iconType} isPDF={isPDF} />
               <Wrapper>
-                <ResumePDFText>{value}</ResumePDFText>
+                <ResumePDFText
+                  style={{color:"white"}}
+                >
+                  {value}
+                </ResumePDFText>
               </Wrapper>
             </View>
           );
