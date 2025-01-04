@@ -36,7 +36,7 @@ export const SkillsForm = () => {
   };
 
   return (
-    <Form form={form}>
+    <Form form={form} >
       <div className="col-span-full grid grid-cols-6 gap-3">
         <div className="relative col-span-full">
           <BulletListTextarea
@@ -79,6 +79,8 @@ export const SkillsForm = () => {
             circleColor={themeColor}
           />
         ))}
+
+    
       </div>
     </Form>
   );
