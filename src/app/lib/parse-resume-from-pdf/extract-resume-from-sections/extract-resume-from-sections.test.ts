@@ -36,4 +36,11 @@ describe("extract-profile tests - ", () => {
     );
     expect(matchUrl(makeTextItem("hello@open-resume.org"))).toBeFalsy();
   });
+
+  it("title", () => {
+    expect(
+      matchOnlyLetterSpaceOrPeriod(makeTextItem("Software Engineer"))![0]
+    ).toBe("Software Engineer");
+  });
+
 });

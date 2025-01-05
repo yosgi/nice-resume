@@ -12,6 +12,7 @@ import {
   hasLetterAndIsAllUpperCase,
 } from "lib/parse-resume-from-pdf/extract-resume-from-sections/lib/common-features";
 import { getTextWithHighestFeatureScore } from "lib/parse-resume-from-pdf/extract-resume-from-sections/lib/feature-scoring-system";
+import { title } from "process";
 
 // Name
 export const matchOnlyLetterSpaceOrPeriod = (item: TextItem) =>
@@ -173,6 +174,8 @@ export const extractProfile = (sections: ResumeSectionToLines) => {
       url,
       // Dedicated section takes higher precedence over profile summary
       summary: summarySection || objectiveSection || summary,
+      title: "", // TODO: Add title extraction
+
     },
     // For debugging
     profileScores: {
@@ -182,6 +185,7 @@ export const extractProfile = (sections: ResumeSectionToLines) => {
       location: locationScores,
       url: urlScores,
       summary: summaryScores,
+      title:title
     },
   };
 };
