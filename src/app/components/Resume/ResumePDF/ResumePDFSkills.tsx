@@ -41,16 +41,23 @@ export const ResumePDFSkills = ({
                 ...styles.flexCol,
               }}
             >
-              <ResumeFeaturedSkill
-                key={idx}
-                skill={featuredSkill.skill}
-                rating={featuredSkill.rating}
-                themeColor={themeColor}
-              />
-              <ResumePDFProgressBar
-                progress={featuredSkill.rating / 4 * 100}
-                themeColor={themeColor}
-              />
+              {
+                featuredSkill.skill && (
+                  <>
+                    <ResumeFeaturedSkill
+                      key={idx}
+                      skill={featuredSkill.skill}
+                      rating={featuredSkill.rating}
+                      themeColor={themeColor}
+                    />
+                    <ResumePDFProgressBar
+                      progress={featuredSkill.rating / 4 * 100}
+                      themeColor={themeColor}
+                    />
+                  </>
+                )
+              }
+
             </View>
           ))}
         </View>

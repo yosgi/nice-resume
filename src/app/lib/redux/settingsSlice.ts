@@ -36,8 +36,8 @@ export type GeneralSetting = Exclude<
   "formToShow" | "formToHeading" | "formsOrder" | "showBulletPoints"
 >;
 
-export const DEFAULT_THEME_COLOR = "#38bdf8"; // sky-400
-export const DEFAULT_FONT_FAMILY = "Courier";
+export const DEFAULT_THEME_COLOR = "#1D2E4D"; // sky-400
+export const DEFAULT_FONT_FAMILY = "Montserrat";
 export const DEFAULT_FONT_SIZE = "11"; // text-base https://tailwindcss.com/docs/font-size
 export const DEFAULT_FONT_COLOR = "#171717"; // text-neutral-800
 

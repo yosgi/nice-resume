@@ -16,6 +16,7 @@ export const END_HOME_RESUME: Resume = {
     phone: "123-456-7890",
     location: "NYC, NY",
     url: "linkedin.com/in/john-doe",
+    title: "Software Engineer",
   },
   workExperiences: [
     {
@@ -78,6 +79,15 @@ export const END_HOME_RESUME: Resume = {
       { skill: "TypeScript", rating: 3 },
       { skill: "React", rating: 3 },
       { skill: "C++", rating: 2 },
+      { skill: "Java", rating: 2 },
+      { skill: "GraphQL", rating: 2 },
+      { skill: "Node.js", rating: 2 },
+      { skill: "SQL", rating: 2 },
+      { skill: "Postgres", rating: 2 },
+      { skill: "NoSql", rating: 2 },
+      { skill: "Redis", rating: 2 },
+      { skill: "REST API", rating: 2 },
+      { skill: "Git", rating: 2 },
     ],
     descriptions: [
       "Tech: React Hooks, GraphQL, Node.js, SQL, Postgres, NoSql, Redis, REST API, Git",

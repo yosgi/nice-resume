@@ -45,7 +45,9 @@ export const ResumePDFEducation = ({
                     ? `${degree} - ${Number(gpa) ? gpa + " GPA" : gpa}`
                     : degree
                 }`}</ResumePDFText>
-                <ResumePDFText>{date}</ResumePDFText>
+                <ResumePDFText
+                  style={{ fontStyle: "italic", fontWeight: "light",color:"#aeb1b9" }}
+                >{date}</ResumePDFText>
               </View>
               {showDescriptions && (
                 <View style={{ ...styles.flexCol, marginTop: spacing["1.5"] }}>

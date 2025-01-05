@@ -20,7 +20,6 @@ export const SkillsForm = () => {
   const form = "skills";
   const showBulletPoints = useAppSelector(selectShowBulletPoints(form));
   const themeColor = useAppSelector(selectThemeColor) || "#38bdf8";
-
   const handleSkillsChange = (field: "descriptions", value: string[]) => {
     dispatch(changeSkills({ field, value }));
   };

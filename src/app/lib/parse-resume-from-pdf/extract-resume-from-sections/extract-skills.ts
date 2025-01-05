@@ -20,7 +20,7 @@ export const extractSkills = (sections: ResumeSectionToLines) => {
     const featuredSkillsTextItems = featuredSkillsLines
       .flat()
       .filter((item) => item.text.trim())
-      .slice(0, 6);
+      .slice(0, 10);
     for (let i = 0; i < featuredSkillsTextItems.length; i++) {
       featuredSkills[i].skill = featuredSkillsTextItems[i].text;
     }

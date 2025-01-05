@@ -90,7 +90,8 @@ export const ResumePDF = ({
 
   return (
     <>
-      <Document title={`${name} Resume`} author={name} producer={"OpenResume"}>
+      <Document title={`${name} Resume`} author={name} producer={"OpenResume"}
+      >
         <Page
           size={documentSize === "A4" ? "A4" : "LETTER"}
           style={{
@@ -105,7 +106,7 @@ export const ResumePDF = ({
               ...styles.flexCol,
               padding: `${spacing[0]} ${spacing[20]}`,
               marginTop: spacing[10],
-              width: "67vw"
+              flex: 2,
             }}
           >
             <ResumePDFProfile
@@ -123,7 +124,7 @@ export const ResumePDF = ({
               backgroundColor: themeColor,
               color: "white",
               minHeight: "100vh",
-              width: "33vw",
+              flex: 1,
               paddingLeft: spacing["5"]
             }}
           >
