@@ -49,7 +49,8 @@ export const ResumeDropzone = ({
   const onDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     const newFile = event.dataTransfer.files[0];
-    if (newFile.name.endsWith(".pdf")) {
+    console.log(newFile);
+    if (newFile.name.endsWith(".pdf") || newFile.name.endsWith(".json")) {
       setHasNonPdfFile(false);
       setNewFile(newFile);
     } else {
@@ -72,7 +73,22 @@ export const ResumeDropzone = ({
   };
 
   const onImportClick = async () => {
-    const resume = await parseResumeFromPdf(file.fileUrl);
+    let resume = {
+      workExperiences: [],
+      educations: [],
+      projects: [],
+      skills: { descriptions: [] },
+      custom: { descriptions: [] },
+    } as any
+    // const resume = await parseResumeFromPdf(file.fileUrl);
+    if (file.name.endsWith(".pdf")) {
+      resume = await parseResumeFromPdf(file.fileUrl);
+    } else {
+      const response = await fetch(file.fileUrl);
+      const json = await response.json();
+      resume = json.resume;
+    }
+
     const settings = deepClone(initialSettings);
 
     // Set formToShow settings based on uploaded resume if users have used the app before
@@ -132,7 +148,7 @@ export const ResumeDropzone = ({
                 !playgroundView && "text-lg font-semibold"
               )}
             >
-              Browse a pdf file or drop it here
+              Browse a pdf / Json file or drop it here
             </p>
             <p className="flex text-sm text-gray-500">
               <LockClosedIcon className="mr-1 mt-1 h-3 w-3 text-gray-400" />
@@ -186,10 +202,6 @@ export const ResumeDropzone = ({
                   Import and Continue <span aria-hidden="true">→</span>
                 </button>
               )}
-              <p className={cx(" text-gray-500", !playgroundView && "mt-6")}>
-                Note: {!playgroundView ? "Import" : "Parser"} works best on
-                single column resume
-              </p>
             </>
           )}
         </div>
