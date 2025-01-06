@@ -23,4 +23,18 @@ export const saveStateToLocalStorage = (state: RootState) => {
   }
 };
 
+// export to json file
+export const exportStateFromLocalStorage = () => {
+  const state = loadStateFromLocalStorage();
+  if (!state) return;
+  const stringifiedState = JSON.stringify(state);
+  const blob = new Blob([stringifiedState], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "open-resume-state.json";
+  a.click();
+  URL.revokeObjectURL(url);
+};
+
 export const getHasUsedAppBefore = () => Boolean(loadStateFromLocalStorage());

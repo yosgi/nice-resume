@@ -4,7 +4,11 @@ import { useSetDefaultScale } from "components/Resume/hooks";
 import {
   MagnifyingGlassIcon,
   ArrowDownTrayIcon,
+  ArrowUpIcon
 } from "@heroicons/react/24/outline";
+import {
+  exportStateFromLocalStorage
+} from "lib/redux/local-storage";
 import { usePDF } from "@react-pdf/renderer";
 import dynamic from "next/dynamic";
 
@@ -59,6 +63,14 @@ const ResumeControlBar = ({
           <span className="select-none">Autoscale</span>
         </label>
       </div>
+      
+      <a
+        className="ml-1 flex items-center gap-1 rounded-md border border-gray-300 px-3 py-0.5 hover:bg-gray-100 lg:ml-8 cursor-pointer"
+        onClick={() => exportStateFromLocalStorage()}
+      >
+        <ArrowUpIcon className="h-4 w-4" />
+        <span className="whitespace-nowrap">Export data</span>
+      </a>
       <a
         className="ml-1 flex items-center gap-1 rounded-md border border-gray-300 px-3 py-0.5 hover:bg-gray-100 lg:ml-8"
         href={instance.url!}
