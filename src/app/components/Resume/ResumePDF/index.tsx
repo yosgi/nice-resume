@@ -125,7 +125,7 @@ export const ResumePDF = ({
               color: "white",
               minHeight: "100vh",
               flex: 1,
-              paddingLeft: spacing["5"]
+              padding: `${0} ${spacing["5"]}`
             }}
           >
             <ResumePDFDetails

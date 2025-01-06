@@ -42,7 +42,7 @@ const getIframeInitialContent = (isA4: boolean) => {
       ${allFontFamiliesFontFaces}
     </style>
   </head>
-  <body style='overflow: hidden; width: ${width}pt; margin: 0; padding: 0; -webkit-text-size-adjust:none;'>
+  <body style='overflow-x: hidden; width: ${width}pt; margin: 0; padding: 0; -webkit-text-size-adjust:none;'>
     <div></div>
   </body>
 </html>`;
