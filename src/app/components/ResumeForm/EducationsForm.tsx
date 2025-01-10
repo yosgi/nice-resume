@@ -53,7 +53,7 @@ export const EducationsForm = () => {
               label="School"
               labelClassName="col-span-4"
               name="school"
-              placeholder="Cornell University"
+              placeholder="Harvard University"
               value={school}
               onChange={handleEducationChange}
             />
@@ -61,7 +61,7 @@ export const EducationsForm = () => {
               label="Date"
               labelClassName="col-span-2"
               name="date"
-              placeholder="May 2018"
+              placeholder="June 2021"
               value={date}
               onChange={handleEducationChange}
             />
@@ -69,7 +69,7 @@ export const EducationsForm = () => {
               label="Degree & Major"
               labelClassName="col-span-4"
               name="degree"
-              placeholder="Bachelor of Science in Computer Engineering"
+              placeholder="Master of Business Administration (MBA)"
               value={degree}
               onChange={handleEducationChange}
             />
@@ -77,7 +77,7 @@ export const EducationsForm = () => {
               label="GPA"
               labelClassName="col-span-2"
               name="gpa"
-              placeholder="3.81"
+              placeholder="4.0"
               value={gpa}
               onChange={handleEducationChange}
             />
@@ -86,7 +86,7 @@ export const EducationsForm = () => {
                 label="Additional Information (Optional)"
                 labelClassName="col-span-full"
                 name="descriptions"
-                placeholder="Free paragraph space to list out additional activities, courses, awards etc"
+                placeholder="Dean's List, Leadership roles, scholarships, relevant coursework, or other achievements"
                 value={descriptions}
                 onChange={handleEducationChange}
                 showBulletPoints={showBulletPoints}

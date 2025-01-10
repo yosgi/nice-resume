@@ -17,7 +17,7 @@ export const ResumePDFWorkExperience = ({
   themeColor: string;
 }) => {
   return (
-    <ResumePDFSection themeColor={themeColor} heading={heading}>
+    <ResumePDFSection themeColor={themeColor} heading={workExperiences.length > 0 ? heading: ""}>
       {workExperiences.map(({ company, jobTitle, date, descriptions }, idx) => {
         // Hide company name if it is the same as the previous company
         const hideCompanyName =

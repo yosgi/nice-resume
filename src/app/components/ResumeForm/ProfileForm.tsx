@@ -7,7 +7,7 @@ import { ResumeProfile } from "lib/redux/types";
 export const ProfileForm = () => {
   const profile = useAppSelector(selectProfile);
   const dispatch = useAppDispatch();
-  const { name, email, phone, url, summary, location,title } = profile;
+  const { name, email, phone, url, summary, location, title } = profile;
 
   const handleProfileChange = (field: keyof ResumeProfile, value: string) => {
     dispatch(changeProfile({ field, value }));
@@ -20,24 +20,23 @@ export const ProfileForm = () => {
           label="Name"
           labelClassName="col-span-full"
           name="name"
-          placeholder="Sal Khan"
+          placeholder="John Doe"
           value={name}
           onChange={handleProfileChange}
         />
-         <Input
+        <Input
           label="Job Title"
           labelClassName="col-span-full"
           name="title"
-          placeholder="Software Engineer"
+          placeholder="Full-Stack Developer"
           value={title}
           onChange={handleProfileChange}
         />
-
         <Textarea
           label="Objective"
           labelClassName="col-span-full"
           name="summary"
-          placeholder="Entrepreneur and educator obsessed with making education free for anyone"
+          placeholder="Motivated developer with a passion for building user-focused applications"
           value={summary}
           onChange={handleProfileChange}
         />
@@ -45,7 +44,7 @@ export const ProfileForm = () => {
           label="Email"
           labelClassName="col-span-4"
           name="email"
-          placeholder="hello@khanacademy.org"
+          placeholder="johndoe@example.com"
           value={email}
           onChange={handleProfileChange}
         />
@@ -53,7 +52,7 @@ export const ProfileForm = () => {
           label="Phone"
           labelClassName="col-span-2"
           name="phone"
-          placeholder="(123)456-7890"
+          placeholder="(555) 123-4567"
           value={phone}
           onChange={handleProfileChange}
         />
@@ -61,7 +60,7 @@ export const ProfileForm = () => {
           label="Website"
           labelClassName="col-span-4"
           name="url"
-          placeholder="linkedin.com/in/khanacademy"
+          placeholder="portfolio.johndoe.com"
           value={url}
           onChange={handleProfileChange}
         />
@@ -69,7 +68,7 @@ export const ProfileForm = () => {
           label="Location"
           labelClassName="col-span-2"
           name="location"
-          placeholder="NYC, NY"
+          placeholder="San Francisco, CA"
           value={location}
           onChange={handleProfileChange}
         />

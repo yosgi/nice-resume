@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import { LockClosedIcon } from "@heroicons/react/24/solid";
 import { XMarkIcon } from "@heroicons/react/24/outline";
@@ -36,6 +37,7 @@ export const ResumeDropzone = ({
   const hasFile = Boolean(file.name);
 
   const setNewFile = (newFile: File) => {
+    // Revoke old object URL to avoid memory leaks
     if (file.fileUrl) {
       URL.revokeObjectURL(file.fileUrl);
     }
@@ -49,8 +51,7 @@ export const ResumeDropzone = ({
   const onDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     const newFile = event.dataTransfer.files[0];
-    console.log(newFile);
-    if (newFile.name.endsWith(".pdf") || newFile.name.endsWith(".json")) {
+    if (newFile?.name.endsWith(".pdf") || newFile?.name.endsWith(".json")) {
       setHasNonPdfFile(false);
       setNewFile(newFile);
     } else {
@@ -62,12 +63,13 @@ export const ResumeDropzone = ({
   const onInputChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (!files) return;
-
-    const newFile = files[0];
-    setNewFile(newFile);
+    setNewFile(files[0]);
   };
 
   const onRemove = () => {
+    if (file.fileUrl) {
+      URL.revokeObjectURL(file.fileUrl);
+    }
     setFile(defaultFileState);
     onFileUrlChange("");
   };
@@ -79,11 +81,13 @@ export const ResumeDropzone = ({
       projects: [],
       skills: { descriptions: [] },
       custom: { descriptions: [] },
-    } as any
-    // const resume = await parseResumeFromPdf(file.fileUrl);
+    } as any;
+
     if (file.name.endsWith(".pdf")) {
+      // Parse PDF file
       resume = await parseResumeFromPdf(file.fileUrl);
     } else {
+      // Parse JSON file
       const response = await fetch(file.fileUrl);
       const json = await response.json();
       resume = json.resume;
@@ -91,10 +95,10 @@ export const ResumeDropzone = ({
 
     const settings = deepClone(initialSettings);
 
-    // Set formToShow settings based on uploaded resume if users have used the app before
+    // If the user has used the app before, show/hide form sections
     if (getHasUsedAppBefore()) {
       const sections = Object.keys(settings.formToShow) as ShowForm[];
-      const sectionToFormToShow: Record<ShowForm, boolean> = {
+      const sectionVisibility: Record<ShowForm, boolean> = {
         workExperiences: resume.workExperiences.length > 0,
         educations: resume.educations.length > 0,
         projects: resume.projects.length > 0,
@@ -102,7 +106,7 @@ export const ResumeDropzone = ({
         custom: resume.custom.descriptions.length > 0,
       };
       for (const section of sections) {
-        settings.formToShow[section] = sectionToFormToShow[section];
+        settings.formToShow[section] = sectionVisibility[section];
       }
     }
 
@@ -113,8 +117,8 @@ export const ResumeDropzone = ({
   return (
     <div
       className={cx(
-        "flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 ",
-        isHoveredOnDropzone && "border-sky-400",
+        "flex justify-center rounded-md border-2 border-dashed px-6 bg-[#FAFDFC] shadow-sm transition-colors",
+        isHoveredOnDropzone ? "border-[#2E4E43]" : "border-gray-300",
         playgroundView ? "pb-6 pt-4" : "py-12",
         className
       )}
@@ -125,44 +129,41 @@ export const ResumeDropzone = ({
       onDragLeave={() => setIsHoveredOnDropzone(false)}
       onDrop={onDrop}
     >
-      <div
-        className={cx(
-          "text-center",
-          playgroundView ? "space-y-2" : "space-y-3"
-        )}
-      >
+      <div className={cx("text-center", playgroundView ? "space-y-2" : "space-y-3")}>
         {!playgroundView && (
           <Image
             src={addPdfSrc}
             className="mx-auto h-14 w-14"
-            alt="Add pdf"
+            alt="Add a PDF or JSON"
             aria-hidden="true"
             priority
           />
         )}
+
+        {/* Display instructions or the file details */}
         {!hasFile ? (
           <>
             <p
               className={cx(
-                "pt-3 text-gray-700",
+                "pt-3 text-[#2E4E43]",
                 !playgroundView && "text-lg font-semibold"
               )}
             >
-              Browse a pdf / Json file or drop it here
+              Browse a PDF or JSON file or drop it here
             </p>
-            <p className="flex text-sm text-gray-500">
-              <LockClosedIcon className="mr-1 mt-1 h-3 w-3 text-gray-400" />
-              File data is used locally and never leaves your browser
+            <p className="flex items-center justify-center text-sm text-gray-500">
+              <LockClosedIcon className="mr-1 h-4 w-4 text-gray-400" />
+              Your file data is processed locally
             </p>
           </>
         ) : (
           <div className="flex items-center justify-center gap-3 pt-3">
-            <div className="pl-7 font-semibold text-gray-900">
-              {file.name} - {getFileSizeString(file.size)}
+            <div className="pl-7 font-semibold text-[#2E4E43]">
+              {file.name} &mdash; {getFileSizeString(file.size)}
             </div>
             <button
               type="button"
-              className="outline-theme-blue rounded-md p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-500"
+              className="rounded-md p-1 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-500"
               title="Remove file"
               onClick={onRemove}
             >
@@ -170,33 +171,39 @@ export const ResumeDropzone = ({
             </button>
           </div>
         )}
+
+        {/* Buttons */}
         <div className="pt-4">
           {!hasFile ? (
             <>
               <label
                 className={cx(
-                  "within-outline-theme-purple cursor-pointer rounded-full px-6 pb-2.5 pt-2 font-semibold shadow-sm",
-                  playgroundView ? "border" : "bg-primary"
+                  "relative inline-block cursor-pointer rounded-full px-6 py-2 font-semibold text-white shadow-sm transition-colors",
+                  // If not playground, use the theme color
+                  !playgroundView ? "bg-[#2E4E43] hover:bg-[#276F5F]" : "border border-[#2E4E43] text-[#2E4E43]"
                 )}
               >
-                Browse file
+                Browse File
                 <input
                   type="file"
                   className="sr-only"
-                  accept=".pdf"
+                  accept=".pdf,.json"
                   onChange={onInputChange}
                 />
               </label>
               {hasNonPdfFile && (
-                <p className="mt-6 text-red-400">Only pdf file is supported</p>
+                <p className="mt-6 text-red-500">
+                  Only PDF or JSON files are supported
+                </p>
               )}
             </>
           ) : (
             <>
+              {/* Only show import button if not in "playgroundView" mode */}
               {!playgroundView && (
                 <button
                   type="button"
-                  className="btn-primary"
+                  className="inline-block rounded-full bg-[#2E4E43] px-6 py-2 font-semibold text-white transition-colors hover:bg-[#276F5F]"
                   onClick={onImportClick}
                 >
                   Import and Continue <span aria-hidden="true">→</span>
@@ -210,6 +217,7 @@ export const ResumeDropzone = ({
   );
 };
 
+/** Utility to get file size string in KB or MB */
 const getFileSizeString = (fileSizeB: number) => {
   const fileSizeKB = fileSizeB / 1024;
   const fileSizeMB = fileSizeKB / 1024;
