@@ -12,7 +12,7 @@ export const END_HOME_RESUME: Resume = {
     name: "Jane Smith",
     summary:
       "Results-driven software developer with a passion for creating impactful solutions and improving user experiences.",
-    email: "jane.smith@openresume.com",
+    email: "jane.smith@gmail.com",
     phone: "987-654-3210",
     location: "San Francisco, CA",
     url: "linkedin.com/in/jane-smith",
