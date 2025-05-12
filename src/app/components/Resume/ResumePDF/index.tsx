@@ -27,6 +27,23 @@ import { ResumePDFDetails } from "components/Resume/ResumePDF/ResumePDFDetails";
  *    suppress these messages in <SuppressResumePDFErrorMessage />.
  *    https://github.com/diegomura/react-pdf/issues/239#issuecomment-487255027
  */
+
+// Page break indicator component
+const PageBreakIndicator = ({ documentSize }: { documentSize: string }) => (
+  <View
+    style={{
+      position: "absolute",
+      top: documentSize === "A4" ? "842pt" : "792pt", // A4: 842pt, Letter: 792pt
+      left: 0,
+      right: 0,
+      height: "2pt",
+      backgroundColor: "#ff0000",
+      opacity: 0.3,
+      zIndex: 1,
+    }}
+  />
+);
+
 export const ResumePDF = ({
   resume,
   settings,
@@ -90,8 +107,7 @@ export const ResumePDF = ({
 
   return (
     <>
-      <Document title={`${name} Resume`} author={name} producer={"OpenResume"}
-      >
+      <Document title={`${name} Resume`} author={name} producer={"OpenResume"}>
         <Page
           size={documentSize === "A4" ? "A4" : "LETTER"}
           style={{
@@ -99,6 +115,7 @@ export const ResumePDF = ({
             color: DEFAULT_FONT_COLOR,
             fontFamily,
             fontSize: fontSize + "pt",
+            position: "relative",
           }}
         >
           <View
@@ -125,7 +142,8 @@ export const ResumePDF = ({
               color: "white",
               minHeight: "100vh",
               flex: 1,
-              padding: `${0} ${spacing["5"]}`
+              padding: `${0} ${spacing["5"]}`,
+              position: "relative",
             }}
           >
             <ResumePDFDetails
@@ -133,17 +151,16 @@ export const ResumePDF = ({
               themeColor={themeColor}
               isPDF={isPDF}
             />
-            {
-              formToShow["skills"] && (
-                <ResumePDFSkills
-                  heading={formToHeading["skills"]}
-                  skills={skills}
-                  themeColor={themeColor}
-                  showBulletPoints={showBulletPoints["skills"]}
-                />
-              )
-            }
+            {formToShow["skills"] && (
+              <ResumePDFSkills
+                heading={formToHeading["skills"]}
+                skills={skills}
+                themeColor={themeColor}
+                showBulletPoints={showBulletPoints["skills"]}
+              />
+            )}
           </View>
+          {!isPDF && <PageBreakIndicator documentSize={documentSize} />}
         </Page>
       </Document>
       <SuppressResumePDFErrorMessage />

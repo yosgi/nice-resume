@@ -104,19 +104,29 @@ export const ResumePDFBulletList = ({
   showBulletPoints?: boolean;
 }) => {
   return (
-    <>
+    <View style={{ ...styles.flexCol }}>
       {items.map((item, idx) => (
-        <View style={{ ...styles.flexRow }} key={idx}>
+        <View 
+          style={{ 
+            ...styles.flexRow,
+            marginBottom: idx === items.length - 1 ? 0 : spacing["1"]
+          }} 
+          key={idx}
+        >
           {/* A breaking change was introduced causing text layout to be wider than node's width
               https://github.com/diegomura/react-pdf/issues/2182. flexGrow & flexBasis fixes it */}
           <ResumePDFText
-            style={{ lineHeight: "1.3", flexGrow: 1, flexBasis: 0 }}
+            style={{ 
+              flexGrow: 1, 
+              flexBasis: 0,
+              padding: "1pt 0"
+            }}
           >
             {item}
           </ResumePDFText>
         </View>
       ))}
-    </>
+    </View>
   );
 };
 
