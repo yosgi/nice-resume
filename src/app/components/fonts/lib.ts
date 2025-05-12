@@ -11,11 +11,11 @@ import {
  */
 const getPreferredNonEnglishFontFamilies = () => {
   return NON_ENGLISH_FONT_FAMILIES.filter((fontFamily) => {
-    const fontLanguages = NON_ENGLISH_FONT_FAMILY_TO_LANGUAGE[fontFamily];
-    const userPreferredLanguages = navigator.languages ?? [navigator.language];
-    return userPreferredLanguages.some((preferredLanguage) =>
-      fontLanguages.includes(preferredLanguage)
-    );
+    // const fontLanguages = NON_ENGLISH_FONT_FAMILY_TO_LANGUAGE[fontFamily];
+    // const userPreferredLanguages = navigator.languages ?? [navigator.language];
+    // return userPreferredLanguages.some((preferredLanguage) =>
+    //   fontLanguages.includes(preferredLanguage)
+    // );
   });
 };
 

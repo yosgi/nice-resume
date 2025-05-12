@@ -82,8 +82,6 @@ export const ResumeDropzone = ({
       skills: { descriptions: [] },
       custom: { descriptions: [] },
     } as any;
-    
-    let settings = deepClone(initialSettings);
 
     if (file.name.endsWith(".pdf")) {
       // Parse PDF file
@@ -93,29 +91,22 @@ export const ResumeDropzone = ({
       const response = await fetch(file.fileUrl);
       const json = await response.json();
       resume = json.resume;
-      
-      // 如果 JSON 中有 settings，使用它
-      if (json.settings) {
-        settings = json.settings;
-        console.log('Using settings from JSON file');
-      }
     }
 
-    // 如果没有使用 JSON 导入的 settings（即来自 PDF 或 JSON 没有 settings）
-    if (!file.name.endsWith(".json") || !settings.sectionSpacing) {
-      // If the user has used the app before, show/hide form sections
-      if (getHasUsedAppBefore()) {
-        const sections = Object.keys(settings.formToShow) as ShowForm[];
-        const sectionVisibility: Record<ShowForm, boolean> = {
-          workExperiences: resume.workExperiences.length > 0,
-          educations: resume.educations.length > 0,
-          projects: resume.projects.length > 0,
-          skills: resume.skills.descriptions.length > 0,
-          custom: resume.custom.descriptions.length > 0,
-        };
-        for (const section of sections) {
-          settings.formToShow[section] = sectionVisibility[section];
-        }
+    const settings = deepClone(initialSettings);
+
+    // If the user has used the app before, show/hide form sections
+    if (getHasUsedAppBefore()) {
+      const sections = Object.keys(settings.formToShow) as ShowForm[];
+      const sectionVisibility: Record<ShowForm, boolean> = {
+        workExperiences: resume.workExperiences.length > 0,
+        educations: resume.educations.length > 0,
+        projects: resume.projects.length > 0,
+        skills: resume.skills.descriptions.length > 0,
+        custom: resume.custom.descriptions.length > 0,
+      };
+      for (const section of sections) {
+        settings.formToShow[section] = sectionVisibility[section];
       }
     }
 
