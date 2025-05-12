@@ -24,12 +24,6 @@ export const CustomForm = () => {
 
   return (
     <section className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
-      <div className="flex justify-end mb-4">
-        <SpacingControl 
-          section="custom" 
-          value={settings.sectionSpacing.custom} 
-        />
-      </div>
       <Form form={form}>
         <div className="relative col-span-full">
           <BulletListTextarea

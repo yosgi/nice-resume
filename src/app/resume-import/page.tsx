@@ -4,10 +4,12 @@ import Link from "next/link";
 import { getHasUsedAppBefore } from "lib/redux/local-storage";
 import { ResumeDropzone } from "components/ResumeDropzone";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "../../../utils/translations";
 
 export default function ImportResume() {
   const [hasUsedAppBefore, setHasUsedAppBefore] = useState(false);
   const [hasAddedResume, setHasAddedResume] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     setHasUsedAppBefore(getHasUsedAppBefore());
@@ -36,7 +38,7 @@ export default function ImportResume() {
   );
 }
 
-/** 用户第一次使用场景 */
+/** First-time user scenario */
 function NewAppState({
   hasAddedResume,
   onFileUrlChange,
@@ -44,27 +46,29 @@ function NewAppState({
   hasAddedResume: boolean;
   onFileUrlChange: (fileUrl: string) => void;
 }) {
+  const { t } = useTranslation();
+  
   return (
     <>
       <h1 className="text-lg font-semibold text-gray-900">
-        Import data from an existing resume
+        {t("import.title")}
       </h1>
       <p className="mt-2 text-sm text-gray-600">
-        Easily parse your file and kickstart building your resume
+        {t("import.description")}
       </p>
       <ResumeDropzone onFileUrlChange={onFileUrlChange} className="mt-5" />
 
       <OrDivider />
       <SectionWithHeadingAndCreateButton
-        heading="Don't have a resume yet?"
-        buttonText="Create New"
-        subText="Start fresh and craft your own resume"
+        heading={t("import.noResumeTitle")}
+        buttonText={t("import.createNew")}
+        subText={t("import.noResumeDescription")}
       />
     </>
   );
 }
 
-/** 用户已有本地数据场景 */
+/** Returning user scenario */
 function UsedAppState({
   hasAddedResume,
   onFileUrlChange,
@@ -72,46 +76,52 @@ function UsedAppState({
   hasAddedResume: boolean;
   onFileUrlChange: (fileUrl: string) => void;
 }) {
+  const { t } = useTranslation();
+  
   return (
     <>
       {!hasAddedResume && (
         <>
           <SectionWithHeadingAndCreateButton
-            heading="We found existing data from a previous session"
-            buttonText="Continue where I left off"
-            subText="Pick up right where you stopped last time"
+            heading={t("import.existingDataTitle")}
+            buttonText={t("import.continueButton")}
+            subText={t("import.existingDataDescription")}
           />
           <OrDivider />
         </>
       )}
       <h1 className="text-lg font-semibold text-gray-900">
-        Upload a new resume to replace current data
+        {t("import.uploadNewTitle")}
       </h1>
       <p className="mt-2 text-sm text-gray-600">
-        If you want to start fresh with a different file
+        {t("import.uploadNewDescription")}
       </p>
       <ResumeDropzone onFileUrlChange={onFileUrlChange} className="mt-5" />
 
       <OrDivider />
       <SectionWithHeadingAndCreateButton
-        heading="Want to start completely fresh?"
-        buttonText="Create New Resume"
-        subText="Start with a blank slate and build your resume from scratch"
+        heading={t("import.startFreshTitle")}
+        buttonText={t("import.createNewResume")}
+        subText={t("import.startFreshDescription")}
       />
     </>
   );
 }
 
-/** 分割组件 */
-const OrDivider = () => (
-  <div className="mt-8 mb-6 flex items-center" aria-hidden="true">
-    <div className="flex-grow border-t border-gray-200" />
-    <span className="mx-2 text-lg text-gray-400">or</span>
-    <div className="flex-grow border-t border-gray-200" />
-  </div>
-);
+/** Divider component with "or" text */
+const OrDivider = () => {
+  const { t } = useTranslation();
+  
+  return (
+    <div className="mt-8 mb-6 flex items-center" aria-hidden="true">
+      <div className="flex-grow border-t border-gray-200" />
+      <span className="mx-2 text-lg text-gray-400">{t("import.or")}</span>
+      <div className="flex-grow border-t border-gray-200" />
+    </div>
+  );
+};
 
-/** 用于有标题与按钮的分块 */
+/** Section component with heading and create button */
 const SectionWithHeadingAndCreateButton = ({
   heading,
   subText,

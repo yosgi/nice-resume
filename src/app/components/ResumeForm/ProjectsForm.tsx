@@ -14,24 +14,20 @@ import {
   selectSettings,
 } from "lib/redux/settingsSlice";
 import { SpacingControl } from "./common/SpacingControl";
+import { useTranslation } from "../../../../utils/translations";
 
 export const ProjectsForm = () => {
   const projects = useAppSelector(selectProjects);
   const settings = useAppSelector(selectSettings);
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
   const showDelete = projects.length > 1;
   const form = "projects";
   const showBulletPoints = useAppSelector(selectShowBulletPoints(form));
 
   return (
     <section className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
-      <div className="flex justify-end mb-4">
-        <SpacingControl 
-          section="projects" 
-          value={settings.sectionSpacing.projects} 
-        />
-      </div>
-      <Form form={form} addButtonText="Add Project">
+      <Form form={form} addButtonText={t("project.addButtonText")}>
         {projects.map(({ project, date, descriptions }, idx) => {
           const handleProjectChange = (
             ...[
@@ -52,28 +48,28 @@ export const ProjectsForm = () => {
               showMoveUp={showMoveUp}
               showMoveDown={showMoveDown}
               showDelete={showDelete}
-              deleteButtonTooltipText={"Delete project"}
+              deleteButtonTooltipText={t("project.deleteButtonTooltipText")}
             >
               <Input
                 name="project"
-                label="Project Name"
-                placeholder="Project Name"
+                label={t("project.name")}
+                placeholder={t("project.namePlaceholder")}
                 value={project}
                 onChange={handleProjectChange}
                 labelClassName="col-span-4"
               />
               <Input
                 name="date"
-                label="Date"
-                placeholder="Winter 2022"
+                label={t("project.date")}
+                placeholder={t("project.datePlaceholder")}
                 value={date}
                 onChange={handleProjectChange}
                 labelClassName="col-span-2"
               />
               <BulletListTextarea
                 name="descriptions"
-                label="Description"
-                placeholder="Bullet points"
+                label={t("project.description")}
+                placeholder={t("project.descriptionPlaceholder")}
                 value={descriptions}
                 onChange={handleProjectChange}
                 labelClassName="col-span-full"

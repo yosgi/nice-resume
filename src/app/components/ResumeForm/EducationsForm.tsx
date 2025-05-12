@@ -14,24 +14,20 @@ import {
   selectSettings,
 } from "lib/redux/settingsSlice";
 import { SpacingControl } from "./common/SpacingControl";
+import { useTranslation } from "../../../../utils/translations";
 
 export const EducationsForm = () => {
   const educations = useAppSelector(selectEducations);
   const settings = useAppSelector(selectSettings);
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
   const showDelete = educations.length > 1;
   const form = "educations";
   const showBulletPoints = useAppSelector(selectShowBulletPoints(form));
 
   return (
     <section className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
-      <div className="flex justify-end mb-4">
-        <SpacingControl 
-          section="educations" 
-          value={settings.sectionSpacing.educations} 
-        />
-      </div>
-      <Form form={form} addButtonText="Add School">
+      <Form form={form} addButtonText={t("education.addButtonText")}>
         {educations.map(({ school, degree, gpa, date, descriptions }, idx) => {
           const handleEducationChange = (
             ...[
@@ -57,46 +53,46 @@ export const EducationsForm = () => {
               showMoveUp={showMoveUp}
               showMoveDown={showMoveDown}
               showDelete={showDelete}
-              deleteButtonTooltipText="Delete school"
+              deleteButtonTooltipText={t("education.deleteButtonTooltipText")}
             >
               <Input
-                label="School"
+                label={t("education.school")}
                 labelClassName="col-span-4"
                 name="school"
-                placeholder="Harvard University"
+                placeholder={t("education.schoolPlaceholder")}
                 value={school}
                 onChange={handleEducationChange}
               />
               <Input
-                label="Date"
+                label={t("education.date")}
                 labelClassName="col-span-2"
                 name="date"
-                placeholder="June 2021"
+                placeholder={t("education.datePlaceholder")}
                 value={date}
                 onChange={handleEducationChange}
               />
               <Input
-                label="Degree & Major"
+                label={t("education.degree")}
                 labelClassName="col-span-4"
                 name="degree"
-                placeholder="Master of Business Administration (MBA)"
+                placeholder={t("education.degreePlaceholder")}
                 value={degree}
                 onChange={handleEducationChange}
               />
               <Input
-                label="GPA"
+                label={t("education.gpa")}
                 labelClassName="col-span-2"
                 name="gpa"
-                placeholder="4.0"
+                placeholder={t("education.gpaPlaceholder")}
                 value={gpa}
                 onChange={handleEducationChange}
               />
               <div className="relative col-span-full">
                 <BulletListTextarea
-                  label="Additional Information (Optional)"
+                  label={t("education.additionalInfo")}
                   labelClassName="col-span-full"
                   name="descriptions"
-                  placeholder="Dean's List, Leadership roles, scholarships, relevant coursework, or other achievements"
+                  placeholder={t("education.additionalInfoPlaceholder")}
                   value={descriptions}
                   onChange={handleEducationChange}
                   showBulletPoints={showBulletPoints}

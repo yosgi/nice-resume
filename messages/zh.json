@@ -2,7 +2,9 @@
   "common": {
     "language": "语言",
     "english": "英文",
-    "chinese": "中文"
+    "chinese": "中文",
+    "backToOptions": "返回选项",
+    "starOnGithub": "在 GitHub 上点赞"
   },
   "resume": {
     "personalInfo": "个人信息",
@@ -19,5 +21,106 @@
     "delete": "删除",
     "add": "添加",
     "cancel": "取消"
+  },
+  "profile": {
+    "name": "姓名",
+    "jobTitle": "职位",
+    "objective": "个人目标",
+    "email": "邮箱",
+    "phone": "电话",
+    "website": "网站",
+    "location": "所在地",
+    "namePlaceholder": "张三",
+    "jobTitlePlaceholder": "全栈开发工程师",
+    "objectivePlaceholder": "富有激情的开发者，专注于构建用户友好的应用程序",
+    "emailPlaceholder": "zhangsan@example.com",
+    "phonePlaceholder": "(555) 123-4567",
+    "websitePlaceholder": "portfolio.zhangsan.com",
+    "locationPlaceholder": "上海，中国"
+  },
+  "workExperience": {
+    "addButtonText": "添加工作经历",
+    "deleteButtonTooltipText": "删除工作经历",
+    "company": "公司",
+    "companyPlaceholder": "谷歌",
+    "date": "日期",
+    "datePlaceholder": "2021年6月 - 至今",
+    "jobTitle": "职位",
+    "jobTitlePlaceholder": "软件工程师",
+    "description": "工作描述",
+    "descriptionPlaceholder": "工作要点"
+  },
+  "education": {
+    "addButtonText": "添加学校",
+    "deleteButtonTooltipText": "删除学校",
+    "school": "学校",
+    "schoolPlaceholder": "哈佛大学",
+    "date": "日期",
+    "datePlaceholder": "2021年6月",
+    "degree": "学位和专业",
+    "degreePlaceholder": "工商管理硕士（MBA）",
+    "gpa": "GPA",
+    "gpaPlaceholder": "4.0",
+    "additionalInfo": "补充信息（选填）",
+    "additionalInfoPlaceholder": "优秀学生名单、领导角色、奖学金、相关课程或其他成就"
+  },
+  "project": {
+    "addButtonText": "添加项目",
+    "deleteButtonTooltipText": "删除项目",
+    "name": "项目名称",
+    "namePlaceholder": "项目名称",
+    "date": "日期",
+    "datePlaceholder": "2022年冬季",
+    "description": "项目描述",
+    "descriptionPlaceholder": "项目要点"
+  },
+  "skills": {
+    "addButtonText": "添加技能",
+    "skillsList": "技能列表",
+    "skillsListPlaceholder": "技能要点",
+    "featuredSkills": "重点技能（选填）",
+    "featuredSkillsDescription": "重点技能是可选的，用于突出显示最重要的技能，圆圈越多表示熟练度越高。",
+    "featuredSkillPlaceholder": "重点技能"
+  },
+  "theme": {
+    "title": "简历设置",
+    "themeColor": "主题颜色",
+    "fontFamily": "字体",
+    "fontSize": "字号（磅）",
+    "fontSizePlaceholder": "11",
+    "documentSize": "文档尺寸"
+  },
+  "import": {
+    "title": "从现有简历导入数据",
+    "description": "轻松解析您的文件并开始构建简历",
+    "noResumeTitle": "还没有简历？",
+    "noResumeDescription": "从头开始创建您的简历",
+    "createNew": "创建新简历",
+    "or": "或",
+    "existingDataTitle": "我们发现了您之前的会话数据",
+    "existingDataDescription": "从上次停止的地方继续",
+    "continueButton": "继续上次的编辑",
+    "uploadNewTitle": "上传新简历替换当前数据",
+    "uploadNewDescription": "如果您想使用不同的文件重新开始",
+    "startFreshTitle": "想要完全重新开始？",
+    "startFreshDescription": "从空白开始，从头构建您的简历",
+    "createNewResume": "创建新简历",
+    "dropzone": {
+      "browseOrDrop": "浏览或拖放 PDF 或 JSON 文件到这里",
+      "localProcessing": "您的文件数据在本地处理",
+      "browseFile": "浏览文件",
+      "unsupportedFile": "仅支持 PDF 或 JSON 文件",
+      "importAndContinue": "导入并继续",
+      "removeFile": "移除文件"
+    }
+  },
+  "spacing": {
+    "label": "间距",
+    "tooltip": "间距为 {{value}}pt"
+  },
+  "hero": {
+    "title": "轻松创建专业简历",
+    "subtitle": "使用这个免费、开源且简单的简历构建器",
+    "getStarted": "开始使用"
   }
 } 

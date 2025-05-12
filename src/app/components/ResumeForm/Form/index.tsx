@@ -14,6 +14,7 @@ import {
   selectIsLastForm,
   selectShowByForm,
   ShowForm,
+  selectSettings,
 } from "lib/redux/settingsSlice";
 import {
   BuildingOfficeIcon,
@@ -27,6 +28,7 @@ import {
   deleteSectionInFormByIdx,
   moveSectionInForm,
 } from "lib/redux/resumeSlice";
+import { SpacingControl } from "../common/SpacingControl";
 
 /**
  * BaseForm is the bare bone form, i.e. just the outline with no title and no control buttons.
@@ -65,6 +67,7 @@ export const Form = ({
 }) => {
   const showForm = useAppSelector(selectShowByForm(form));
   const heading = useAppSelector(selectHeadingByForm(form));
+  const settings = useAppSelector(selectSettings);
 
   const dispatch = useAppDispatch();
   const setShowForm = (showForm: boolean) => {
@@ -100,6 +103,10 @@ export const Form = ({
           />
         </div>
         <div className="flex items-center gap-0.5">
+          <SpacingControl 
+            section={form}
+            value={settings.sectionSpacing[form]} 
+          />
           {!isFirstForm && (
             <MoveIconButton type="up" onClick={handleMoveClick} />
           )}

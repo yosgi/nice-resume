@@ -17,11 +17,13 @@ import {
   selectSettings,
 } from "lib/redux/settingsSlice";
 import { SpacingControl } from "./common/SpacingControl";
+import { useTranslation } from "../../../../utils/translations";
 
 export const SkillsForm = () => {
   const skills = useAppSelector(selectSkills);
   const settings = useAppSelector(selectSettings);
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
   const { featuredSkills, descriptions } = skills;
   const form = "skills";
   const showBulletPoints = useAppSelector(selectShowBulletPoints(form));
@@ -42,20 +44,14 @@ export const SkillsForm = () => {
 
   return (
     <section className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
-      <div className="flex justify-end mb-4">
-        <SpacingControl 
-          section="skills" 
-          value={settings.sectionSpacing.skills} 
-        />
-      </div>
-      <Form form={form} addButtonText="Add Skill">
+      <Form form={form} addButtonText={t("skills.addButtonText")}>
         <div className="col-span-full grid grid-cols-6 gap-3">
           <div className="relative col-span-full">
             <BulletListTextarea
-              label="Skills List"
+              label={t("skills.skillsList")}
               labelClassName="col-span-full"
               name="descriptions"
-              placeholder="Bullet points"
+              placeholder={t("skills.skillsListPlaceholder")}
               value={descriptions}
               onChange={handleSkillsChange}
               showBulletPoints={showBulletPoints}
@@ -69,12 +65,11 @@ export const SkillsForm = () => {
           </div>
           <div className="col-span-full mb-4 mt-6 border-t-2 border-dotted border-gray-200" />
           <InputGroupWrapper
-            label="Featured Skills (Optional)"
+            label={t("skills.featuredSkills")}
             className="col-span-full"
           >
             <p className="mt-2 text-sm font-normal text-gray-600">
-              Featured skills is optional to highlight top skills, with more
-              circles mean higher proficiency.
+              {t("skills.featuredSkillsDescription")}
             </p>
           </InputGroupWrapper>
 
@@ -87,7 +82,7 @@ export const SkillsForm = () => {
               setSkillRating={(newSkill, newRating) => {
                 handleFeaturedSkillsChange(idx, newSkill, newRating);
               }}
-              placeholder={`Featured Skill ${idx + 1}`}
+              placeholder={`${t("skills.featuredSkillPlaceholder")} ${idx + 1}`}
               circleColor={themeColor}
             />
           ))}

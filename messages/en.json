@@ -2,7 +2,14 @@
   "common": {
     "language": "Language",
     "english": "English",
-    "chinese": "Chinese"
+    "chinese": "Chinese",
+    "backToOptions": "Back to Options",
+    "starOnGithub": "Star on GitHub"
+  },
+  "hero": {
+    "title": "Create your professional resume easily",
+    "subtitle": "With this free, open-source, and simple resume builder",
+    "getStarted": "Get Started"
   },
   "resume": {
     "personalInfo": "Personal Information",
@@ -19,5 +26,101 @@
     "delete": "Delete",
     "add": "Add",
     "cancel": "Cancel"
+  },
+  "profile": {
+    "name": "Name",
+    "jobTitle": "Job Title",
+    "objective": "Objective",
+    "email": "Email",
+    "phone": "Phone",
+    "website": "Website",
+    "location": "Location",
+    "namePlaceholder": "John Doe",
+    "jobTitlePlaceholder": "Full-Stack Developer",
+    "objectivePlaceholder": "Motivated developer with a passion for building user-focused applications",
+    "emailPlaceholder": "johndoe@example.com",
+    "phonePlaceholder": "(555) 123-4567",
+    "websitePlaceholder": "portfolio.johndoe.com",
+    "locationPlaceholder": "San Francisco, CA"
+  },
+  "workExperience": {
+    "addButtonText": "Add Work Experience",
+    "deleteButtonTooltipText": "Delete work experience",
+    "company": "Company",
+    "companyPlaceholder": "Google",
+    "date": "Date",
+    "datePlaceholder": "June 2021 - Present",
+    "jobTitle": "Job Title",
+    "jobTitlePlaceholder": "Software Engineer",
+    "description": "Description",
+    "descriptionPlaceholder": "Bullet points"
+  },
+  "education": {
+    "addButtonText": "Add School",
+    "deleteButtonTooltipText": "Delete school",
+    "school": "School",
+    "schoolPlaceholder": "Harvard University",
+    "date": "Date",
+    "datePlaceholder": "June 2021",
+    "degree": "Degree & Major",
+    "degreePlaceholder": "Master of Business Administration (MBA)",
+    "gpa": "GPA",
+    "gpaPlaceholder": "4.0",
+    "additionalInfo": "Additional Information (Optional)",
+    "additionalInfoPlaceholder": "Dean's List, Leadership roles, scholarships, relevant coursework, or other achievements"
+  },
+  "project": {
+    "addButtonText": "Add Project",
+    "deleteButtonTooltipText": "Delete project",
+    "name": "Project Name",
+    "namePlaceholder": "Project Name",
+    "date": "Date",
+    "datePlaceholder": "Winter 2022",
+    "description": "Description",
+    "descriptionPlaceholder": "Bullet points"
+  },
+  "skills": {
+    "addButtonText": "Add Skill",
+    "skillsList": "Skills List",
+    "skillsListPlaceholder": "Bullet points",
+    "featuredSkills": "Featured Skills (Optional)",
+    "featuredSkillsDescription": "Featured skills is optional to highlight top skills, with more circles mean higher proficiency.",
+    "featuredSkillPlaceholder": "Featured Skill"
+  },
+  "theme": {
+    "title": "Resume Setting",
+    "themeColor": "Theme Color",
+    "fontFamily": "Font Family",
+    "fontSize": "Font Size (pt)",
+    "fontSizePlaceholder": "11",
+    "documentSize": "Document Size"
+  },
+  "import": {
+    "title": "Import data from an existing resume",
+    "description": "Easily parse your file and kickstart building your resume",
+    "noResumeTitle": "Don't have a resume yet?",
+    "noResumeDescription": "Start fresh and craft your own resume",
+    "createNew": "Create New",
+    "or": "or",
+    "existingDataTitle": "We found existing data from a previous session",
+    "existingDataDescription": "Pick up right where you stopped last time",
+    "continueButton": "Continue where I left off",
+    "uploadNewTitle": "Upload a new resume to replace current data",
+    "uploadNewDescription": "If you want to start fresh with a different file",
+    "startFreshTitle": "Want to start completely fresh?",
+    "startFreshDescription": "Start with a blank slate and build your resume from scratch",
+    "createNewResume": "Create New Resume",
+    "dropzone": {
+      "browseOrDrop": "Browse a PDF or JSON file or drop it here",
+      "localProcessing": "Your file data is processed locally",
+      "browseFile": "Browse File",
+      "unsupportedFile": "Only PDF or JSON files are supported",
+      "importAndContinue": "Import and Continue",
+      "removeFile": "Remove file"
+    }
+  },
+  "spacing": {
+    "label": "Spacing",
+    "tooltip": "{{value}}pt spacing"
   }
 } 

@@ -16,12 +16,14 @@ import {
 import { useAppDispatch, useAppSelector } from "lib/redux/hooks";
 import type { FontFamily } from "components/fonts/constants";
 import { Cog6ToothIcon } from "@heroicons/react/24/outline";
+import { useTranslation } from "../../../../../utils/translations";
 
 export const ThemeForm = () => {
   const settings = useAppSelector(selectSettings);
   const { fontSize, fontFamily, documentSize } = settings;
   const themeColor = settings.themeColor || DEFAULT_THEME_COLOR;
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
 
   const handleSettingsChange = (field: GeneralSetting, value: string) => {
     dispatch(changeSettings({ field, value }));
@@ -33,12 +35,12 @@ export const ThemeForm = () => {
         <div className="flex items-center gap-2">
           <Cog6ToothIcon className="h-6 w-6 text-gray-600" aria-hidden="true" />
           <h1 className="text-lg font-semibold tracking-wide text-gray-900 ">
-            Resume Setting
+            {t("theme.title")}
           </h1>
         </div>
         <div>
           <InlineInput
-            label="Theme Color"
+            label={t("theme.themeColor")}
             name="themeColor"
             value={settings.themeColor}
             placeholder={DEFAULT_THEME_COLOR}
@@ -64,7 +66,7 @@ export const ThemeForm = () => {
           </div>
         </div>
         <div>
-          <InputGroupWrapper label="Font Family" />
+          <InputGroupWrapper label={t("theme.fontFamily")} />
           <FontFamilySelectionsCSR
             selectedFontFamily={fontFamily}
             themeColor={themeColor}
@@ -73,10 +75,10 @@ export const ThemeForm = () => {
         </div>
         <div>
           <InlineInput
-            label="Font Size (pt)"
+            label={t("theme.fontSize")}
             name="fontSize"
             value={fontSize}
-            placeholder="11"
+            placeholder={t("theme.fontSizePlaceholder")}
             onChange={handleSettingsChange}
           />
           <FontSizeSelections
@@ -87,7 +89,7 @@ export const ThemeForm = () => {
           />
         </div>
         <div>
-          <InputGroupWrapper label="Document Size" />
+          <InputGroupWrapper label={t("theme.documentSize")} />
           <DocumentSizeSelections
             themeColor={themeColor}
             selectedDocumentSize={documentSize}

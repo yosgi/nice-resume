@@ -13,6 +13,7 @@ import addPdfSrc from "public/assets/add-pdf.svg";
 import Image from "next/image";
 import { cx } from "lib/cx";
 import { deepClone } from "lib/deep-clone";
+import { useTranslation } from "../../../utils/translations";
 
 const defaultFileState = {
   name: "",
@@ -33,6 +34,7 @@ export const ResumeDropzone = ({
   const [isHoveredOnDropzone, setIsHoveredOnDropzone] = useState(false);
   const [hasNonPdfFile, setHasNonPdfFile] = useState(false);
   const router = useRouter();
+  const { t } = useTranslation();
 
   const hasFile = Boolean(file.name);
 
@@ -110,7 +112,7 @@ export const ResumeDropzone = ({
       }
     }
 
-    // 添加日志检查导入的数据
+    // Add logs to check imported data
     console.log('Importing resume:', resume);
     console.log('Importing settings:', settings);
     console.log('Section spacing:', settings.sectionSpacing);
@@ -154,11 +156,11 @@ export const ResumeDropzone = ({
                 !playgroundView && "text-lg font-semibold"
               )}
             >
-              Browse a PDF or JSON file or drop it here
+              {t("import.dropzone.browseOrDrop")}
             </p>
             <p className="flex items-center justify-center text-sm text-gray-500">
               <LockClosedIcon className="mr-1 h-4 w-4 text-gray-400" />
-              Your file data is processed locally
+              {t("import.dropzone.localProcessing")}
             </p>
           </>
         ) : (
@@ -169,7 +171,7 @@ export const ResumeDropzone = ({
             <button
               type="button"
               className="rounded-md p-1 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-500"
-              title="Remove file"
+              title={t("import.dropzone.removeFile")}
               onClick={onRemove}
             >
               <XMarkIcon className="h-6 w-6" />
@@ -188,7 +190,7 @@ export const ResumeDropzone = ({
                   !playgroundView ? "bg-[#2E4E43] hover:bg-[#276F5F]" : "border border-[#2E4E43] text-[#2E4E43]"
                 )}
               >
-                Browse File
+                {t("import.dropzone.browseFile")}
                 <input
                   type="file"
                   className="sr-only"
@@ -198,7 +200,7 @@ export const ResumeDropzone = ({
               </label>
               {hasNonPdfFile && (
                 <p className="mt-6 text-red-500">
-                  Only PDF or JSON files are supported
+                  {t("import.dropzone.unsupportedFile")}
                 </p>
               )}
             </>
@@ -211,7 +213,7 @@ export const ResumeDropzone = ({
                   className="inline-block rounded-full bg-[#2E4E43] px-6 py-2 font-semibold text-white transition-colors hover:bg-[#276F5F]"
                   onClick={onImportClick}
                 >
-                  Import and Continue <span aria-hidden="true">→</span>
+                  {t("import.dropzone.importAndContinue")} <span aria-hidden="true">→</span>
                 </button>
               )}
             </>

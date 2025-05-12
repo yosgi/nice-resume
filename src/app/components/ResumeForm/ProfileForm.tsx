@@ -3,10 +3,12 @@ import { Input, Textarea } from "components/ResumeForm/Form/InputGroup";
 import { useAppDispatch, useAppSelector } from "lib/redux/hooks";
 import { changeProfile, selectProfile } from "lib/redux/resumeSlice";
 import { ResumeProfile } from "lib/redux/types";
+import { useTranslation } from "../../../../utils/translations";
 
 export const ProfileForm = () => {
   const profile = useAppSelector(selectProfile);
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
   const { name, email, phone, url, summary, location, title } = profile;
 
   const handleProfileChange = (field: keyof ResumeProfile, value: string) => {
@@ -17,58 +19,58 @@ export const ProfileForm = () => {
     <BaseForm>
       <div className="grid grid-cols-6 gap-3">
         <Input
-          label="Name"
+          label={t("profile.name")}
           labelClassName="col-span-full"
           name="name"
-          placeholder="John Doe"
+          placeholder={t("profile.namePlaceholder")}
           value={name}
           onChange={handleProfileChange}
         />
         <Input
-          label="Job Title"
+          label={t("profile.jobTitle")}
           labelClassName="col-span-full"
           name="title"
-          placeholder="Full-Stack Developer"
+          placeholder={t("profile.jobTitlePlaceholder")}
           value={title}
           onChange={handleProfileChange}
         />
         <Textarea
-          label="Objective"
+          label={t("profile.objective")}
           labelClassName="col-span-full"
           name="summary"
-          placeholder="Motivated developer with a passion for building user-focused applications"
+          placeholder={t("profile.objectivePlaceholder")}
           value={summary}
           onChange={handleProfileChange}
         />
         <Input
-          label="Email"
+          label={t("profile.email")}
           labelClassName="col-span-4"
           name="email"
-          placeholder="johndoe@example.com"
+          placeholder={t("profile.emailPlaceholder")}
           value={email}
           onChange={handleProfileChange}
         />
         <Input
-          label="Phone"
+          label={t("profile.phone")}
           labelClassName="col-span-2"
           name="phone"
-          placeholder="(555) 123-4567"
+          placeholder={t("profile.phonePlaceholder")}
           value={phone}
           onChange={handleProfileChange}
         />
         <Input
-          label="Website"
+          label={t("profile.website")}
           labelClassName="col-span-4"
           name="url"
-          placeholder="portfolio.johndoe.com"
+          placeholder={t("profile.websitePlaceholder")}
           value={url}
           onChange={handleProfileChange}
         />
         <Input
-          label="Location"
+          label={t("profile.location")}
           labelClassName="col-span-2"
           name="location"
-          placeholder="San Francisco, CA"
+          placeholder={t("profile.locationPlaceholder")}
           value={location}
           onChange={handleProfileChange}
         />
