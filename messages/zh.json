@@ -1,0 +1,23 @@
+{
+  "common": {
+    "language": "语言",
+    "english": "英文",
+    "chinese": "中文"
+  },
+  "resume": {
+    "personalInfo": "个人信息",
+    "workExperience": "工作经验",
+    "education": "教育经历",
+    "skills": "技能",
+    "projects": "项目经验",
+    "languages": "语言能力",
+    "interests": "兴趣爱好"
+  },
+  "actions": {
+    "save": "保存",
+    "edit": "编辑",
+    "delete": "删除",
+    "add": "添加",
+    "cancel": "取消"
+  }
+} 

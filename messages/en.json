@@ -1,0 +1,23 @@
+{
+  "common": {
+    "language": "Language",
+    "english": "English",
+    "chinese": "Chinese"
+  },
+  "resume": {
+    "personalInfo": "Personal Information",
+    "workExperience": "Work Experience",
+    "education": "Education",
+    "skills": "Skills",
+    "projects": "Projects",
+    "languages": "Languages",
+    "interests": "Interests"
+  },
+  "actions": {
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "add": "Add",
+    "cancel": "Cancel"
+  }
+} 
