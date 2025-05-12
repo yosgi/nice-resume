@@ -141,7 +141,7 @@ export const DocumentSizeSelections = ({
 }) => {
   return (
     <SelectionsWrapper>
-      {["Letter", "A4"].map((type, idx) => {
+      {["A4", "Letter"].map((type, idx) => {
         return (
           <Selection
             key={idx}
@@ -152,7 +152,7 @@ export const DocumentSizeSelections = ({
             <div className="flex flex-col items-center">
               <div>{type}</div>
               <div className="text-xs">
-                {type === "Letter" ? "(US, Canada)" : "(other countries)"}
+                {type === "A4" ? "(other countries)" : "(US, Canada)"}
               </div>
             </div>
           </Selection>

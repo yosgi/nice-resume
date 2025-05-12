@@ -33,8 +33,8 @@ const SANS_SERIF_ENGLISH_FONT_FAMILIES = [
 ] as const;
 
 const SERIF_ENGLISH_FONT_FAMILIES = [
-  "Times-Roman",
   "Merriweather",
+  "Times-Roman",
 ] as const;
 
 const MONOSPACE_ENGLISH_FONT_FAMILIES = [
@@ -42,9 +42,11 @@ const MONOSPACE_ENGLISH_FONT_FAMILIES = [
 ] as const;
 
 export const ENGLISH_FONT_FAMILIES = [
-  ...SANS_SERIF_ENGLISH_FONT_FAMILIES,
-  ...SERIF_ENGLISH_FONT_FAMILIES,
-  ...MONOSPACE_ENGLISH_FONT_FAMILIES,
+  "Merriweather",
+  "Helvetica",
+  "Roboto",
+  "Times-Roman",
+  "Courier",
 ] as const;
 type EnglishFontFamily = (typeof ENGLISH_FONT_FAMILIES)[number];
 

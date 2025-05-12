@@ -9,8 +9,9 @@ import {
 import {
   exportStateFromLocalStorage
 } from "lib/redux/local-storage";
-import { usePDF } from "@react-pdf/renderer";
+import { usePDF, PDFViewer } from "@react-pdf/renderer";
 import dynamic from "next/dynamic";
+import JSZip from "jszip";
 
 const ResumeControlBar = ({
   scale,
@@ -34,8 +35,53 @@ const ResumeControlBar = ({
 
   // Hook to update pdf when document changes
   useEffect(() => {
-    update();
+    update(document);
   }, [update, document]);
+
+  const handleDownload = async () => {
+    await update(document);
+    if (instance.url) {
+      const a = window.document.createElement('a');
+      a.href = instance.url;
+      a.download = `${fileName}.pdf`;
+      a.click();
+    }
+  };
+
+  const handleDownloadAll = async () => {
+    try {
+      // Create a new zip file
+      const zip = new JSZip();
+      
+      // Add PDF to zip
+      await update(document);
+      if (!instance.url) {
+        throw new Error('Failed to generate PDF');
+      }
+      const pdfResponse = await fetch(instance.url);
+      if (!pdfResponse.ok) {
+        throw new Error('Failed to fetch PDF');
+      }
+      const pdfBlob = await pdfResponse.blob();
+      zip.file(`${fileName}.pdf`, pdfBlob);
+      
+      // Add JSON data to zip
+      const jsonData = exportStateFromLocalStorage();
+      zip.file(`${fileName}.json`, JSON.stringify(jsonData, null, 2));
+      
+      // Generate and download zip file
+      const zipBlob = await zip.generateAsync({ type: "blob" });
+      const zipUrl = URL.createObjectURL(zipBlob);
+      const a = window.document.createElement('a');
+      a.href = zipUrl;
+      a.download = `${fileName}.zip`;
+      a.click();
+      URL.revokeObjectURL(zipUrl);
+    } catch (error) {
+      console.error('Error creating zip file:', error);
+      alert('Failed to create zip file. Please try again.');
+    }
+  };
 
   return (
     <div className="sticky bottom-0 left-0 right-0 flex h-[var(--resume-control-bar-height)] items-center justify-center px-[var(--resume-padding)] text-gray-600 lg:justify-between">
@@ -64,21 +110,15 @@ const ResumeControlBar = ({
         </label>
       </div>
       
-      <a
-        className="ml-1 flex items-center gap-1 rounded-md border border-gray-300 px-3 py-0.5 hover:bg-gray-100 lg:ml-8 cursor-pointer"
-        onClick={() => exportStateFromLocalStorage()}
-      >
-        <ArrowUpIcon className="h-4 w-4" />
-        <span className="whitespace-nowrap">Export data</span>
-      </a>
-      <a
-        className="ml-1 flex items-center gap-1 rounded-md border border-gray-300 px-3 py-0.5 hover:bg-gray-100 lg:ml-8"
-        href={instance.url!}
-        download={fileName}
-      >
-        <ArrowDownTrayIcon className="h-4 w-4" />
-        <span className="whitespace-nowrap">Download Resume</span>
-      </a>
+      <div className="flex gap-2">
+        <a
+          className="ml-1 flex items-center gap-1 rounded-md border border-gray-300 px-3 py-0.5 hover:bg-gray-100 lg:ml-8 cursor-pointer"
+          onClick={handleDownloadAll}
+        >
+          <ArrowDownTrayIcon className="h-4 w-4" />
+          <span className="whitespace-nowrap">Download Files</span>
+        </a>
+      </div>
     </div>
   );
 };

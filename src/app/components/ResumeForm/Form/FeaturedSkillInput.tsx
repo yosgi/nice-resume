@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { INPUT_CLASS_NAME } from "components/ResumeForm/Form/InputGroup";
 
 export const FeaturedSkillInput = ({
@@ -25,7 +25,7 @@ export const FeaturedSkillInput = ({
         onChange={(e) => setSkillRating(e.target.value, rating)}
         className={INPUT_CLASS_NAME}
       />
-      <CircleRating
+      <SliderRating
         rating={rating}
         setRating={(newRating) => setSkillRating(skill, newRating)}
         circleColor={circleColor}
@@ -34,7 +34,7 @@ export const FeaturedSkillInput = ({
   );
 };
 
-const CircleRating = ({
+const SliderRating = ({
   rating,
   setRating,
   circleColor = "#38bdf8",
@@ -43,31 +43,31 @@ const CircleRating = ({
   setRating: (rating: number) => void;
   circleColor?: string;
 }) => {
-  const numCircles = 5;
-  const [hoverRating, setHoverRating] = useState<number | null>(null);
+  // Convert hex to rgba for opacity
+  const hexToRgba = (hex: string, alpha: number) => {
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  };
+
+  const lightColor = hexToRgba(circleColor, 0.3);
 
   return (
-    <div className="flex items-center p-2">
-      {[...Array(numCircles)].map((_, idx) => (
-        <div
-          className={`cursor-pointer p-0.5`}
-          key={idx}
-          onClick={() => setRating(idx)}
-          onMouseEnter={() => setHoverRating(idx)}
-          onMouseLeave={() => setHoverRating(null)}
-        >
-          <div
-            className="h-5 w-5 rounded-full transition-transform duration-200 hover:scale-[120%] "
-            style={{
-              backgroundColor:
-                (hoverRating !== null && hoverRating >= idx) ||
-                (hoverRating === null && rating >= idx)
-                  ? circleColor
-                  : "#d1d5db", //gray-300
-            }}
-          />
-        </div>
-      ))}
+    <div className="flex items-center p-2 w-48">
+      <input
+        type="range"
+        min="0"
+        max="4"
+        step="1"
+        value={rating}
+        onChange={(e) => setRating(Number(e.target.value))}
+        className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+        style={{
+          background: `linear-gradient(to right, ${lightColor} 0%, ${lightColor} ${(rating / 4) * 100}%, #d1d5db ${(rating / 4) * 100}%, #d1d5db 100%)`
+        }}
+      />
+      <span className="ml-2 text-sm text-gray-600">{rating + 1}/5</span>
     </div>
   );
 };
