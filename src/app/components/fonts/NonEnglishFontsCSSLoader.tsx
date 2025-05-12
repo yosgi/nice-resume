@@ -14,11 +14,11 @@ const FontsZhCSR = dynamic(() => import("components/fonts/FontsZh"), {
 export const NonEnglishFontsCSSLazyLoader = () => {
   const [shouldLoadFontsZh, setShouldLoadFontsZh] = useState(false);
 
-  useEffect(() => {
-    if (getAllFontFamiliesToLoad().includes("NotoSansSC")) {
-      setShouldLoadFontsZh(true);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (getAllFontFamiliesToLoad().includes("NotoSansSC")) {
+  //     setShouldLoadFontsZh(true);
+  //   }
+  // }, []);
 
   return <>{shouldLoadFontsZh && <FontsZhCSR />}</>;
 };

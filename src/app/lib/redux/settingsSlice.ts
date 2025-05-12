@@ -101,7 +101,6 @@ export const settingsSlice = createSlice({
       if (typeof value === "string") {
         (draft[field] as string) = value;
       } else if (field === "sectionSpacing") {
-        // 保持其他 section 的间距不变
         Object.keys(draft.sectionSpacing).forEach((key) => {
           if (value[key as keyof typeof value] !== undefined) {
             draft.sectionSpacing[key as keyof typeof draft.sectionSpacing] = value[key as keyof typeof value];
