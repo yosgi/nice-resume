@@ -16,20 +16,21 @@ const getIframeInitialContent = (isA4: boolean) => {
   const width = isA4 ? A4_WIDTH_PT : LETTER_WIDTH_PT;
   const allFontFamilies = getAllFontFamiliesToLoad();
 
-  const allFontFamiliesPreloadLinks = allFontFamilies
+  // Only preload non-default fonts
+  const nonDefaultFonts = allFontFamilies.filter(
+    (font) => !["Helvetica", "Times-Roman", "Courier"].includes(font)
+  );
+
+  const allFontFamiliesPreloadLinks = nonDefaultFonts
     .map(
-      (
-        font
-      ) => `<link rel="preload" as="font" href="/fonts/${font}-Regular.ttf" type="font/ttf" crossorigin="anonymous">
+      (font) => `<link rel="preload" as="font" href="/fonts/${font}-Regular.ttf" type="font/ttf" crossorigin="anonymous">
 <link rel="preload" as="font" href="/fonts/${font}-Bold.ttf" type="font/ttf" crossorigin="anonymous">`
     )
     .join("");
 
-  const allFontFamiliesFontFaces = allFontFamilies
+  const allFontFamiliesFontFaces = nonDefaultFonts
     .map(
-      (
-        font
-      ) => `@font-face {font-family: "${font}"; src: url("/fonts/${font}-Regular.ttf");}
+      (font) => `@font-face {font-family: "${font}"; src: url("/fonts/${font}-Regular.ttf");}
 @font-face {font-family: "${font}"; src: url("/fonts/${font}-Bold.ttf"); font-weight: bold;}`
     )
     .join("");

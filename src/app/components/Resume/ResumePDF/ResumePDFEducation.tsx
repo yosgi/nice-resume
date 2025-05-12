@@ -46,7 +46,7 @@ export const ResumePDFEducation = ({
                     : degree
                 }`}</ResumePDFText>
                 <ResumePDFText
-                  style={{ fontStyle: "italic", fontWeight: "light",color:"#aeb1b9" }}
+                  // style={{ fontStyle: "italic", fontWeight: "normal",color:"#525252" }}
                 >{date}</ResumePDFText>
               </View>
               {showDescriptions && (

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { getHasUsedAppBefore } from "lib/redux/local-storage";
 import { ResumeDropzone } from "components/ResumeDropzone";
+import { useRouter } from "next/navigation";
 
 export default function ImportResume() {
   const [hasUsedAppBefore, setHasUsedAppBefore] = useState(false);
@@ -53,16 +54,12 @@ function NewAppState({
       </p>
       <ResumeDropzone onFileUrlChange={onFileUrlChange} className="mt-5" />
 
-      {!hasAddedResume && (
-        <>
-          <OrDivider />
-          <SectionWithHeadingAndCreateButton
-            heading="Don't have a resume yet?"
-            buttonText="Create New"
-            subText="Start fresh and craft your own resume"
-          />
-        </>
-      )}
+      <OrDivider />
+      <SectionWithHeadingAndCreateButton
+        heading="Don't have a resume yet?"
+        buttonText="Create New"
+        subText="Start fresh and craft your own resume"
+      />
     </>
   );
 }
@@ -94,6 +91,13 @@ function UsedAppState({
         If you want to start fresh with a different file
       </p>
       <ResumeDropzone onFileUrlChange={onFileUrlChange} className="mt-5" />
+
+      <OrDivider />
+      <SectionWithHeadingAndCreateButton
+        heading="Want to start completely fresh?"
+        buttonText="Create New Resume"
+        subText="Start with a blank slate and build your resume from scratch"
+      />
     </>
   );
 }
@@ -117,17 +121,25 @@ const SectionWithHeadingAndCreateButton = ({
   subText?: string;
   buttonText: string;
 }) => {
+  const router = useRouter();
+
+  const handleCreateNew = () => {
+    // Clear localStorage before creating a new resume
+    localStorage.removeItem("open-resume-state");
+    router.push("/resume-builder");
+  };
+
   return (
     <div>
       <p className="text-base font-semibold text-gray-900">{heading}</p>
       {subText && <p className="mt-1 text-sm text-gray-600">{subText}</p>}
       <div className="mt-5">
-        <Link
-          href="/resume-builder"
+        <button
+          onClick={handleCreateNew}
           className="rounded-full bg-sky-500 px-6 py-2 text-base font-semibold text-white shadow bg-[#2E4E43] hover:bg-[#276F5F] transition-colors"
         >
           {buttonText}
-        </Link>
+        </button>
       </div>
     </div>
   );

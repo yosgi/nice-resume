@@ -32,9 +32,8 @@ export const ResumePDFProfile = ({
       >
         {name}
       </ResumePDFText>
-      <Text
+      <ResumePDFText
         style={{
-          fontWeight: "light",
           letterSpacing: "0.3pt",
           fontSize: "11pt",
           fontStyle: "italic",
@@ -42,7 +41,7 @@ export const ResumePDFProfile = ({
         }}
       >
         {title}
-      </Text>
+      </ResumePDFText>
       <ResumePDFText
         bold={true}
         themeColor={themeColor}
@@ -105,6 +104,10 @@ export const ResumePDFProfile = ({
                 gap: spacing["1"],
               }}
             >
+              {/* <Wrapper>
+                <ResumePDFIcon type={iconType} />
+                <ResumePDFText>{value}</ResumePDFText>
+              </Wrapper> */}
             </View>
           );
         })}

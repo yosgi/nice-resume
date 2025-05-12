@@ -63,14 +63,14 @@ export const ThemeForm = () => {
             ))}
           </div>
         </div>
-        {/* <div>
+        <div>
           <InputGroupWrapper label="Font Family" />
           <FontFamilySelectionsCSR
             selectedFontFamily={fontFamily}
             themeColor={themeColor}
             handleSettingsChange={handleSettingsChange}
           />
-        </div> */}
+        </div>
         <div>
           <InlineInput
             label="Font Size (pt)"

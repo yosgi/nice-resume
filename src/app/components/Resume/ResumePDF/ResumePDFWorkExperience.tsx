@@ -38,7 +38,7 @@ export const ResumePDFWorkExperience = ({
               <ResumePDFText >{jobTitle}</ResumePDFText>
               <ResumePDFText style={{
                 fontStyle: "italic",
-                color:"#aeb1b9"
+                color:"#525252"
               }}>{date}</ResumePDFText>
             </View>
             <View style={{ ...styles.flexCol, marginTop: spacing["1.5"] }}>

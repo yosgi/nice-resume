@@ -28,68 +28,55 @@
  */
 
 const SANS_SERIF_ENGLISH_FONT_FAMILIES = [
+  "Helvetica",
   "Roboto",
-  "Lato",
-  "Montserrat",
-  "OpenSans",
-  "Raleway",
 ] as const;
 
 const SERIF_ENGLISH_FONT_FAMILIES = [
-  "Caladea",
-  "Lora",
-  "RobotoSlab",
-  "PlayfairDisplay",
+  "Times-Roman",
   "Merriweather",
+] as const;
+
+const MONOSPACE_ENGLISH_FONT_FAMILIES = [
+  "Courier",
 ] as const;
 
 export const ENGLISH_FONT_FAMILIES = [
   ...SANS_SERIF_ENGLISH_FONT_FAMILIES,
   ...SERIF_ENGLISH_FONT_FAMILIES,
-];
+  ...MONOSPACE_ENGLISH_FONT_FAMILIES,
+] as const;
 type EnglishFontFamily = (typeof ENGLISH_FONT_FAMILIES)[number];
 
-export const NON_ENGLISH_FONT_FAMILIES = ["NotoSansSC"] as const;
+export const NON_ENGLISH_FONT_FAMILIES = [] as const;
 type NonEnglishFontFamily = (typeof NON_ENGLISH_FONT_FAMILIES)[number];
 
 export const NON_ENGLISH_FONT_FAMILY_TO_LANGUAGE: Record<
   NonEnglishFontFamily,
   string[]
-> = {
-  NotoSansSC: ["zh", "zh-CN", "zh-TW"],
-};
+> = {};
 
 export type FontFamily = EnglishFontFamily | NonEnglishFontFamily;
 export const FONT_FAMILY_TO_STANDARD_SIZE_IN_PT: Record<FontFamily, number> = {
   // Sans Serif Fonts
+  Helvetica: 11,
   Roboto: 11,
-  Lato: 11,
-  Montserrat: 10,
-  OpenSans: 10,
-  Raleway: 10,
   // Serif Fonts
-  Caladea: 11,
-  Lora: 11,
-  RobotoSlab: 10,
-  PlayfairDisplay: 10,
-  Merriweather: 10,
-  // Non-English Fonts
-  NotoSansSC: 11,
+  "Times-Roman": 11,
+  Merriweather: 11,
+  // Monospace Fonts
+  Courier: 11,
 };
 
 export const FONT_FAMILY_TO_DISPLAY_NAME: Record<FontFamily, string> = {
   // Sans Serif Fonts
+  Helvetica: "Helvetica",
   Roboto: "Roboto",
-  Lato: "Lato",
-  Montserrat: "Montserrat",
-  OpenSans: "Open Sans",
-  Raleway: "Raleway",
   // Serif Fonts
-  Caladea: "Caladea",
-  Lora: "Lora",
-  RobotoSlab: "Roboto Slab",
-  PlayfairDisplay: "Playfair Display",
+  "Times-Roman": "Times-Roman",
   Merriweather: "Merriweather",
-  // Non-English Fonts
-  NotoSansSC: "思源黑体(简体)",
+  // Monospace Fonts
+  Courier: "Courier",
 };
+
+export const DEFAULT_FONT_FAMILY = "Merriweather";
