@@ -1,5 +1,6 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "lib/redux/store";
+import { createAction } from "@reduxjs/toolkit";
 
 export interface Settings {
   themeColor: string;
@@ -27,14 +28,23 @@ export interface Settings {
     skills: boolean;
     custom: boolean;
   };
+  sectionSpacing: {
+    workExperiences: number;
+    educations: number;
+    projects: number;
+    skills: number;
+    custom: number;
+  };
 }
 
 export type ShowForm = keyof Settings["formToShow"];
 export type FormWithBulletPoints = keyof Settings["showBulletPoints"];
-export type GeneralSetting = Exclude<
-  keyof Settings,
-  "formToShow" | "formToHeading" | "formsOrder" | "showBulletPoints"
->;
+export type GeneralSetting =
+  | "themeColor"
+  | "fontFamily"
+  | "fontSize"
+  | "documentSize"
+  | "sectionSpacing";
 
 export const DEFAULT_THEME_COLOR = "#1D2E4D"; // sky-400
 export const DEFAULT_FONT_FAMILY = "Montserrat";
@@ -67,6 +77,13 @@ export const initialSettings: Settings = {
     skills: true,
     custom: true,
   },
+  sectionSpacing: {
+    workExperiences: 30,
+    educations: 30,
+    projects: 30,
+    skills: 30,
+    custom: 30,
+  },
 };
 
 export const settingsSlice = createSlice({
@@ -75,10 +92,32 @@ export const settingsSlice = createSlice({
   reducers: {
     changeSettings: (
       draft,
-      action: PayloadAction<{ field: GeneralSetting; value: string }>
+      action: PayloadAction<{
+        field: GeneralSetting;
+        value: string | Settings["sectionSpacing"];
+      }>
     ) => {
       const { field, value } = action.payload;
-      draft[field] = value;
+      if (typeof value === "string") {
+        (draft[field] as string) = value;
+      } else if (field === "sectionSpacing") {
+        // 保持其他 section 的间距不变
+        Object.keys(draft.sectionSpacing).forEach((key) => {
+          if (value[key as keyof typeof value] !== undefined) {
+            draft.sectionSpacing[key as keyof typeof draft.sectionSpacing] = value[key as keyof typeof value];
+          }
+        });
+      }
+    },
+    changeSectionSpacing: (
+      draft,
+      action: PayloadAction<{
+        section: ShowForm;
+        value: number;
+      }>
+    ) => {
+      const { section, value } = action.payload;
+      draft.sectionSpacing[section] = value;
     },
     changeShowForm: (
       draft,
@@ -134,6 +173,7 @@ export const {
   changeFormOrder,
   changeShowBulletPoints,
   setSettings,
+  changeSectionSpacing,
 } = settingsSlice.actions;
 
 export const selectSettings = (state: RootState) => state.settings;

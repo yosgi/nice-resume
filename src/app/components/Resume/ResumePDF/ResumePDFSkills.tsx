@@ -13,16 +13,22 @@ export const ResumePDFSkills = ({
   skills,
   themeColor,
   showBulletPoints,
+  customSpacing,
 }: {
   heading: string;
   skills: ResumeSkills;
   themeColor: string;
   showBulletPoints: boolean;
+  customSpacing?: number;
 }) => {
   const { descriptions, featuredSkills } = skills;
   const featuredSkillsWithText = featuredSkills.filter((item) => item.skill);
   return (
-    <ResumePDFSection themeColor={themeColor} heading={heading}>
+    <ResumePDFSection 
+      themeColor={themeColor} 
+      heading={heading}
+      customSpacing={customSpacing}
+    >
       {descriptions.length > 0 && (
         <ResumePDFBulletList
           items={descriptions}

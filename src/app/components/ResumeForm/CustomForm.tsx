@@ -1,49 +1,58 @@
-import { Form } from "components/ResumeForm/Form";
+import { Form, FormSection } from "components/ResumeForm/Form";
+import {
+  BulletListTextarea,
+  Input,
+} from "components/ResumeForm/Form/InputGroup";
 import { BulletListIconButton } from "components/ResumeForm/Form/IconButton";
-import { BulletListTextarea } from "components/ResumeForm/Form/InputGroup";
+import type { CreateHandleChangeArgsWithDescriptions } from "components/ResumeForm/types";
 import { useAppDispatch, useAppSelector } from "lib/redux/hooks";
 import { changeCustom, selectCustom } from "lib/redux/resumeSlice";
+import type { ResumeCustom } from "lib/redux/types";
 import {
-  selectShowBulletPoints,
   changeShowBulletPoints,
+  selectShowBulletPoints,
+  selectSettings,
 } from "lib/redux/settingsSlice";
+import { SpacingControl } from "./common/SpacingControl";
 
 export const CustomForm = () => {
   const custom = useAppSelector(selectCustom);
+  const settings = useAppSelector(selectSettings);
   const dispatch = useAppDispatch();
-  const { descriptions } = custom;
   const form = "custom";
   const showBulletPoints = useAppSelector(selectShowBulletPoints(form));
 
-  const handleCustomChange = (field: "descriptions", value: string[]) => {
-    dispatch(changeCustom({ field, value }));
-  };
-
-  const handleShowBulletPoints = (value: boolean) => {
-    dispatch(changeShowBulletPoints({ field: form, value }));
-  };
-
   return (
-    <Form form={form}>
-      <div className="col-span-full grid grid-cols-6 gap-3">
+    <section className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+      <div className="flex justify-end mb-4">
+        <SpacingControl 
+          section="custom" 
+          value={settings.sectionSpacing.custom} 
+        />
+      </div>
+      <Form form={form}>
         <div className="relative col-span-full">
           <BulletListTextarea
-            label="Custom Textbox"
+            label="Content"
             labelClassName="col-span-full"
             name="descriptions"
             placeholder="Bullet points"
-            value={descriptions}
-            onChange={handleCustomChange}
+            value={custom.descriptions}
+            onChange={(field, value) => {
+              dispatch(changeCustom({ field, value }));
+            }}
             showBulletPoints={showBulletPoints}
           />
-          <div className="absolute left-[7.7rem] top-[0.07rem]">
+          <div className="absolute left-[4.5rem] top-[0.07rem]">
             <BulletListIconButton
               showBulletPoints={showBulletPoints}
-              onClick={handleShowBulletPoints}
+              onClick={(value) => {
+                dispatch(changeShowBulletPoints({ field: form, value }));
+              }}
             />
           </div>
         </div>
-      </div>
-    </Form>
+      </Form>
+    </section>
   );
 };

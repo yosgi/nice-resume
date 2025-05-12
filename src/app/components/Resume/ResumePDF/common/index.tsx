@@ -9,17 +9,19 @@ export const ResumePDFSection = ({
   heading,
   style = {},
   children,
+  customSpacing,
 }: {
   themeColor?: string;
   heading?: string;
   style?: Style;
   children: React.ReactNode;
+  customSpacing?: number; // 自定义间距，单位为 pt
 }) => (
   <View
     style={{
       ...styles.flexCol,
       gap: spacing["2"],
-      marginTop: spacing["5"],
+      marginTop: customSpacing ? `${customSpacing}pt` : spacing["10"],
       ...style,
     }}
   >

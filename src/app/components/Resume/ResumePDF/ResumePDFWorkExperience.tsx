@@ -11,19 +11,30 @@ export const ResumePDFWorkExperience = ({
   heading,
   workExperiences,
   themeColor,
+  customSpacing,
 }: {
   heading: string;
   workExperiences: ResumeWorkExperience[];
   themeColor: string;
+  customSpacing?: number;
 }) => {
   return (
-    <ResumePDFSection themeColor={themeColor} heading={workExperiences.length > 0 ? heading: ""}>
+    <ResumePDFSection 
+      themeColor={themeColor} 
+      heading={workExperiences.length > 0 ? heading: ""}
+      customSpacing={customSpacing}
+    >
       {workExperiences.map(({ company, jobTitle, date, descriptions }, idx) => {
         // Hide company name if it is the same as the previous company
         const hideCompanyName =
           idx > 0 && company === workExperiences[idx - 1].company;
         return (
-          <View key={idx} style={idx !== 0 ? { marginTop: spacing["2"] } : {}}>
+          <View 
+            key={idx} 
+            style={{
+              ...(idx !== 0 ? { marginTop: spacing["2"] } : {})
+            }}
+          >
             {!hideCompanyName && (
               <ResumePDFText bold={true}>{company}</ResumePDFText>
             )}

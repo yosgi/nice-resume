@@ -10,75 +10,83 @@ import {
   selectWorkExperiences,
 } from "lib/redux/resumeSlice";
 import type { ResumeWorkExperience } from "lib/redux/types";
+import { selectSettings } from "lib/redux/settingsSlice";
+import { SpacingControl } from "./common/SpacingControl";
 
 export const WorkExperiencesForm = () => {
   const workExperiences = useAppSelector(selectWorkExperiences);
+  const settings = useAppSelector(selectSettings);
   const dispatch = useAppDispatch();
-
   const showDelete = workExperiences.length > 1;
+  const form = "workExperiences";
 
   return (
-    <Form form="workExperiences" addButtonText="Add Job">
-      {workExperiences.map(({ company, jobTitle, date, descriptions }, idx) => {
-        const handleWorkExperienceChange = (
-          ...[
-            field,
-            value,
-          ]: CreateHandleChangeArgsWithDescriptions<ResumeWorkExperience>
-        ) => {
-          // TS doesn't support passing union type to single call signature
-          // https://github.com/microsoft/TypeScript/issues/54027
-          // any is used here as a workaround
-          dispatch(changeWorkExperiences({ idx, field, value } as any));
-        };
-        const showMoveUp = idx !== 0;
-        const showMoveDown = idx !== workExperiences.length - 1;
+    <section className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+      <div className="flex justify-end mb-4">
+        <SpacingControl 
+          section={form}
+          value={settings.sectionSpacing[form]} 
+        />
+      </div>
+      <Form form={form} addButtonText="Add Work Experience">
+        {workExperiences.map(({ company, jobTitle, date, descriptions }, idx) => {
+          const handleWorkExperienceChange = (
+            ...[
+              field,
+              value,
+            ]: CreateHandleChangeArgsWithDescriptions<ResumeWorkExperience>
+          ) => {
+            dispatch(changeWorkExperiences({ idx, field, value } as any));
+          };
+          const showMoveUp = idx !== 0;
+          const showMoveDown = idx !== workExperiences.length - 1;
 
-        return (
-          <FormSection
-            key={idx}
-            form="workExperiences"
-            idx={idx}
-            showMoveUp={showMoveUp}
-            showMoveDown={showMoveDown}
-            showDelete={showDelete}
-            deleteButtonTooltipText="Delete job"
-          >
-            <Input
-              label="Company"
-              labelClassName="col-span-full"
-              name="company"
-              placeholder="Khan Academy"
-              value={company}
-              onChange={handleWorkExperienceChange}
-            />
-            <Input
-              label="Job Title"
-              labelClassName="col-span-4"
-              name="jobTitle"
-              placeholder="Software Engineer"
-              value={jobTitle}
-              onChange={handleWorkExperienceChange}
-            />
-            <Input
-              label="Date"
-              labelClassName="col-span-2"
-              name="date"
-              placeholder="Jun 2022 - Present"
-              value={date}
-              onChange={handleWorkExperienceChange}
-            />
-            <BulletListTextarea
-              label="Description"
-              labelClassName="col-span-full"
-              name="descriptions"
-              placeholder="Bullet points"
-              value={descriptions}
-              onChange={handleWorkExperienceChange}
-            />
-          </FormSection>
-        );
-      })}
-    </Form>
+          return (
+            <FormSection
+              key={idx}
+              form={form}
+              idx={idx}
+              showMoveUp={showMoveUp}
+              showMoveDown={showMoveDown}
+              showDelete={showDelete}
+              deleteButtonTooltipText="Delete work experience"
+            >
+              <Input
+                label="Company"
+                labelClassName="col-span-4"
+                name="company"
+                placeholder="Google"
+                value={company}
+                onChange={handleWorkExperienceChange}
+              />
+              <Input
+                label="Date"
+                labelClassName="col-span-2"
+                name="date"
+                placeholder="June 2021 - Present"
+                value={date}
+                onChange={handleWorkExperienceChange}
+              />
+              <Input
+                label="Job Title"
+                labelClassName="col-span-6"
+                name="jobTitle"
+                placeholder="Software Engineer"
+                value={jobTitle}
+                onChange={handleWorkExperienceChange}
+              />
+              <BulletListTextarea
+                label="Description"
+                labelClassName="col-span-full"
+                name="descriptions"
+                placeholder="Bullet points"
+                value={descriptions}
+                onChange={handleWorkExperienceChange}
+              />
+            </FormSection>
+          );
+        })}
+      </Form>
+    </section>
   );
 };

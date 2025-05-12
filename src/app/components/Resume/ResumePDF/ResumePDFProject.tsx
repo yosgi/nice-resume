@@ -11,13 +11,19 @@ export const ResumePDFProject = ({
   heading,
   projects,
   themeColor,
+  customSpacing,
 }: {
   heading: string;
   projects: ResumeProject[];
   themeColor: string;
+  customSpacing?: number;
 }) => {
   return (
-    <ResumePDFSection themeColor={themeColor} heading={heading}>
+    <ResumePDFSection 
+      themeColor={themeColor} 
+      heading={heading}
+      customSpacing={customSpacing}
+    >
       {projects.map(({ project, date, descriptions }, idx) => (
         <View key={idx}>
           <View

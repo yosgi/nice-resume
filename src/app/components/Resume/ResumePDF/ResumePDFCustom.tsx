@@ -11,16 +11,22 @@ export const ResumePDFCustom = ({
   custom,
   themeColor,
   showBulletPoints,
+  customSpacing,
 }: {
   heading: string;
   custom: ResumeCustom;
   themeColor: string;
   showBulletPoints: boolean;
+  customSpacing?: number;
 }) => {
   const { descriptions } = custom;
 
   return (
-    <ResumePDFSection themeColor={themeColor} heading={heading}>
+    <ResumePDFSection 
+      themeColor={themeColor} 
+      heading={heading}
+      customSpacing={customSpacing}
+    >
       <View style={{ ...styles.flexCol }}>
         <ResumePDFBulletList
           items={descriptions}

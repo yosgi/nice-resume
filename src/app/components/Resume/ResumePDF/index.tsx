@@ -75,6 +75,7 @@ export const ResumePDF = ({
         heading={formToHeading["workExperiences"]}
         workExperiences={workExperiences}
         themeColor={themeColor}
+        customSpacing={settings.sectionSpacing.workExperiences}
       />
     ),
     educations: () => (
@@ -83,6 +84,7 @@ export const ResumePDF = ({
         educations={educations}
         themeColor={themeColor}
         showBulletPoints={showBulletPoints["educations"]}
+        customSpacing={settings.sectionSpacing.educations}
       />
     ),
     projects: () => (
@@ -90,17 +92,17 @@ export const ResumePDF = ({
         heading={formToHeading["projects"]}
         projects={projects}
         themeColor={themeColor}
+        customSpacing={settings.sectionSpacing.projects}
       />
     ),
-    skills: () => (
-      <></>
-    ),
+    skills: () => <></>,
     custom: () => (
       <ResumePDFCustom
         heading={formToHeading["custom"]}
         custom={custom}
         themeColor={themeColor}
         showBulletPoints={showBulletPoints["custom"]}
+        customSpacing={settings.sectionSpacing.custom}
       />
     ),
   };
@@ -157,6 +159,7 @@ export const ResumePDF = ({
                 skills={skills}
                 themeColor={themeColor}
                 showBulletPoints={showBulletPoints["skills"]}
+                customSpacing={settings.sectionSpacing.skills}
               />
             )}
           </View>
