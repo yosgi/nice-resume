@@ -1,6 +1,7 @@
 import "globals.css";
 import { TopNavBar } from "components/TopNavBar";
 import { Analytics } from "@vercel/analytics/react";
+import { LanguageProvider } from '../../contexts/LanguageContext';
 
 export const metadata = {
   title: "NiceResume - Nice Resume Builder",
@@ -16,9 +17,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <TopNavBar />
-        {children}
-        <Analytics />
+        <LanguageProvider>
+          <TopNavBar />
+          {children}
+          <Analytics />
+        </LanguageProvider>
       </body>
     </html>
   );
