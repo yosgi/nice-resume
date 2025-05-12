@@ -1,0 +1,15 @@
+@font-face {
+  font-family: 'NotoSansSC'; /* Must match the family name in constants.ts */
+  src: url('/fonts/NotoSansSC-Regular.ttf') format('truetype'); /* Updated filename */
+  font-weight: 400; /* Regular */
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NotoSansSC'; /* Must match the family name in constants.ts */
+  src: url('/fonts/NotoSansSC-Bold.ttf') format('truetype'); /* Updated filename */
+  font-weight: 700; /* Bold */
+  font-style: normal;
+  font-display: swap;
+}

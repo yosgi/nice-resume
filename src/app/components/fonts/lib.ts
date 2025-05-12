@@ -16,6 +16,7 @@ const getPreferredNonEnglishFontFamilies = () => {
     // return userPreferredLanguages.some((preferredLanguage) =>
     //   fontLanguages.includes(preferredLanguage)
     // );
+    return true; // Always include all non-English fonts defined in constants
   });
 };
 

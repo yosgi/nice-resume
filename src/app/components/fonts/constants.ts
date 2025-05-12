@@ -50,13 +50,15 @@ export const ENGLISH_FONT_FAMILIES = [
 ] as const;
 type EnglishFontFamily = (typeof ENGLISH_FONT_FAMILIES)[number];
 
-export const NON_ENGLISH_FONT_FAMILIES = [] as const;
+export const NON_ENGLISH_FONT_FAMILIES = ["NotoSansSC"] as const;
 type NonEnglishFontFamily = (typeof NON_ENGLISH_FONT_FAMILIES)[number];
 
 export const NON_ENGLISH_FONT_FAMILY_TO_LANGUAGE: Record<
   NonEnglishFontFamily,
   string[]
-> = {};
+> = {
+  NotoSansSC: ["zh-CN", "zh-TW", "zh-HK"],
+};
 
 export type FontFamily = EnglishFontFamily | NonEnglishFontFamily;
 export const FONT_FAMILY_TO_STANDARD_SIZE_IN_PT: Record<FontFamily, number> = {
@@ -68,6 +70,8 @@ export const FONT_FAMILY_TO_STANDARD_SIZE_IN_PT: Record<FontFamily, number> = {
   Merriweather: 11,
   // Monospace Fonts
   Courier: 11,
+  // Chinese Fonts
+  NotoSansSC: 11,
 };
 
 export const FONT_FAMILY_TO_DISPLAY_NAME: Record<FontFamily, string> = {
@@ -79,6 +83,8 @@ export const FONT_FAMILY_TO_DISPLAY_NAME: Record<FontFamily, string> = {
   Merriweather: "Merriweather",
   // Monospace Fonts
   Courier: "Courier",
+  // Chinese Fonts
+  NotoSansSC: "思源黑体 SC",
 };
 
 export const DEFAULT_FONT_FAMILY = "Merriweather";

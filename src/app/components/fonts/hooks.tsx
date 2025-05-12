@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Font } from "@react-pdf/renderer";
-import { ENGLISH_FONT_FAMILIES } from "components/fonts/constants";
+import { ENGLISH_FONT_FAMILIES, NON_ENGLISH_FONT_FAMILIES } from "components/fonts/constants";
 import { getAllFontFamiliesToLoad } from "components/fonts/lib";
 
 /**
@@ -8,8 +8,9 @@ import { getAllFontFamiliesToLoad } from "components/fonts/lib";
  */
 export const useRegisterReactPDFFont = () => {
   useEffect(() => {
+    const allFontFamilies = [...ENGLISH_FONT_FAMILIES, ...NON_ENGLISH_FONT_FAMILIES];
     // Register all fonts
-    ENGLISH_FONT_FAMILIES.forEach((fontFamily) => {
+    allFontFamilies.forEach((fontFamily) => {
       Font.register({
         family: fontFamily,
         fonts: [
