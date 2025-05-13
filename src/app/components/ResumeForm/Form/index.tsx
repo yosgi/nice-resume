@@ -60,10 +60,12 @@ export const Form = ({
   form,
   addButtonText,
   children,
+  onAddClick,
 }: {
   form: ShowForm;
   addButtonText?: string;
   children: React.ReactNode;
+  onAddClick?: () => void;
 }) => {
   const showForm = useAppSelector(selectShowByForm(form));
   const heading = useAppSelector(selectHeadingByForm(form));
@@ -123,9 +125,9 @@ export const Form = ({
         <div className="mt-2 flex justify-end">
           <button
             type="button"
-            onClick={() => {
+            onClick={onAddClick || (() => {
               dispatch(addSectionInForm({ form }));
-            }}
+            })}
             className="flex items-center rounded-md bg-white py-2 pl-3 pr-4 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
           >
             <PlusSmallIcon

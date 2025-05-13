@@ -43,11 +43,8 @@ export const initialProject: ResumeProject = {
 };
 
 export const initialFeaturedSkill: FeaturedSkill = { skill: "", rating: 4 };
-export const initialFeaturedSkills: FeaturedSkill[] = Array(10).fill({
-  ...initialFeaturedSkill,
-});
 export const initialSkills: ResumeSkills = {
-  featuredSkills: initialFeaturedSkills,
+  featuredSkills: [],
   descriptions: [],
 };
 
@@ -157,6 +154,10 @@ export const resumeSlice = createSlice({
           draft.projects.push(structuredClone(initialProject));
           return draft;
         }
+        case "skills": {
+          draft.skills.featuredSkills.push(structuredClone(initialFeaturedSkill));
+          return draft;
+        }
       }
     },
     moveSectionInForm: (
@@ -191,7 +192,9 @@ export const resumeSlice = createSlice({
       action: PayloadAction<{ form: ShowForm; idx: number }>
     ) => {
       const { form, idx } = action.payload;
-      if (form !== "skills" && form !== "custom") {
+      if (form === "skills") {
+        draft.skills.featuredSkills.splice(idx, 1);
+      } else if (form !== "custom") {
         draft[form].splice(idx, 1);
       }
     },
