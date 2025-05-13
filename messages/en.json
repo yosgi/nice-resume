@@ -20,7 +20,8 @@
     "languages": "Languages",
     "interests": "Interests",
     "contact": "Contact",
-    "profile": "Profile"
+    "profile": "Profile",
+    "custom": "Custom Section"
   },
   "actions": {
     "save": "Save",

@@ -119,7 +119,7 @@ const BulletListTextareaGeneral = <T extends string>({
   value: bulletListStrings = [],
   placeholder,
   onChange,
-  showBulletPoints = true,
+  showBulletPoints = false,
 }: InputProps<T, string[]> & { showBulletPoints?: boolean }) => {
   const html = getHTMLFromBulletListStrings(bulletListStrings);
   return (
@@ -127,7 +127,7 @@ const BulletListTextareaGeneral = <T extends string>({
       <ContentEditable
         contentEditable={true}
         className={`${INPUT_CLASS_NAME} cursor-text [&>div]:list-item ${
-          showBulletPoints ? "pl-7" : "[&>div]:list-['']"
+          false ? "pl-7" : "[&>div]:list-['']"
         }`}
         // Note: placeholder currently doesn't work
         placeholder={placeholder}

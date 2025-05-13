@@ -9,12 +9,14 @@ const defaultHeadings = {
     education: "Education",
     projects: "Projects",
     skills: "Skills",
+    custom: "Custom Section",
   },
   zh: {
     workExperience: "工作经验",
     education: "教育经历",
     projects: "项目经验",
     skills: "技能",
+    custom: "自定义",
   },
 };
 
@@ -100,7 +102,7 @@ export const initialSettings: Settings = {
     educations: getTranslatedHeading("education"),
     projects: getTranslatedHeading("projects"),
     skills: getTranslatedHeading("skills"),
-    custom: "CUSTOM SECTION",
+    custom: getTranslatedHeading("custom"),
   },
   formsOrder: ["workExperiences", "educations", "projects", "skills", "custom"],
   showBulletPoints: {

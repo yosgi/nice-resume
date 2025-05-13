@@ -35,16 +35,7 @@ export const CustomForm = () => {
             onChange={(field, value) => {
               dispatch(changeCustom({ field, value }));
             }}
-            showBulletPoints={showBulletPoints}
           />
-          <div className="absolute left-[4.5rem] top-[0.07rem]">
-            <BulletListIconButton
-              showBulletPoints={showBulletPoints}
-              onClick={(value) => {
-                dispatch(changeShowBulletPoints({ field: form, value }));
-              }}
-            />
-          </div>
         </div>
       </Form>
     </section>

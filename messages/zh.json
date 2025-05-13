@@ -15,7 +15,8 @@
     "languages": "语言能力",
     "interests": "兴趣爱好",
     "contact": "联系方式",
-    "profile": "个人简介"
+    "profile": "个人简介",
+    "custom": "自定义"
   },
   "actions": {
     "save": "保存",
