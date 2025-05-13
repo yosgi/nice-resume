@@ -18,7 +18,9 @@
     "skills": "Skills",
     "projects": "Projects",
     "languages": "Languages",
-    "interests": "Interests"
+    "interests": "Interests",
+    "contact": "Contact",
+    "profile": "Profile"
   },
   "actions": {
     "save": "Save",
@@ -108,7 +110,7 @@
     "uploadNewTitle": "Upload a new resume to replace current data",
     "uploadNewDescription": "If you want to start fresh with a different file",
     "startFreshTitle": "Want to start completely fresh?",
-    "startFreshDescription": "Start with a blank slate and build your resume from scratch",
+    "startFreshDescription": "Note:previous data will be deleted! ",
     "createNewResume": "Create New Resume",
     "dropzone": {
       "browseOrDrop": "Browse a PDF or JSON file or drop it here",

@@ -13,7 +13,9 @@
     "skills": "技能",
     "projects": "项目经验",
     "languages": "语言能力",
-    "interests": "兴趣爱好"
+    "interests": "兴趣爱好",
+    "contact": "联系方式",
+    "profile": "个人简介"
   },
   "actions": {
     "save": "保存",

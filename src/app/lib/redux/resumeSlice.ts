@@ -223,4 +223,8 @@ export const selectProjects = (state: RootState) => state.resume.projects;
 export const selectSkills = (state: RootState) => state.resume.skills;
 export const selectCustom = (state: RootState) => state.resume.custom;
 
+export const resetResume = (state: RootState) => {
+  state.resume = initialResumeState;
+};
+
 export default resumeSlice.reducer;

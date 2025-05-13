@@ -10,7 +10,7 @@ import {
   ResumePDFText,
 } from "components/Resume/ResumePDF/common";
 import type { ResumeProfile } from "lib/redux/types";
-
+import {  useTranslation } from "../../../../../utils/translations";
 export const ResumePDFProfile = ({
   profile,
   themeColor,
@@ -22,7 +22,7 @@ export const ResumePDFProfile = ({
 }) => {
   const { name, email, phone, url, summary, location, title } = profile;
   const iconProps = { email, phone, location, url };
-
+  const { t } = useTranslation();
   return (
     <ResumePDFSection style={{ marginTop: spacing["4"] }}>
       <ResumePDFText
@@ -47,7 +47,7 @@ export const ResumePDFProfile = ({
         themeColor={themeColor}
         style={{ fontSize: "12pt" }}
       >
-        Profile
+        {t("resume.profile")}
       </ResumePDFText>
       {summary && <ResumePDFText>{summary}</ResumePDFText>}
       <View

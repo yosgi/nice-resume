@@ -5,11 +5,19 @@ import { getHasUsedAppBefore } from "lib/redux/local-storage";
 import { ResumeDropzone } from "components/ResumeDropzone";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "../../../utils/translations";
+import { useAppDispatch } from "lib/redux/hooks";
+import { setResume } from "lib/redux/resumeSlice";
+import { setSettings } from "lib/redux/settingsSlice";
+import { initialResumeState } from "lib/redux/resumeSlice";
+import { initialSettings } from "lib/redux/settingsSlice";
+import { Provider } from "react-redux";
+import { store } from "lib/redux/store";
+import { LanguageProvider } from "../../../contexts/LanguageContext";
+
 
 export default function ImportResume() {
   const [hasUsedAppBefore, setHasUsedAppBefore] = useState(false);
   const [hasAddedResume, setHasAddedResume] = useState(false);
-  const { t } = useTranslation();
 
   useEffect(() => {
     setHasUsedAppBefore(getHasUsedAppBefore());
@@ -20,21 +28,26 @@ export default function ImportResume() {
   };
 
   return (
-    <main className="mx-auto mt-14 max-w-3xl px-6 pb-10">
-      <div className="rounded-md border border-gray-200 bg-white px-8 py-8 text-center shadow-md">
-        {hasUsedAppBefore ? (
-          <UsedAppState
-            hasAddedResume={hasAddedResume}
-            onFileUrlChange={onFileUrlChange}
-          />
-        ) : (
-          <NewAppState
-            hasAddedResume={hasAddedResume}
-            onFileUrlChange={onFileUrlChange}
-          />
-        )}
-      </div>
-    </main>
+
+    <Provider store={store}>
+      <LanguageProvider>
+      <main className="mx-auto mt-14 max-w-3xl px-6 pb-10">
+        <div className="rounded-md border border-gray-200 bg-white px-8 py-8 text-center shadow-md">
+          {hasUsedAppBefore ? (
+            <UsedAppState
+              hasAddedResume={hasAddedResume}
+              onFileUrlChange={onFileUrlChange}
+            />
+          ) : (
+            <NewAppState
+              hasAddedResume={hasAddedResume}
+              onFileUrlChange={onFileUrlChange}
+            />
+          )}
+        </div>
+      </main>
+      </LanguageProvider>
+    </Provider>
   );
 }
 
@@ -47,7 +60,20 @@ function NewAppState({
   onFileUrlChange: (fileUrl: string) => void;
 }) {
   const { t } = useTranslation();
-  
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+
+  const handleCreateNew = async() => {
+    // Clear localStorage before creating a new resume
+    console.log("Clearing localStorage");
+    await localStorage.removeItem("nice-resume-state");
+    
+    // Reset Redux store to initial state
+    dispatch(setResume(initialResumeState));
+    dispatch(setSettings(initialSettings));
+
+    router.push("/resume-builder");
+  };
   return (
     <>
       <h1 className="text-lg font-semibold text-gray-900">
@@ -63,6 +89,7 @@ function NewAppState({
         heading={t("import.noResumeTitle")}
         buttonText={t("import.createNew")}
         subText={t("import.noResumeDescription")}
+        handleClick={handleCreateNew}
       />
     </>
   );
@@ -77,6 +104,24 @@ function UsedAppState({
   onFileUrlChange: (fileUrl: string) => void;
 }) {
   const { t } = useTranslation();
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+
+  const handleCreateNew = async() => {
+    // Clear localStorage before creating a new resume
+    console.log("Clearing localStorage");
+    await localStorage.removeItem("nice-resume-state");
+    
+    // Reset Redux store to initial state
+    dispatch(setResume(initialResumeState));
+    dispatch(setSettings(initialSettings));
+
+    router.push("/resume-builder");
+  };
+
+  const handleContinue = () => {
+    router.push("/resume-builder");
+  };
   
   return (
     <>
@@ -86,6 +131,7 @@ function UsedAppState({
             heading={t("import.existingDataTitle")}
             buttonText={t("import.continueButton")}
             subText={t("import.existingDataDescription")}
+            handleClick={handleContinue}
           />
           <OrDivider />
         </>
@@ -103,6 +149,7 @@ function UsedAppState({
         heading={t("import.startFreshTitle")}
         buttonText={t("import.createNewResume")}
         subText={t("import.startFreshDescription")}
+        handleClick={handleCreateNew}
       />
     </>
   );
@@ -126,18 +173,14 @@ const SectionWithHeadingAndCreateButton = ({
   heading,
   subText,
   buttonText,
+  handleClick,
 }: {
   heading: string;
   subText?: string;
   buttonText: string;
+  handleClick: () => void;
 }) => {
-  const router = useRouter();
-
-  const handleCreateNew = () => {
-    // Clear localStorage before creating a new resume
-    localStorage.removeItem("open-resume-state");
-    router.push("/resume-builder");
-  };
+ 
 
   return (
     <div>
@@ -145,7 +188,7 @@ const SectionWithHeadingAndCreateButton = ({
       {subText && <p className="mt-1 text-sm text-gray-600">{subText}</p>}
       <div className="mt-5">
         <button
-          onClick={handleCreateNew}
+          onClick={handleClick}
           className="rounded-full bg-sky-500 px-6 py-2 text-base font-semibold text-white shadow bg-[#2E4E43] hover:bg-[#276F5F] transition-colors"
         >
           {buttonText}

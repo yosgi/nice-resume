@@ -2,6 +2,38 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "lib/redux/store";
 import { createAction } from "@reduxjs/toolkit";
 
+// Default translations for headings
+const defaultHeadings = {
+  en: {
+    workExperience: "Work Experience",
+    education: "Education",
+    projects: "Projects",
+    skills: "Skills",
+  },
+  zh: {
+    workExperience: "工作经验",
+    education: "教育经历",
+    projects: "项目经验",
+    skills: "技能",
+  },
+};
+
+// Get the default language from localStorage or use 'en' as fallback
+const getDefaultLanguage = () => {
+  if (typeof window === 'undefined') return 'en';
+  const savedLanguage = localStorage.getItem('language');
+  if (savedLanguage) return savedLanguage;
+  
+  const browserLang = navigator.language.split('-')[0];
+  console.log(browserLang,"browserLang");
+  return browserLang === 'zh' ? 'zh' : 'en';
+};
+
+const getTranslatedHeading = (key: string) => {
+  const language = getDefaultLanguage() as keyof typeof defaultHeadings;
+  return defaultHeadings[language][key as keyof typeof defaultHeadings[typeof language]] || key;
+};
+
 export interface Settings {
   themeColor: string;
   fontFamily: string;
@@ -64,10 +96,10 @@ export const initialSettings: Settings = {
     custom: false,
   },
   formToHeading: {
-    workExperiences: "Employment History",
-    educations: "Education",
-    projects: "Projects",
-    skills: "Skills",
+    workExperiences: getTranslatedHeading("workExperience"),
+    educations: getTranslatedHeading("education"),
+    projects: getTranslatedHeading("projects"),
+    skills: getTranslatedHeading("skills"),
     custom: "CUSTOM SECTION",
   },
   formsOrder: ["workExperiences", "educations", "projects", "skills", "custom"],

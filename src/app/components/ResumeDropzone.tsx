@@ -85,6 +85,8 @@ export const ResumeDropzone = ({
       custom: { descriptions: [] },
     } as any;
 
+    let settings = deepClone(initialSettings);
+
     if (file.name.endsWith(".pdf")) {
       // Parse PDF file
       resume = await parseResumeFromPdf(file.fileUrl);
@@ -93,9 +95,11 @@ export const ResumeDropzone = ({
       const response = await fetch(file.fileUrl);
       const json = await response.json();
       resume = json.resume;
+      // Import settings from JSON if available
+      if (json.settings) {
+        settings = deepClone(json.settings);
+      }
     }
-
-    const settings = deepClone(initialSettings);
 
     // If the user has used the app before, show/hide form sections
     if (getHasUsedAppBefore()) {

@@ -16,6 +16,7 @@ import {
   useRegisterReactPDFHyphenationCallback,
 } from "components/fonts/hooks";
 import { NonEnglishFontsCSSLazyLoader } from "components/fonts/NonEnglishFontsCSSLoader";
+import { LanguageProvider } from "../../../../contexts/LanguageContext";
 
 export const Resume = () => {
   const [scale, setScale] = useState(0.8);

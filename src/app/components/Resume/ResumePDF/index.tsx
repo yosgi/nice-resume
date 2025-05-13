@@ -11,6 +11,7 @@ import type { Settings, ShowForm } from "lib/redux/settingsSlice";
 import type { Resume } from "lib/redux/types";
 import { SuppressResumePDFErrorMessage } from "components/Resume/ResumePDF/common/SuppressResumePDFErrorMessage";
 import { ResumePDFDetails } from "components/Resume/ResumePDF/ResumePDFDetails";
+import { LanguageProvider } from "../../../../../contexts/LanguageContext";
 
 /**
  * Note: ResumePDF is supposed to be rendered inside PDFViewer. However,
@@ -108,7 +109,7 @@ export const ResumePDF = ({
   };
 
   return (
-    <>
+    <LanguageProvider>
       <Document title={`${name} Resume`} author={name} producer={"OpenResume"}>
         <Page
           size={documentSize === "A4" ? "A4" : "LETTER"}
@@ -167,6 +168,6 @@ export const ResumePDF = ({
         </Page>
       </Document>
       <SuppressResumePDFErrorMessage />
-    </>
+    </LanguageProvider>
   );
 };
