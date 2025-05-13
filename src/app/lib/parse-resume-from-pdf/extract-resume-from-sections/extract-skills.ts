@@ -2,7 +2,7 @@ import type { ResumeSkills } from "lib/redux/types";
 import type { ResumeSectionToLines } from "lib/parse-resume-from-pdf/types";
 import { deepClone } from "lib/deep-clone";
 import { getSectionLinesByKeywords } from "lib/parse-resume-from-pdf/extract-resume-from-sections/lib/get-section-lines";
-import { initialFeaturedSkills } from "lib/redux/resumeSlice";
+import { initialFeaturedSkill } from "lib/redux/resumeSlice";
 import {
   getBulletPointsFromLines,
   getDescriptionsLineIdx,
@@ -14,7 +14,7 @@ export const extractSkills = (sections: ResumeSectionToLines) => {
   const descriptionsLines = lines.slice(descriptionsLineIdx);
   const descriptions = getBulletPointsFromLines(descriptionsLines);
 
-  const featuredSkills = deepClone(initialFeaturedSkills);
+  const featuredSkills = Array(10).fill(null).map(() => deepClone(initialFeaturedSkill));
   if (descriptionsLineIdx !== 0) {
     const featuredSkillsLines = lines.slice(0, descriptionsLineIdx);
     const featuredSkillsTextItems = featuredSkillsLines
