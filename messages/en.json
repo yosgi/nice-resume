@@ -44,7 +44,11 @@
     "emailPlaceholder": "johndoe@example.com",
     "phonePlaceholder": "(555) 123-4567",
     "websitePlaceholder": "portfolio.johndoe.com",
-    "locationPlaceholder": "San Francisco, CA"
+    "locationPlaceholder": "San Francisco, CA",
+    "addAdditionalField": "Add New Field",
+    "additionalField": "Additional Field",
+    "additionalFieldPlaceholder": "e.g., linkedin.com/in/username",
+    "deleteAdditionalField": "Delete field"
   },
   "workExperience": {
     "addButtonText": "Add Work Experience",

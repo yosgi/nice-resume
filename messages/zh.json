@@ -39,7 +39,11 @@
     "emailPlaceholder": "zhangsan@example.com",
     "phonePlaceholder": "(555) 123-4567",
     "websitePlaceholder": "portfolio.zhangsan.com",
-    "locationPlaceholder": "上海，中国"
+    "locationPlaceholder": "上海，中国",
+    "addAdditionalField": "添加新字段",
+    "additionalField": "额外字段",
+    "additionalFieldPlaceholder": "例如：linkedin.com/in/username",
+    "deleteAdditionalField": "删除字段"
   },
   "workExperience": {
     "addButtonText": "添加工作经历",

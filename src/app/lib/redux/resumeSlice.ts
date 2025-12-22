@@ -19,6 +19,7 @@ export const initialProfile: ResumeProfile = {
   location: "",
   url: "",
   title: "",
+  additionalFields: [],
 };
 
 export const initialWorkExperience: ResumeWorkExperience = {
@@ -81,7 +82,29 @@ export const resumeSlice = createSlice({
       action: PayloadAction<{ field: keyof ResumeProfile; value: string }>
     ) => {
       const { field, value } = action.payload;
+      if (field === "additionalFields") {
+        return; // additionalFields should be handled by separate actions
+      }
       draft.profile[field] = value;
+    },
+    addProfileAdditionalField: (draft) => {
+      draft.profile.additionalFields.push("");
+    },
+    deleteProfileAdditionalField: (
+      draft,
+      action: PayloadAction<{ idx: number }>
+    ) => {
+      draft.profile.additionalFields.splice(action.payload.idx, 1);
+    },
+    changeProfileAdditionalField: (
+      draft,
+      action: PayloadAction<{
+        idx: number;
+        value: string;
+      }>
+    ) => {
+      const { idx, value } = action.payload;
+      draft.profile.additionalFields[idx] = value;
     },
     changeWorkExperiences: (
       draft,
@@ -224,6 +247,9 @@ export const {
   moveSectionInForm,
   deleteSectionInFormByIdx,
   setResume,
+  addProfileAdditionalField,
+  deleteProfileAdditionalField,
+  changeProfileAdditionalField,
 } = resumeSlice.actions;
 
 export const selectResume = (state: RootState) => state.resume;

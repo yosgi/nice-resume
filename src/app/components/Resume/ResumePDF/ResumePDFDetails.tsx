@@ -12,6 +12,12 @@ import {
 import type { ResumeProfile } from "lib/redux/types";
 import { useTranslation } from "../../../../../utils/translations";
 
+// Truncate text with ellipsis if it exceeds maxLength
+const truncateText = (text: string, maxLength: number = 20): string => {
+  if (text.length <= maxLength) return text;
+  return text.substring(0, maxLength) + "...";
+};
+
 
 export const ResumePDFDetails = ({
   profile,
@@ -22,7 +28,7 @@ export const ResumePDFDetails = ({
   themeColor: string;
   isPDF: boolean;
 }) => {
-  const { name, email, phone, url, summary, location } = profile;
+  const { name, email, phone, url, summary, location, additionalFields } = profile;
   const iconProps = { email, phone, location, url };
   
   const { t } = useTranslation();
@@ -34,11 +40,12 @@ export const ResumePDFDetails = ({
           ...styles.flexCol,
           flexWrap: "wrap",
           gap: spacing["2"],
+          width: "100%",
         }}
       >
         
         {Object.entries(iconProps).map(([key, value]) => {
-          if (!value) return null;
+          if (!value || typeof value !== "string") return null;
 
           let iconType = key as IconType;
           if (key === "url") {
@@ -50,21 +57,23 @@ export const ResumePDFDetails = ({
           }
 
           const shouldUseLinkWrapper = ["phone", "url","email" ].includes(key);
+          const displayText = truncateText(value, 20);
+          
           const Wrapper = ({ children }: { children: React.ReactNode }) => {
             if (!shouldUseLinkWrapper) return <>{children}</>;
 
             let src = "";
             switch (key) {
               case "email": {
-                src = `mailto:${value}`;
+                src = `mailto:${value}`; // Use original value for href
                 break;
               }
               case "phone": {
-                src = `tel:${value.replace(/[^\d+]/g, "")}`; // Keep only + and digits
+                src = `tel:${value.replace(/[^\d+]/g, "")}`; // Keep only + and digits, use original value
                 break;
               }
               default: {
-                src = value.startsWith("http") ? value : `https://${value}`;
+                src = value.startsWith("http") ? value : `https://${value}`; // Use original value for href
               }
             }
 
@@ -79,17 +88,60 @@ export const ResumePDFDetails = ({
             <View
               key={key}
               style={{
-                ...styles.flexRow,
-                alignItems: "center",
+                width: "120pt",
+                flexDirection: "row",
+                alignItems: "flex-start",
               }}
             >
-              <Wrapper>
-                <ResumePDFText
-                  style={{color:"white"}}
-                >
-                  {value}
-                </ResumePDFText>
-              </Wrapper>
+              <View style={{ flexGrow: 1, flexBasis: 0, width: 0 }}>
+                <Wrapper>
+                  <ResumePDFText
+                    style={{
+                      color: "white",
+                    }}
+                  >
+                    {displayText}
+                  </ResumePDFText>
+                </Wrapper>
+              </View>
+            </View>
+          );
+        })}
+        {additionalFields.map((value, idx) => {
+          if (!value || typeof value !== "string") return null;
+          
+          const displayText = truncateText(value, 20);
+          const isUrl = value.includes("http") || value.includes("www.") || value.includes(".");
+          const Wrapper = ({ children }: { children: React.ReactNode }) => {
+            if (!isUrl) return <>{children}</>;
+            const src = value.startsWith("http") ? value : `https://${value}`; // Use original value for href
+            return (
+              <ResumePDFLink src={src} isPDF={isPDF}>
+                {children}
+              </ResumePDFLink>
+            );
+          };
+
+          return (
+            <View
+              key={`additional-${idx}`}
+              style={{
+                width: "120pt",
+                flexDirection: "row",
+                alignItems: "flex-start",
+              }}
+            >
+              <View style={{ flexGrow: 1, flexBasis: 0, width: 0 }}>
+                <Wrapper>
+                  <ResumePDFText
+                    style={{
+                      color: "white",
+                    }}
+                  >
+                    {displayText}
+                  </ResumePDFText>
+                </Wrapper>
+              </View>
             </View>
           );
         })}

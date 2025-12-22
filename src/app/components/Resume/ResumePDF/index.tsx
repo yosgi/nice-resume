@@ -178,7 +178,7 @@ export const ResumePDF = ({
                 backgroundColor: themeColor,
                 color: "white",
                 minHeight: !isPDF ? `${pageCount * pageHeightPt}pt` : "100vh",
-                flex: 1,
+                width: "150pt", // Fixed width for right sidebar
                 padding: `${0} ${spacing["5"]}`,
                 position: "relative",
               }}

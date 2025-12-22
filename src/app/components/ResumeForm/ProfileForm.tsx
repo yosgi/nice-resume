@@ -1,18 +1,41 @@
 import { BaseForm } from "components/ResumeForm/Form";
 import { Input, Textarea } from "components/ResumeForm/Form/InputGroup";
+import { DeleteIconButton } from "components/ResumeForm/Form/IconButton";
 import { useAppDispatch, useAppSelector } from "lib/redux/hooks";
-import { changeProfile, selectProfile } from "lib/redux/resumeSlice";
+import {
+  changeProfile,
+  selectProfile,
+  addProfileAdditionalField,
+  deleteProfileAdditionalField,
+  changeProfileAdditionalField,
+} from "lib/redux/resumeSlice";
 import { ResumeProfile } from "lib/redux/types";
 import { useTranslation } from "../../../../utils/translations";
+import { PlusSmallIcon } from "@heroicons/react/24/outline";
 
 export const ProfileForm = () => {
   const profile = useAppSelector(selectProfile);
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
-  const { name, email, phone, url, summary, location, title } = profile;
+  const { name, email, phone, url, summary, location, title, additionalFields } = profile;
 
   const handleProfileChange = (field: keyof ResumeProfile, value: string) => {
     dispatch(changeProfile({ field, value }));
+  };
+
+  const handleAddAdditionalField = () => {
+    dispatch(addProfileAdditionalField());
+  };
+
+  const handleDeleteAdditionalField = (idx: number) => {
+    dispatch(deleteProfileAdditionalField({ idx }));
+  };
+
+  const handleChangeAdditionalField = (
+    idx: number,
+    value: string
+  ) => {
+    dispatch(changeProfileAdditionalField({ idx, value }));
   };
 
   return (
@@ -74,6 +97,46 @@ export const ProfileForm = () => {
           value={location}
           onChange={handleProfileChange}
         />
+        {additionalFields.map((value, idx) => {
+          // Handle old data format (object) or ensure value is string
+          const stringValue = typeof value === "string" 
+            ? value 
+            : (typeof value === "object" && value !== null && "value" in value 
+                ? String(value.value) 
+                : "");
+          
+          return (
+            <div key={idx} className="col-span-full relative">
+              <Input
+                label={t("profile.additionalField")}
+                labelClassName="col-span-5"
+                name={`additionalField-${idx}`}
+                placeholder={t("profile.additionalFieldPlaceholder")}
+                value={stringValue}
+                onChange={(name, newValue) => handleChangeAdditionalField(idx, newValue)}
+              />
+              <div className="absolute right-0 top-0">
+                <DeleteIconButton
+                  onClick={() => handleDeleteAdditionalField(idx)}
+                  tooltipText={t("profile.deleteAdditionalField")}
+                />
+              </div>
+            </div>
+          );
+        })}
+        <div className="col-span-full mt-2 flex justify-end">
+          <button
+            type="button"
+            onClick={handleAddAdditionalField}
+            className="flex items-center rounded-md bg-white py-2 pl-3 pr-4 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+          >
+            <PlusSmallIcon
+              className="-ml-0.5 mr-1.5 h-5 w-5 text-gray-400"
+              aria-hidden="true"
+            />
+            {t("profile.addAdditionalField")}
+          </button>
+        </div>
       </div>
     </BaseForm>
   );

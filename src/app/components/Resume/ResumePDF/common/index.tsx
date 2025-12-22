@@ -21,7 +21,7 @@ export const ResumePDFSection = ({
     style={{
       ...styles.flexCol,
       gap: spacing["2"],
-      marginTop: customSpacing ? `${customSpacing}pt` : spacing["10"],
+      marginTop: customSpacing !== undefined ? `${customSpacing}pt` : spacing["10"],
       ...style,
     }}
   >
@@ -143,7 +143,7 @@ export const ResumePDFLink = ({
 }) => {
   if (isPDF) {
     return (
-      <Link src={src} style={{ textDecoration: "none" }}>
+      <Link src={src} style={{ textDecoration: "none", width: "100%" }}>
         {children}
       </Link>
     );
@@ -151,7 +151,7 @@ export const ResumePDFLink = ({
   return (
     <a
       href={src}
-      style={{ textDecoration: "none" }}
+      style={{ textDecoration: "none", display: "block", width: "100%" }}
       target="_blank"
       rel="noreferrer"
     >

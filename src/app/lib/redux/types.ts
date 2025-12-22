@@ -6,6 +6,7 @@ export interface ResumeProfile {
   summary: string;
   location: string;
   title: string;
+  additionalFields: string[];
 }
 
 export interface ResumeWorkExperience {

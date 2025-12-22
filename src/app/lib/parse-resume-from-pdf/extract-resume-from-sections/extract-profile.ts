@@ -175,7 +175,7 @@ export const extractProfile = (sections: ResumeSectionToLines) => {
       // Dedicated section takes higher precedence over profile summary
       summary: summarySection || objectiveSection || summary,
       title: "", // TODO: Add title extraction
-
+      additionalFields: [],
     },
     // For debugging
     profileScores: {
