@@ -17,6 +17,7 @@ export const END_HOME_RESUME: Resume = {
     location: "San Francisco, CA",
     url: "linkedin.com/in/jane-smith",
     title: "Full-Stack Developer",
+    additionalFields: [],
   },
   workExperiences: [
     {

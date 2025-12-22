@@ -102,7 +102,7 @@ export const ProfileForm = () => {
           const stringValue = typeof value === "string" 
             ? value 
             : (typeof value === "object" && value !== null && "value" in value 
-                ? String(value.value) 
+                ? String((value as { value: unknown }).value) 
                 : "");
           
           return (
