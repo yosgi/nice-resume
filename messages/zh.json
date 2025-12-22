@@ -79,7 +79,7 @@
   },
   "skills": {
     "addButtonText": "添加技能",
-    "skillsList": "技能列表",
+    "skillsList": "技能描述",
     "skillsListPlaceholder": "技能要点",
     "featuredSkills": "重点技能（选填）",
     "featuredSkillsDescription": "重点技能是可选的，用于突出显示最重要的技能，圆圈越多表示熟练度越高。",

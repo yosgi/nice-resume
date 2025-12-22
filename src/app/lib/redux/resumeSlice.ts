@@ -169,22 +169,31 @@ export const resumeSlice = createSlice({
       }>
     ) => {
       const { form, idx, direction } = action.payload;
-      if (form !== "skills" && form !== "custom") {
-        if (
-          (idx === 0 && direction === "up") ||
-          (idx === draft[form].length - 1 && direction === "down")
-        ) {
-          return draft;
-        }
+      if (form === "custom") {
+        return draft;
+      }
+      
+      let array: any[];
+      if (form === "skills") {
+        array = draft.skills.featuredSkills;
+      } else {
+        array = draft[form];
+      }
+      
+      if (
+        (idx === 0 && direction === "up") ||
+        (idx === array.length - 1 && direction === "down")
+      ) {
+        return draft;
+      }
 
-        const section = draft[form][idx];
-        if (direction === "up") {
-          draft[form][idx] = draft[form][idx - 1];
-          draft[form][idx - 1] = section;
-        } else {
-          draft[form][idx] = draft[form][idx + 1];
-          draft[form][idx + 1] = section;
-        }
+      const section = array[idx];
+      if (direction === "up") {
+        array[idx] = array[idx - 1];
+        array[idx - 1] = section;
+      } else {
+        array[idx] = array[idx + 1];
+        array[idx + 1] = section;
       }
     },
     deleteSectionInFormByIdx: (

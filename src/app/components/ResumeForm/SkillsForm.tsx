@@ -5,10 +5,10 @@ import {
   InputGroupWrapper,
 } from "components/ResumeForm/Form/InputGroup";
 import { FeaturedSkillInput } from "components/ResumeForm/Form/FeaturedSkillInput";
-import { BulletListIconButton } from "components/ResumeForm/Form/IconButton";
+import { BulletListIconButton, MoveIconButton } from "components/ResumeForm/Form/IconButton";
 import type { CreateHandleChangeArgsWithDescriptions } from "components/ResumeForm/types";
 import { useAppDispatch, useAppSelector } from "lib/redux/hooks";
-import { selectSkills, changeSkills } from "lib/redux/resumeSlice";
+import { selectSkills, changeSkills, moveSectionInForm } from "lib/redux/resumeSlice";
 import type { ResumeSkills } from "lib/redux/types";
 import {
   selectShowBulletPoints,
@@ -63,7 +63,9 @@ export const SkillsForm = () => {
               />
             </div>
           </div>
-          <div className="col-span-full mb-4 mt-6 border-t-2 border-dotted border-gray-200" />
+        </div>
+        <div className="mb-4 mt-6 -mx-6 border-t-2 border-dotted border-gray-200" />
+        <div className="grid grid-cols-6 gap-3">
           <InputGroupWrapper
             label={t("skills.featuredSkills")}
             className="col-span-full"
@@ -73,19 +75,30 @@ export const SkillsForm = () => {
             </p>
           </InputGroupWrapper>
 
-          {featuredSkills.map(({ skill, rating }, idx) => (
-            <FeaturedSkillInput
-              key={idx}
-              className="col-span-3"
-              skill={skill}
-              rating={rating}
-              setSkillRating={(newSkill, newRating) => {
-                handleFeaturedSkillsChange(idx, newSkill, newRating);
-              }}
-              placeholder={`${t("skills.featuredSkillPlaceholder")} ${idx + 1}`}
-              circleColor={themeColor}
-            />
-          ))}
+          {featuredSkills.map(({ skill, rating }, idx) => {
+            const showMoveUp = idx !== 0;
+            const showMoveDown = idx !== featuredSkills.length - 1;
+            const handleMoveClick = (direction: "up" | "down") => {
+              dispatch(moveSectionInForm({ form, direction, idx }));
+            };
+
+            return (
+              <div key={idx} className="col-span-3 mb-4 rounded-lg border border-gray-200 bg-gray-50 p-3">
+                <FeaturedSkillInput
+                  skill={skill}
+                  rating={rating}
+                  setSkillRating={(newSkill, newRating) => {
+                    handleFeaturedSkillsChange(idx, newSkill, newRating);
+                  }}
+                  placeholder={`${t("skills.featuredSkillPlaceholder")} ${idx + 1}`}
+                  circleColor={themeColor}
+                  showMoveUp={showMoveUp}
+                  showMoveDown={showMoveDown}
+                  onMoveClick={handleMoveClick}
+                />
+              </div>
+            );
+          })}
         </div>
       </Form>
     </section>

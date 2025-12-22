@@ -84,7 +84,7 @@
   },
   "skills": {
     "addButtonText": "Add Skill",
-    "skillsList": "Skills List",
+    "skillsList": "Skills Description",
     "skillsListPlaceholder": "Bullet points",
     "featuredSkills": "Featured Skills (Optional)",
     "featuredSkillsDescription": "Featured skills is optional to highlight top skills, with more circles mean higher proficiency.",

@@ -16,8 +16,17 @@ export const useAutosizeTextareaHeight = ({ value }: { value: string }) => {
   const resizeHeight = () => {
     const textarea = textareaRef.current;
     if (textarea) {
+      // Save cursor position before resizing
+      const cursorPosition = textarea.selectionStart;
+      const isFocused = document.activeElement === textarea;
+      
       textarea.style.height = "0px";
       textarea.style.height = `${textarea.scrollHeight}px`;
+      
+      // Restore cursor position after resizing
+      if (isFocused && cursorPosition !== null) {
+        textarea.setSelectionRange(cursorPosition, cursorPosition);
+      }
     }
   };
 
