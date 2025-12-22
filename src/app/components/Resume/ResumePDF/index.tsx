@@ -1,3 +1,6 @@
+"use client";
+
+import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Page, View, Document } from "@react-pdf/renderer";
 import { styles, spacing } from "components/Resume/ResumePDF/styles";
 import { ResumePDFProfile } from "components/Resume/ResumePDF/ResumePDFProfile";
@@ -12,6 +15,7 @@ import type { Resume } from "lib/redux/types";
 import { SuppressResumePDFErrorMessage } from "components/Resume/ResumePDF/common/SuppressResumePDFErrorMessage";
 import { ResumePDFDetails } from "components/Resume/ResumePDF/ResumePDFDetails";
 import { LanguageProvider } from "../../../../../contexts/LanguageContext";
+import { A4_HEIGHT_PX, LETTER_HEIGHT_PX, PX_PER_PT } from "lib/constants";
 
 /**
  * Note: ResumePDF is supposed to be rendered inside PDFViewer. However,
@@ -30,11 +34,11 @@ import { LanguageProvider } from "../../../../../contexts/LanguageContext";
  */
 
 // Page break indicator component
-const PageBreakIndicator = ({ documentSize }: { documentSize: string }) => (
+const PageBreakIndicator = ({ top }: { top: string }) => (
   <View
     style={{
       position: "absolute",
-      top: documentSize === "A4" ? "842pt" : "792pt", // A4: 842pt, Letter: 792pt
+      top,
       left: 0,
       right: 0,
       height: "2pt",
@@ -67,6 +71,30 @@ export const ResumePDF = ({
     showBulletPoints,
   } = settings;
   const themeColor = settings.themeColor || DEFAULT_FONT_COLOR;
+
+  const pageHeightPt = useMemo(
+    () =>
+      (documentSize === "A4" ? A4_HEIGHT_PX : LETTER_HEIGHT_PX) / PX_PER_PT,
+    [documentSize]
+  );
+  const [pageCount, setPageCount] = useState(1);
+  const contentRef = useRef<HTMLDivElement | null>(null);
+
+  useLayoutEffect(() => {
+    if (isPDF || !contentRef.current) {
+      return;
+    }
+    const contentHeightPx =
+      contentRef.current.getBoundingClientRect().height;
+    const contentHeightPt = contentHeightPx / PX_PER_PT;
+    const nextPageCount = Math.max(
+      1,
+      Math.ceil(contentHeightPt / pageHeightPt)
+    );
+    if (nextPageCount !== pageCount) {
+      setPageCount(nextPageCount);
+    }
+  }, [isPDF, pageCount, pageHeightPt, resume, settings]);
 
   const showFormsOrder = formsOrder.filter((form) => formToShow[form]);
 
@@ -114,57 +142,70 @@ export const ResumePDF = ({
         <Page
           size={documentSize === "A4" ? "A4" : "LETTER"}
           style={{
-            ...styles.flexRow,
             color: DEFAULT_FONT_COLOR,
             fontFamily,
             fontSize: fontSize + "pt",
             position: "relative",
+            minHeight: !isPDF ? `${pageCount * pageHeightPt}pt` : undefined,
           }}
         >
           <View
+            ref={contentRef as any}
             style={{
-              ...styles.flexCol,
-              padding: `${spacing[0]} ${spacing[20]}`,
-              marginTop: spacing[10],
-              flex: 2,
+              ...styles.flexRow,
             }}
           >
-            <ResumePDFProfile
-              profile={profile}
-              themeColor={themeColor}
-              isPDF={isPDF}
-            />
-            {showFormsOrder.map((form) => {
-              const Component = formTypeToComponent[form];
-              return <Component key={form} />;
-            })}
-          </View>
-          <View
-            style={{
-              backgroundColor: themeColor,
-              color: "white",
-              minHeight: "100vh",
-              flex: 1,
-              padding: `${0} ${spacing["5"]}`,
-              position: "relative",
-            }}
-          >
-            <ResumePDFDetails
-              profile={profile}
-              themeColor={themeColor}
-              isPDF={isPDF}
-            />
-            {formToShow["skills"] && (
-              <ResumePDFSkills
-                heading={formToHeading["skills"]}
-                skills={skills}
+            <View
+              style={{
+                ...styles.flexCol,
+                padding: `${spacing[0]} ${spacing[20]}`,
+                marginTop: spacing[10],
+                flex: 2,
+              }}
+            >
+              <ResumePDFProfile
+                profile={profile}
                 themeColor={themeColor}
-                showBulletPoints={showBulletPoints["skills"]}
-                customSpacing={settings.sectionSpacing.skills}
+                isPDF={isPDF}
               />
-            )}
+              {showFormsOrder.map((form) => {
+                const Component = formTypeToComponent[form];
+                return <Component key={form} />;
+              })}
+            </View>
+            <View
+              style={{
+                backgroundColor: themeColor,
+                color: "white",
+                minHeight: !isPDF ? `${pageCount * pageHeightPt}pt` : "100vh",
+                flex: 1,
+                padding: `${0} ${spacing["5"]}`,
+                position: "relative",
+              }}
+            >
+              <ResumePDFDetails
+                profile={profile}
+                themeColor={themeColor}
+                isPDF={isPDF}
+              />
+              {formToShow["skills"] && (
+                <ResumePDFSkills
+                  heading={formToHeading["skills"]}
+                  skills={skills}
+                  themeColor={themeColor}
+                  showBulletPoints={showBulletPoints["skills"]}
+                  customSpacing={settings.sectionSpacing.skills}
+                />
+              )}
+            </View>
           </View>
-          {!isPDF && <PageBreakIndicator documentSize={documentSize} />}
+          {!isPDF &&
+            Array.from({ length: pageCount }, (_, index) => (
+              <PageBreakIndicator
+                key={`page-break-${index}`}
+                top={`${pageHeightPt * (index + 1)}pt`}
+              />
+            ))}
         </Page>
       </Document>
       <SuppressResumePDFErrorMessage />
