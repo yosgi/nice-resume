@@ -1,23 +1,14 @@
-import { View,Text } from "@react-pdf/renderer";
-import {
-  ResumePDFIcon,
-  type IconType,
-} from "components/Resume/ResumePDF/common/ResumePDFIcon";
+import { View } from "@react-pdf/renderer";
+import { type IconType } from "components/Resume/ResumePDF/common/ResumePDFIcon";
 import { styles, spacing } from "components/Resume/ResumePDF/styles";
 import {
+  addTextBreakOpportunities,
   ResumePDFLink,
   ResumePDFSection,
   ResumePDFText,
 } from "components/Resume/ResumePDF/common";
 import type { ResumeProfile } from "lib/redux/types";
 import { useTranslation } from "../../../../../utils/translations";
-
-// Truncate text with ellipsis if it exceeds maxLength
-const truncateText = (text: string, maxLength: number = 20): string => {
-  if (text.length <= maxLength) return text;
-  return text.substring(0, maxLength) + "...";
-};
-
 
 export const ResumePDFDetails = ({
   profile,
@@ -57,7 +48,7 @@ export const ResumePDFDetails = ({
           }
 
           const shouldUseLinkWrapper = ["phone", "url","email" ].includes(key);
-          const displayText = truncateText(value, 20);
+          const displayText = addTextBreakOpportunities(value);
           
           const Wrapper = ({ children }: { children: React.ReactNode }) => {
             if (!shouldUseLinkWrapper) return <>{children}</>;
@@ -93,11 +84,12 @@ export const ResumePDFDetails = ({
                 alignItems: "flex-start",
               }}
             >
-              <View style={{ flexGrow: 1, flexBasis: 0, width: 0 }}>
+              <View style={{ flexGrow: 1, flexBasis: 0, width: "100%" }}>
                 <Wrapper>
                   <ResumePDFText
                     style={{
                       color: "white",
+                      width: "100%",
                     }}
                   >
                     {displayText}
@@ -110,7 +102,7 @@ export const ResumePDFDetails = ({
         {additionalFields.map((value, idx) => {
           if (!value || typeof value !== "string") return null;
           
-          const displayText = truncateText(value, 20);
+          const displayText = addTextBreakOpportunities(value);
           const isUrl = value.includes("http") || value.includes("www.") || value.includes(".");
           const Wrapper = ({ children }: { children: React.ReactNode }) => {
             if (!isUrl) return <>{children}</>;
@@ -131,11 +123,12 @@ export const ResumePDFDetails = ({
                 alignItems: "flex-start",
               }}
             >
-              <View style={{ flexGrow: 1, flexBasis: 0, width: 0 }}>
+              <View style={{ flexGrow: 1, flexBasis: 0, width: "100%" }}>
                 <Wrapper>
                   <ResumePDFText
                     style={{
                       color: "white",
+                      width: "100%",
                     }}
                   >
                     {displayText}

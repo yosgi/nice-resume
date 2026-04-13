@@ -5,6 +5,7 @@ import {
 } from "components/Resume/ResumePDF/common/ResumePDFIcon";
 import { styles, spacing } from "components/Resume/ResumePDF/styles";
 import {
+  addTextBreakOpportunities,
   ResumePDFLink,
   ResumePDFSection,
   ResumePDFText,
@@ -28,9 +29,9 @@ export const ResumePDFProfile = ({
       <ResumePDFText
         bold={true}
         themeColor={themeColor}
-        style={{ fontSize: "16pt" }}
+        style={{ fontSize: "16pt", width: "100%" }}
       >
-        {name}
+        {addTextBreakOpportunities(name, 20)}
       </ResumePDFText>
       <ResumePDFText
         style={{

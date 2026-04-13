@@ -4,6 +4,38 @@ import { styles, spacing } from "components/Resume/ResumePDF/styles";
 import { DEBUG_RESUME_PDF_FLAG } from "lib/constants";
 import { DEFAULT_FONT_COLOR } from "lib/redux/settingsSlice";
 
+const BREAK_OPPORTUNITY = "\u200B";
+
+export const addTextBreakOpportunities = (
+  text: string,
+  maxSegmentLength = 14
+): string => {
+  let currentSegmentLength = 0;
+
+  return Array.from(text)
+    .map((char) => {
+      if (/\s/.test(char)) {
+        currentSegmentLength = 0;
+        return char;
+      }
+
+      currentSegmentLength += 1;
+
+      if (/[.@/_-]/.test(char)) {
+        currentSegmentLength = 0;
+        return `${char}${BREAK_OPPORTUNITY}`;
+      }
+
+      if (currentSegmentLength >= maxSegmentLength) {
+        currentSegmentLength = 0;
+        return `${char}${BREAK_OPPORTUNITY}`;
+      }
+
+      return char;
+    })
+    .join("");
+};
+
 export const ResumePDFSection = ({
   themeColor,
   heading,
