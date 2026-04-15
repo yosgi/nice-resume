@@ -73,8 +73,7 @@ export const ResumePDF = ({
   const themeColor = settings.themeColor || DEFAULT_FONT_COLOR;
 
   const pageHeightPt = useMemo(
-    () =>
-      (documentSize === "A4" ? A4_HEIGHT_PX : LETTER_HEIGHT_PX) / PX_PER_PT,
+    () => (documentSize === "A4" ? A4_HEIGHT_PX : LETTER_HEIGHT_PX) / PX_PER_PT,
     [documentSize]
   );
   const [pageCount, setPageCount] = useState(1);
@@ -84,8 +83,7 @@ export const ResumePDF = ({
     if (isPDF || !contentRef.current) {
       return;
     }
-    const contentHeightPx =
-      contentRef.current.getBoundingClientRect().height;
+    const contentHeightPx = contentRef.current.getBoundingClientRect().height;
     const contentHeightPt = contentHeightPx / PX_PER_PT;
     const nextPageCount = Math.max(
       1,
@@ -122,6 +120,7 @@ export const ResumePDF = ({
         projects={projects}
         themeColor={themeColor}
         customSpacing={settings.sectionSpacing.projects}
+        isPDF={isPDF}
       />
     ),
     skills: () => <></>,

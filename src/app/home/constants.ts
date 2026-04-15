@@ -68,6 +68,8 @@ export const END_HOME_RESUME: Resume = {
     {
       project: "Task Manager Pro",
       date: "Winter 2023",
+      linkName: "Live Demo",
+      url: "taskmanagerpro.com",
       descriptions: [
         "Designed and developed a task management web app, helping teams increase productivity by 25%.",
         "Integrated calendar and notifications using Google Calendar API to improve scheduling efficiency.",

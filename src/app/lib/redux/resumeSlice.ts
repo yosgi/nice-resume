@@ -40,6 +40,8 @@ export const initialEducation: ResumeEducation = {
 export const initialProject: ResumeProject = {
   project: "",
   date: "",
+  linkName: "",
+  url: "",
   descriptions: [],
 };
 
@@ -178,7 +180,9 @@ export const resumeSlice = createSlice({
           return draft;
         }
         case "skills": {
-          draft.skills.featuredSkills.push(structuredClone(initialFeaturedSkill));
+          draft.skills.featuredSkills.push(
+            structuredClone(initialFeaturedSkill)
+          );
           return draft;
         }
       }
@@ -195,14 +199,14 @@ export const resumeSlice = createSlice({
       if (form === "custom") {
         return draft;
       }
-      
+
       let array: any[];
       if (form === "skills") {
         array = draft.skills.featuredSkills;
       } else {
         array = draft[form];
       }
-      
+
       if (
         (idx === 0 && direction === "up") ||
         (idx === array.length - 1 && direction === "down")

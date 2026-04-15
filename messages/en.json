@@ -83,6 +83,10 @@
     "namePlaceholder": "Project Name",
     "date": "Date",
     "datePlaceholder": "Winter 2022",
+    "linkName": "Display Name (Optional)",
+    "linkNamePlaceholder": "Live Demo",
+    "url": "URL (Optional)",
+    "urlPlaceholder": "github.com/username/project",
     "description": "Description",
     "descriptionPlaceholder": "Bullet points"
   },
@@ -130,4 +134,4 @@
     "label": "Spacing",
     "tooltip": "{{value}}pt spacing"
   }
-} 
+}

@@ -78,6 +78,10 @@
     "namePlaceholder": "项目名称",
     "date": "日期",
     "datePlaceholder": "2022年冬季",
+    "linkName": "显示名称（选填）",
+    "linkNamePlaceholder": "在线演示",
+    "url": "URL（选填）",
+    "urlPlaceholder": "github.com/username/project",
     "description": "项目描述",
     "descriptionPlaceholder": "项目要点"
   },
@@ -130,4 +134,4 @@
     "subtitle": "使用这个免费、开源且简单的简历构建器",
     "getStarted": "开始使用"
   }
-} 
+}

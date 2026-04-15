@@ -28,7 +28,7 @@ export const ProjectsForm = () => {
   return (
     <section className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
       <Form form={form} addButtonText={t("project.addButtonText")}>
-        {projects.map(({ project, date, descriptions }, idx) => {
+        {projects.map(({ project, date, linkName, url, descriptions }, idx) => {
           const handleProjectChange = (
             ...[
               field,
@@ -65,6 +65,22 @@ export const ProjectsForm = () => {
                 value={date}
                 onChange={handleProjectChange}
                 labelClassName="col-span-2"
+              />
+              <Input
+                name="linkName"
+                label={t("project.linkName")}
+                placeholder={t("project.linkNamePlaceholder")}
+                value={linkName}
+                onChange={handleProjectChange}
+                labelClassName="col-span-3"
+              />
+              <Input
+                name="url"
+                label={t("project.url")}
+                placeholder={t("project.urlPlaceholder")}
+                value={url}
+                onChange={handleProjectChange}
+                labelClassName="col-span-3"
               />
               <BulletListTextarea
                 name="descriptions"

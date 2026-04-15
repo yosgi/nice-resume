@@ -7,7 +7,7 @@ import { DEFAULT_FONT_COLOR } from "lib/redux/settingsSlice";
 const BREAK_OPPORTUNITY = "\u200B";
 
 export const addTextBreakOpportunities = (
-  text: string,
+  text = "",
   maxSegmentLength = 14
 ): string => {
   let currentSegmentLength = 0;
@@ -53,7 +53,8 @@ export const ResumePDFSection = ({
     style={{
       ...styles.flexCol,
       gap: spacing["2"],
-      marginTop: customSpacing !== undefined ? `${customSpacing}pt` : spacing["10"],
+      marginTop:
+        customSpacing !== undefined ? `${customSpacing}pt` : spacing["10"],
       ...style,
     }}
   >
@@ -62,7 +63,7 @@ export const ResumePDFSection = ({
         <Text
           style={{
             fontWeight: "bold",
-            letterSpacing: "0.3pt", 
+            letterSpacing: "0.3pt",
             fontSize: "12pt",
           }}
           debug={DEBUG_RESUME_PDF_FLAG}
@@ -127,8 +128,7 @@ export const ResumePDFProgressBar = ({
       />
     </View>
   );
-}
-
+};
 
 export const ResumePDFBulletList = ({
   items,
@@ -140,20 +140,20 @@ export const ResumePDFBulletList = ({
   return (
     <View style={{ ...styles.flexCol }}>
       {items.map((item, idx) => (
-        <View 
-          style={{ 
+        <View
+          style={{
             ...styles.flexRow,
-            marginBottom: idx === items.length - 1 ? 0 : spacing["1"]
-          }} 
+            marginBottom: idx === items.length - 1 ? 0 : spacing["1"],
+          }}
           key={idx}
         >
           {/* A breaking change was introduced causing text layout to be wider than node's width
               https://github.com/diegomura/react-pdf/issues/2182. flexGrow & flexBasis fixes it */}
           <ResumePDFText
-            style={{ 
-              flexGrow: 1, 
+            style={{
+              flexGrow: 1,
               flexBasis: 0,
-              padding: "1pt 0"
+              padding: "1pt 0",
             }}
           >
             {item}
@@ -196,9 +196,7 @@ export const ResumeFeaturedSkill = ({
   skill,
   rating,
   themeColor,
-  style = {
-   
-  },
+  style = {},
 }: {
   skill: string;
   rating: number;
@@ -208,10 +206,8 @@ export const ResumeFeaturedSkill = ({
   const numCircles = 5;
 
   return (
-    <View style={{ ...styles.flexCol, ...style, }}>
-      <ResumePDFText>
-        {skill}
-      </ResumePDFText>
+    <View style={{ ...styles.flexCol, ...style }}>
+      <ResumePDFText>{skill}</ResumePDFText>
       {/* {[...Array(numCircles)].map((_, idx) => (
         <View
           key={idx}
