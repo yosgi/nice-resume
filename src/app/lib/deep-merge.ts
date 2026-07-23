@@ -1,3 +1,5 @@
+import { deepClone } from "lib/deep-clone";
+
 type Object = { [key: string]: any };
 
 const isObject = (item: any): item is Object => {
@@ -10,7 +12,7 @@ const isObject = (item: any): item is Object => {
  * it deep clones the target object first.
  */
 export const deepMerge = (target: Object, source: Object, level = 0) => {
-  const copyTarget = level === 0 ? structuredClone(target) : target;
+  const copyTarget = level === 0 ? deepClone(target) : target;
   for (const key in source) {
     const sourceValue = source[key];
     // Assign source value to copyTarget if source value is not an object.

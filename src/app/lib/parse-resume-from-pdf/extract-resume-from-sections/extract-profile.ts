@@ -172,10 +172,12 @@ export const extractProfile = (sections: ResumeSectionToLines) => {
       phone,
       location,
       url,
+      urlLabel: "",
       // Dedicated section takes higher precedence over profile summary
       summary: summarySection || objectiveSection || summary,
       title: "", // TODO: Add title extraction
       additionalFields: [],
+      contactOrder: ["email", "phone", "url", "location"],
     },
     // For debugging
     profileScores: {
@@ -185,7 +187,7 @@ export const extractProfile = (sections: ResumeSectionToLines) => {
       location: locationScores,
       url: urlScores,
       summary: summaryScores,
-      title:title
+      title: title,
     },
   };
 };

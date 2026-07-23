@@ -2,7 +2,7 @@ import { View } from "@react-pdf/renderer";
 import {
   ResumePDFSection,
   ResumePDFBulletList,
-  ResumePDFText,
+  ResumePDFTitleDateRow,
 } from "components/Resume/ResumePDF/common";
 import { styles, spacing } from "components/Resume/ResumePDF/styles";
 import type { ResumeProject } from "lib/redux/types";
@@ -19,27 +19,28 @@ export const ResumePDFProject = ({
   customSpacing?: number;
 }) => {
   return (
-    <ResumePDFSection 
-      themeColor={themeColor} 
+    <ResumePDFSection
+      themeColor={themeColor}
       heading={heading}
       customSpacing={customSpacing}
     >
-      {projects.map(({ project, date, descriptions }, idx) => (
-        <View key={idx}>
-          <View
-            style={{
-              ...styles.flexRowBetween,
-              marginTop: spacing["0.5"],
-            }}
-          >
-            <ResumePDFText bold={true}>{project}</ResumePDFText>
-            <ResumePDFText>{date}</ResumePDFText>
-          </View>
-          <View style={{ ...styles.flexCol, marginTop: spacing["0.5"] }}>
-            <ResumePDFBulletList items={descriptions} />
-          </View>
-        </View>
-      ))}
+      <View style={styles.flexCol}>
+        {projects.map(
+          ({ project, date, descriptions, spacing: itemSpacing }, idx) => (
+            <View key={idx} style={{ marginBottom: `${itemSpacing ?? 6}pt` }}>
+              <ResumePDFTitleDateRow
+                title={project}
+                date={date}
+                titleBold={true}
+                style={{ marginTop: spacing["0.5"] }}
+              />
+              <View style={{ ...styles.flexCol, marginTop: spacing["0.5"] }}>
+                <ResumePDFBulletList items={descriptions} />
+              </View>
+            </View>
+          )
+        )}
+      </View>
     </ResumePDFSection>
   );
 };

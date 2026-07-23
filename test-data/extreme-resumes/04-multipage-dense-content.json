@@ -1,0 +1,192 @@
+{
+  "resume": {
+    "profile": {
+      "name": "Taylor Jordan",
+      "email": "taylor.jordan@example.com",
+      "phone": "+64 21 555 0199",
+      "url": "https://taylorjordan.example.com",
+      "summary": "Senior engineer with extensive experience delivering reliable platforms, leading migrations, improving developer experience, and operating production systems at global scale.",
+      "location": "Christchurch, New Zealand",
+      "title": "Senior Staff Software Engineer",
+      "additionalFields": [
+        "linkedin.com/in/taylor-jordan-engineering",
+        "github.com/taylor-jordan"
+      ]
+    },
+    "workExperiences": [
+      {
+        "company": "Global Technology Company One",
+        "jobTitle": "Senior Staff Software Engineer, Platform and Reliability",
+        "date": "2022 - Present",
+        "descriptions": [
+          "Led the design and rollout of a multi-region platform serving millions of requests while maintaining strict reliability and recovery objectives.",
+          "Created reusable deployment, observability, security, and incident response capabilities adopted by more than thirty product teams.",
+          "Mentored senior engineers and partnered with product, security, compliance, and infrastructure leaders on multi-year technical strategy.",
+          "Reduced deployment lead time and improved change failure rate through progressive delivery, automated verification, and safer rollback workflows.",
+          "Established service ownership standards, operational reviews, capacity planning, and reliability scorecards across the engineering organisation."
+        ]
+      },
+      {
+        "company": "Enterprise Software Company Two",
+        "jobTitle": "Principal Software Engineer",
+        "date": "2018 - 2022",
+        "spacing": 16,
+        "descriptions": [
+          "Migrated a large monolithic application into independently deployable services without interrupting critical customer workflows.",
+          "Designed event-driven integration patterns and data migration tooling for a complex portfolio of enterprise applications.",
+          "Introduced distributed tracing, structured logging, and service-level objectives for business-critical systems.",
+          "Coordinated architecture decisions across application, data, infrastructure, and security teams.",
+          "Built internal libraries and reference implementations that improved consistency across dozens of services."
+        ]
+      },
+      {
+        "company": "Digital Product Studio Three",
+        "jobTitle": "Lead Software Engineer",
+        "date": "2014 - 2018",
+        "descriptions": [
+          "Delivered web and mobile products for customers in finance, healthcare, logistics, and public services.",
+          "Led discovery, technical design, implementation, release planning, and post-launch improvement.",
+          "Supported engineers through code review, pairing, technical workshops, and structured career development.",
+          "Improved automated testing and continuous delivery practices across multiple concurrent product teams."
+        ]
+      },
+      {
+        "company": "Consulting Company Four",
+        "jobTitle": "Software Engineer",
+        "date": "2010 - 2014",
+        "descriptions": [
+          "Developed and maintained customer-facing applications, internal tools, integrations, and reporting systems.",
+          "Worked directly with customers to clarify requirements, diagnose production issues, and plan incremental improvements.",
+          "Created automated build and deployment processes for previously manual release workflows."
+        ]
+      }
+    ],
+    "educations": [
+      {
+        "school": "University of Canterbury",
+        "degree": "Bachelor of Engineering with Honours in Software Engineering",
+        "date": "2006 - 2009",
+        "gpa": "First Class Honours",
+        "descriptions": [
+          "Final-year research project on fault-tolerant distributed applications.",
+          "Teaching assistant for software design and data structures."
+        ]
+      },
+      {
+        "school": "Professional Education and Certification",
+        "degree": "Advanced programmes in architecture, security, reliability, leadership, and cloud engineering",
+        "date": "2010 - Present",
+        "gpa": "",
+        "descriptions": [
+          "Ongoing professional development through formal courses, industry conferences, and independent study."
+        ]
+      }
+    ],
+    "projects": [
+      {
+        "project": "Multi-Region Platform Modernisation",
+        "date": "2023 - 2026",
+        "descriptions": [
+          "Designed a staged migration from region-specific infrastructure to a resilient, policy-driven global platform.",
+          "Introduced automated failover validation, capacity modelling, and disaster recovery exercises."
+        ]
+      },
+      {
+        "project": "Developer Experience and Delivery Safety Programme",
+        "date": "2021 - 2024",
+        "descriptions": [
+          "Created golden paths, service templates, automated compliance checks, and self-service operational tooling.",
+          "Improved delivery speed while reducing operational risk and cognitive load."
+        ]
+      },
+      {
+        "project": "Observability and Incident Management Transformation",
+        "date": "2019 - 2022",
+        "descriptions": [
+          "Standardised telemetry, alerting, incident roles, review practices, and reliability reporting.",
+          "Reduced detection and recovery times for high-impact incidents."
+        ]
+      },
+      {
+        "project": "Enterprise Data Integration Renewal",
+        "date": "2017 - 2020",
+        "descriptions": [
+          "Replaced fragile batch integrations with observable and recoverable event-driven workflows."
+        ]
+      }
+    ],
+    "skills": {
+      "featuredSkills": [
+        {
+          "skill": "Distributed systems",
+          "rating": 4
+        },
+        {
+          "skill": "Platform engineering",
+          "rating": 4
+        },
+        {
+          "skill": "Technical leadership",
+          "rating": 4
+        },
+        {
+          "skill": "Reliability engineering",
+          "rating": 4
+        }
+      ],
+      "descriptions": [
+        "TypeScript, Go, Python, Java, SQL",
+        "AWS, Google Cloud, Kubernetes, Terraform",
+        "PostgreSQL, Kafka, Redis, Elasticsearch",
+        "OpenTelemetry, Prometheus, Grafana",
+        "Architecture, security, incident management"
+      ]
+    },
+    "custom": {
+      "descriptions": [
+        "Conference speaker and mentor for engineers progressing into senior technical roles.",
+        "Contributor to open-source reliability and developer tooling projects."
+      ]
+    }
+  },
+  "settings": {
+    "themeColor": "#1D2E4D",
+    "fontFamily": "Helvetica",
+    "fontSize": "10",
+    "documentSize": "A4",
+    "formToShow": {
+      "workExperiences": true,
+      "educations": true,
+      "projects": true,
+      "skills": true,
+      "custom": true
+    },
+    "formToHeading": {
+      "workExperiences": "Work Experience",
+      "educations": "Education",
+      "projects": "Selected Projects",
+      "skills": "Skills",
+      "custom": "Community"
+    },
+    "formsOrder": [
+      "workExperiences",
+      "educations",
+      "projects",
+      "custom",
+      "skills"
+    ],
+    "showBulletPoints": {
+      "educations": true,
+      "projects": true,
+      "skills": true,
+      "custom": true
+    },
+    "sectionSpacing": {
+      "workExperiences": 24,
+      "educations": 24,
+      "projects": 24,
+      "skills": 24,
+      "custom": 24
+    }
+  }
+}

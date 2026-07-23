@@ -6,19 +6,21 @@ import {
 import { BulletListIconButton } from "components/ResumeForm/Form/IconButton";
 import type { CreateHandleChangeArgsWithDescriptions } from "components/ResumeForm/types";
 import { useAppDispatch, useAppSelector } from "lib/redux/hooks";
-import { selectProjects, changeProjects } from "lib/redux/resumeSlice";
+import {
+  selectProjects,
+  changeProjects,
+  changeSectionItemSpacing,
+} from "lib/redux/resumeSlice";
 import type { ResumeProject } from "lib/redux/types";
 import {
   changeShowBulletPoints,
   selectShowBulletPoints,
-  selectSettings,
 } from "lib/redux/settingsSlice";
-import { SpacingControl } from "./common/SpacingControl";
 import { useTranslation } from "../../../../utils/translations";
+import { ItemSpacingControl } from "./common/ItemSpacingControl";
 
 export const ProjectsForm = () => {
   const projects = useAppSelector(selectProjects);
-  const settings = useAppSelector(selectSettings);
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const showDelete = projects.length > 1;
@@ -28,7 +30,7 @@ export const ProjectsForm = () => {
   return (
     <section className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
       <Form form={form} addButtonText={t("project.addButtonText")}>
-        {projects.map(({ project, date, descriptions }, idx) => {
+        {projects.map(({ project, date, descriptions, spacing }, idx) => {
           const handleProjectChange = (
             ...[
               field,
@@ -73,6 +75,12 @@ export const ProjectsForm = () => {
                 value={descriptions}
                 onChange={handleProjectChange}
                 labelClassName="col-span-full"
+              />
+              <ItemSpacingControl
+                value={spacing ?? 6}
+                onChange={(value) =>
+                  dispatch(changeSectionItemSpacing({ form, idx, value }))
+                }
               />
             </FormSection>
           );

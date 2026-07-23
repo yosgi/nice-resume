@@ -8,16 +8,31 @@ import {
   addProfileAdditionalField,
   deleteProfileAdditionalField,
   changeProfileAdditionalField,
+  setProfileContactOrder,
 } from "lib/redux/resumeSlice";
 import { ResumeProfile } from "lib/redux/types";
 import { useTranslation } from "../../../../utils/translations";
 import { PlusSmallIcon } from "@heroicons/react/24/outline";
+import { normalizeContactField } from "lib/contact-links";
+import { getContactOrder, type ContactOrderKey } from "lib/contact-order";
+import { SortableList } from "components/ResumeForm/common/SortableList";
 
 export const ProfileForm = () => {
   const profile = useAppSelector(selectProfile);
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
-  const { name, email, phone, url, summary, location, title, additionalFields } = profile;
+  const {
+    name,
+    email,
+    phone,
+    url,
+    urlLabel,
+    summary,
+    location,
+    title,
+    additionalFields,
+  } = profile;
+  const contactOrder = getContactOrder(profile);
 
   const handleProfileChange = (field: keyof ResumeProfile, value: string) => {
     dispatch(changeProfile({ field, value }));
@@ -33,9 +48,127 @@ export const ProfileForm = () => {
 
   const handleChangeAdditionalField = (
     idx: number,
+    field: "value" | "label",
     value: string
   ) => {
-    dispatch(changeProfileAdditionalField({ idx, value }));
+    dispatch(changeProfileAdditionalField({ idx, field, value }));
+  };
+
+  const handleContactReorder = (fromIndex: number, toIndex: number) => {
+    const nextOrder = [...contactOrder];
+    const [movedField] = nextOrder.splice(fromIndex, 1);
+    nextOrder.splice(toIndex, 0, movedField);
+    dispatch(setProfileContactOrder({ order: nextOrder }));
+  };
+
+  const renderContactField = (
+    key: ContactOrderKey,
+    dragHandle: React.ReactNode
+  ) => {
+    let fields: React.ReactNode;
+
+    if (key === "email") {
+      fields = (
+        <Input
+          label={t("profile.email")}
+          labelClassName="col-span-full"
+          name="email"
+          placeholder={t("profile.emailPlaceholder")}
+          value={email}
+          onChange={handleProfileChange}
+        />
+      );
+    } else if (key === "phone") {
+      fields = (
+        <Input
+          label={t("profile.phone")}
+          labelClassName="col-span-full"
+          name="phone"
+          placeholder={t("profile.phonePlaceholder")}
+          value={phone}
+          onChange={handleProfileChange}
+        />
+      );
+    } else if (key === "url") {
+      fields = (
+        <>
+          <Input
+            label={t("profile.website")}
+            labelClassName="col-span-4"
+            name="url"
+            placeholder={t("profile.websitePlaceholder")}
+            value={url}
+            onChange={handleProfileChange}
+          />
+          <Input
+            label={t("profile.websiteLabel")}
+            labelClassName="col-span-2"
+            name="urlLabel"
+            placeholder={t("profile.websiteLabelPlaceholder")}
+            value={urlLabel}
+            onChange={handleProfileChange}
+          />
+          <p className="col-span-full -mt-1 text-xs text-gray-500">
+            {t("profile.websiteLabelHelp")}
+          </p>
+        </>
+      );
+    } else if (key === "location") {
+      fields = (
+        <Input
+          label={t("profile.location")}
+          labelClassName="col-span-full"
+          name="location"
+          placeholder={t("profile.locationPlaceholder")}
+          value={location}
+          onChange={handleProfileChange}
+        />
+      );
+    } else {
+      const additionalIndex = Number(key.replace("additional-", ""));
+      const { value, label } = normalizeContactField(
+        additionalFields[additionalIndex]
+      );
+      fields = (
+        <>
+          <Input
+            label={t("profile.additionalField")}
+            labelClassName="col-span-4"
+            name={`additionalField-${additionalIndex}`}
+            placeholder={t("profile.additionalFieldPlaceholder")}
+            value={value}
+            onChange={(name, newValue) =>
+              handleChangeAdditionalField(additionalIndex, "value", newValue)
+            }
+          />
+          <Input
+            label={t("profile.additionalFieldLabel")}
+            labelClassName="col-span-2"
+            name={`additionalFieldLabel-${additionalIndex}`}
+            placeholder={t("profile.additionalFieldLabelPlaceholder")}
+            value={label}
+            onChange={(name, newValue) =>
+              handleChangeAdditionalField(additionalIndex, "label", newValue)
+            }
+          />
+          <div className="absolute right-0 top-0">
+            <DeleteIconButton
+              onClick={() => handleDeleteAdditionalField(additionalIndex)}
+              tooltipText={t("profile.deleteAdditionalField")}
+            />
+          </div>
+        </>
+      );
+    }
+
+    return (
+      <div className="flex items-start gap-2">
+        <div className="mt-6 flex shrink-0 items-center">{dragHandle}</div>
+        <div className="relative grid min-w-0 flex-1 grid-cols-6 gap-3">
+          {fields}
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -65,65 +198,17 @@ export const ProfileForm = () => {
           value={summary}
           onChange={handleProfileChange}
         />
-        <Input
-          label={t("profile.email")}
-          labelClassName="col-span-4"
-          name="email"
-          placeholder={t("profile.emailPlaceholder")}
-          value={email}
-          onChange={handleProfileChange}
+        <SortableList
+          items={contactOrder}
+          getKey={(key) => key}
+          onReorder={handleContactReorder}
+          renderItem={(key, _, dragHandle) =>
+            renderContactField(key, dragHandle)
+          }
+          className="col-span-full grid gap-3"
+          itemClassName="rounded-lg border border-gray-200 bg-gray-50 p-3 transition-[box-shadow,opacity,transform] duration-200"
+          dragLabel={t("sorting.drag")}
         />
-        <Input
-          label={t("profile.phone")}
-          labelClassName="col-span-2"
-          name="phone"
-          placeholder={t("profile.phonePlaceholder")}
-          value={phone}
-          onChange={handleProfileChange}
-        />
-        <Input
-          label={t("profile.website")}
-          labelClassName="col-span-4"
-          name="url"
-          placeholder={t("profile.websitePlaceholder")}
-          value={url}
-          onChange={handleProfileChange}
-        />
-        <Input
-          label={t("profile.location")}
-          labelClassName="col-span-2"
-          name="location"
-          placeholder={t("profile.locationPlaceholder")}
-          value={location}
-          onChange={handleProfileChange}
-        />
-        {additionalFields.map((value, idx) => {
-          // Handle old data format (object) or ensure value is string
-          const stringValue = typeof value === "string" 
-            ? value 
-            : (typeof value === "object" && value !== null && "value" in value 
-                ? String((value as { value: unknown }).value) 
-                : "");
-          
-          return (
-            <div key={idx} className="col-span-full relative">
-              <Input
-                label={t("profile.additionalField")}
-                labelClassName="col-span-5"
-                name={`additionalField-${idx}`}
-                placeholder={t("profile.additionalFieldPlaceholder")}
-                value={stringValue}
-                onChange={(name, newValue) => handleChangeAdditionalField(idx, newValue)}
-              />
-              <div className="absolute right-0 top-0">
-                <DeleteIconButton
-                  onClick={() => handleDeleteAdditionalField(idx)}
-                  tooltipText={t("profile.deleteAdditionalField")}
-                />
-              </div>
-            </div>
-          );
-        })}
         <div className="col-span-full mt-2 flex justify-end">
           <button
             type="button"

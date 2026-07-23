@@ -1,6 +1,5 @@
 import React from "react";
 import { INPUT_CLASS_NAME } from "components/ResumeForm/Form/InputGroup";
-import { MoveIconButton } from "components/ResumeForm/Form/IconButton";
 
 export const FeaturedSkillInput = ({
   skill,
@@ -8,46 +7,16 @@ export const FeaturedSkillInput = ({
   setSkillRating,
   placeholder,
   circleColor,
-  showMoveUp,
-  showMoveDown,
-  onMoveClick,
 }: {
   skill: string;
   rating: number;
   setSkillRating: (skill: string, rating: number) => void;
   placeholder: string;
   circleColor?: string;
-  showMoveUp: boolean;
-  showMoveDown: boolean;
-  onMoveClick: (direction: "up" | "down") => void;
 }) => {
   return (
     <div className="flex flex-col gap-2">
       <div className="flex items-center justify-end gap-2">
-        <div className="flex gap-0.5">
-          <div
-            className={`transition-all duration-300 ${
-              showMoveUp ? "" : "invisible opacity-0"
-            } ${showMoveDown ? "" : "-mr-6"}`}
-          >
-            <MoveIconButton
-              type="up"
-              size="small"
-              onClick={() => onMoveClick("up")}
-            />
-          </div>
-          <div
-            className={`transition-all duration-300 ${
-              showMoveDown ? "" : "invisible opacity-0"
-            }`}
-          >
-            <MoveIconButton
-              type="down"
-              size="small"
-              onClick={() => onMoveClick("down")}
-            />
-          </div>
-        </div>
         <SliderRating
           rating={rating}
           setRating={(newRating) => setSkillRating(skill, newRating)}
@@ -85,7 +54,7 @@ const SliderRating = ({
   const lightColor = hexToRgba(circleColor, 0.3);
 
   return (
-    <div className="flex items-center p-2 flex-shrink-0">
+    <div className="flex flex-shrink-0 items-center p-2">
       <input
         type="range"
         min="0"
@@ -93,12 +62,16 @@ const SliderRating = ({
         step="1"
         value={rating}
         onChange={(e) => setRating(Number(e.target.value))}
-        className="w-32 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+        className="h-2 w-32 cursor-pointer appearance-none rounded-lg bg-gray-200"
         style={{
-          background: `linear-gradient(to right, ${lightColor} 0%, ${lightColor} ${(rating / 4) * 100}%, #d1d5db ${(rating / 4) * 100}%, #d1d5db 100%)`
+          background: `linear-gradient(to right, ${lightColor} 0%, ${lightColor} ${
+            (rating / 4) * 100
+          }%, #d1d5db ${(rating / 4) * 100}%, #d1d5db 100%)`,
         }}
       />
-      <span className="ml-2 text-sm text-gray-600 whitespace-nowrap">{rating + 1}/5</span>
+      <span className="ml-2 whitespace-nowrap text-sm text-gray-600">
+        {rating + 1}/5
+      </span>
     </div>
   );
 };

@@ -37,6 +37,7 @@
     "email": "Email",
     "phone": "Phone",
     "website": "Website",
+    "websiteLabel": "Display name (optional)",
     "location": "Location",
     "namePlaceholder": "John Doe",
     "jobTitlePlaceholder": "Full-Stack Developer",
@@ -44,10 +45,14 @@
     "emailPlaceholder": "johndoe@example.com",
     "phonePlaceholder": "(555) 123-4567",
     "websitePlaceholder": "portfolio.johndoe.com",
+    "websiteLabelPlaceholder": "LinkedIn, GitHub, Portfolio",
+    "websiteLabelHelp": "The full link stays clickable. Leave this blank to automatically show LinkedIn, GitHub, or the website domain.",
     "locationPlaceholder": "San Francisco, CA",
     "addAdditionalField": "Add New Field",
     "additionalField": "Additional Field",
+    "additionalFieldLabel": "Display name (optional)",
     "additionalFieldPlaceholder": "e.g., linkedin.com/in/username",
+    "additionalFieldLabelPlaceholder": "LinkedIn, GitHub, Portfolio",
     "deleteAdditionalField": "Delete field"
   },
   "workExperience": {
@@ -128,6 +133,17 @@
   },
   "spacing": {
     "label": "Spacing",
-    "tooltip": "{{value}}pt spacing"
+    "tooltip": "{{value}}pt spacing",
+    "afterEntry": "Space after this entry",
+    "afterEntryTooltip": "{{value}}pt after this entry"
+  },
+  "preview": {
+    "exact": "Exact PDF preview",
+    "exactHelp": "Recommended. Uses the final PDF renderer so page breaks match the downloaded file.",
+    "downloadFiles": "Download Files",
+    "preparingDownload": "Preparing PDF…"
+  },
+  "sorting": {
+    "drag": "Drag to reorder"
   }
-} 
+}

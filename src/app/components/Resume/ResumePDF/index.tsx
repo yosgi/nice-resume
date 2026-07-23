@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useMemo, useRef, useState } from "react";
+import { useMemo } from "react";
 import { Page, View, Document } from "@react-pdf/renderer";
 import { styles, spacing } from "components/Resume/ResumePDF/styles";
 import { ResumePDFProfile } from "components/Resume/ResumePDF/ResumePDFProfile";
@@ -33,22 +33,6 @@ import { A4_HEIGHT_PX, LETTER_HEIGHT_PX, PX_PER_PT } from "lib/constants";
  *    https://github.com/diegomura/react-pdf/issues/239#issuecomment-487255027
  */
 
-// Page break indicator component
-const PageBreakIndicator = ({ top }: { top: string }) => (
-  <View
-    style={{
-      position: "absolute",
-      top,
-      left: 0,
-      right: 0,
-      height: "2pt",
-      backgroundColor: "#ff0000",
-      opacity: 0.3,
-      zIndex: 1,
-    }}
-  />
-);
-
 export const ResumePDF = ({
   resume,
   settings,
@@ -73,29 +57,9 @@ export const ResumePDF = ({
   const themeColor = settings.themeColor || DEFAULT_FONT_COLOR;
 
   const pageHeightPt = useMemo(
-    () =>
-      (documentSize === "A4" ? A4_HEIGHT_PX : LETTER_HEIGHT_PX) / PX_PER_PT,
+    () => (documentSize === "A4" ? A4_HEIGHT_PX : LETTER_HEIGHT_PX) / PX_PER_PT,
     [documentSize]
   );
-  const [pageCount, setPageCount] = useState(1);
-  const contentRef = useRef<HTMLDivElement | null>(null);
-
-  useLayoutEffect(() => {
-    if (isPDF || !contentRef.current) {
-      return;
-    }
-    const contentHeightPx =
-      contentRef.current.getBoundingClientRect().height;
-    const contentHeightPt = contentHeightPx / PX_PER_PT;
-    const nextPageCount = Math.max(
-      1,
-      Math.ceil(contentHeightPt / pageHeightPt)
-    );
-    if (nextPageCount !== pageCount) {
-      setPageCount(nextPageCount);
-    }
-  }, [isPDF, pageCount, pageHeightPt, resume, settings]);
-
   const showFormsOrder = formsOrder.filter((form) => formToShow[form]);
 
   const formTypeToComponent: { [type in ShowForm]: () => JSX.Element } = {
@@ -146,15 +110,10 @@ export const ResumePDF = ({
             fontFamily,
             fontSize: fontSize + "pt",
             position: "relative",
-            minHeight: !isPDF ? `${pageCount * pageHeightPt}pt` : undefined,
+            minHeight: !isPDF ? `${pageHeightPt}pt` : undefined,
           }}
         >
-          <View
-            ref={contentRef as any}
-            style={{
-              ...styles.flexRow,
-            }}
-          >
+          <View style={{ ...styles.flexRow }}>
             <View
               style={{
                 ...styles.flexCol,
@@ -177,35 +136,31 @@ export const ResumePDF = ({
               style={{
                 backgroundColor: themeColor,
                 color: "white",
-                minHeight: !isPDF ? `${pageCount * pageHeightPt}pt` : "100vh",
+                minHeight: !isPDF ? `${pageHeightPt}pt` : "100vh",
                 width: "150pt", // Fixed width for right sidebar
                 padding: `${0} ${spacing["5"]}`,
                 position: "relative",
+                alignSelf: "stretch",
               }}
             >
-              <ResumePDFDetails
-                profile={profile}
-                themeColor={themeColor}
-                isPDF={isPDF}
-              />
-              {formToShow["skills"] && (
-                <ResumePDFSkills
-                  heading={formToHeading["skills"]}
-                  skills={skills}
+              <View style={{ ...styles.flexCol }}>
+                <ResumePDFDetails
+                  profile={profile}
                   themeColor={themeColor}
-                  showBulletPoints={showBulletPoints["skills"]}
-                  customSpacing={settings.sectionSpacing.skills}
+                  isPDF={isPDF}
                 />
-              )}
+                {formToShow["skills"] && (
+                  <ResumePDFSkills
+                    heading={formToHeading["skills"]}
+                    skills={skills}
+                    themeColor={themeColor}
+                    showBulletPoints={showBulletPoints["skills"]}
+                    customSpacing={settings.sectionSpacing.skills}
+                  />
+                )}
+              </View>
             </View>
           </View>
-          {!isPDF &&
-            Array.from({ length: pageCount }, (_, index) => (
-              <PageBreakIndicator
-                key={`page-break-${index}`}
-                top={`${pageHeightPt * (index + 1)}pt`}
-              />
-            ))}
         </Page>
       </Document>
       <SuppressResumePDFErrorMessage />

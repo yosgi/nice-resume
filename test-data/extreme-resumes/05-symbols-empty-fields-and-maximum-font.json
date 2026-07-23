@@ -1,0 +1,87 @@
+{
+  "resume": {
+    "profile": {
+      "name": "Zoë O'Connor-Smith / QA & R&D",
+      "email": "zoe.o'connor+résumé@example.co.uk",
+      "phone": "+44 (0)20 7946 0958 ext. 12345",
+      "url": "https://example.com/profile?name=zoe&section=research_development#selected-work",
+      "summary": "Tests punctuation, accents, ampersands, apostrophes, slashes, parentheses, query strings, empty collections, and a large font size.",
+      "location": "London, UK / Paris, France",
+      "title": "Research & Development Lead (Quality, Safety, Accessibility)",
+      "additionalFields": [
+        "ORCID: 0000-0002-1825-0097",
+        "Publication DOI: https://doi.org/10.1234/example.2026.123456789"
+      ]
+    },
+    "workExperiences": [
+      {
+        "company": "R&D, Quality & Accessibility Partners (Europe) Ltd.",
+        "jobTitle": "Lead Engineer — Research, Quality, Safety & Accessibility",
+        "date": "01/2020 - Present (0.8 FTE)",
+        "descriptions": [
+          "Worked across R&D, QA, security, accessibility (WCAG), privacy, and standards compliance.",
+          "Maintained systems covering 99.99% availability targets and 24/7 operational support."
+        ]
+      }
+    ],
+    "educations": [],
+    "projects": [
+      {
+        "project": "Research/Development & Quality Programme: Phase 1, Phase 2, and Long-Term Follow-Up",
+        "date": "2020/01/01 - 2026/12/31",
+        "descriptions": []
+      }
+    ],
+    "skills": {
+      "featuredSkills": [],
+      "descriptions": [
+        "R&D / QA / WCAG 2.2 / ISO 27001",
+        "C++, C#, F#, TypeScript, SQL",
+        "English, Français, Español"
+      ]
+    },
+    "custom": {
+      "descriptions": []
+    }
+  },
+  "settings": {
+    "themeColor": "#4A1942",
+    "fontFamily": "Helvetica",
+    "fontSize": "14",
+    "documentSize": "LETTER",
+    "formToShow": {
+      "workExperiences": true,
+      "educations": false,
+      "projects": true,
+      "skills": true,
+      "custom": false
+    },
+    "formToHeading": {
+      "workExperiences": "Experience & Research",
+      "educations": "Education",
+      "projects": "Selected R&D Projects",
+      "skills": "Skills & Standards",
+      "custom": "Additional"
+    },
+    "formsOrder": [
+      "workExperiences",
+      "educations",
+      "projects",
+      "skills",
+      "custom"
+    ],
+    "showBulletPoints": {
+      "educations": true,
+      "projects": true,
+      "skills": true,
+      "custom": true
+    },
+    "sectionSpacing": {
+      "workExperiences": 30,
+      "educations": 30,
+      "projects": 30,
+      "skills": 30,
+      "custom": 30
+    }
+  }
+}

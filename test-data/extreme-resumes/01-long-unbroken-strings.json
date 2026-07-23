@@ -1,0 +1,115 @@
+{
+  "resume": {
+    "profile": {
+      "name": "AlexandertheGreatExtremelyLongProfessionalNameWithoutAnySpacesAtAll",
+      "email": "firstname.lastname.with.an.extremely.long.department@very-long-company-domain.example.com",
+      "phone": "+64-21-123-456-789-012-345-678",
+      "url": "https://www.linkedin.com/in/an-extremely-long-linkedin-profile-name-with-many-segments-and-identifiers",
+      "urlLabel": "Professional profile",
+      "summary": "Tests long uninterrupted identifiers in every narrow and wide text container.",
+      "location": "AucklandCentralBusinessDistrictNewZealandWithoutSpaces",
+      "title": "PrincipalPlatformReliabilityAndDistributedSystemsEngineeringSpecialist",
+      "additionalFields": [
+        {
+          "value": "github.com/organisation/repository-with-an-extremely-long-name-and-deep-path/tree/main/packages/application",
+          "label": "Source code"
+        },
+        "CUSTOMIDENTIFIER_0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_0123456789"
+      ],
+      "contactOrder": [
+        "url",
+        "additional-0",
+        "email",
+        "phone",
+        "location",
+        "additional-1"
+      ]
+    },
+    "workExperiences": [
+      {
+        "company": "InternationalEnterpriseSoftwareAndInfrastructureCorporationWithoutSpaces",
+        "jobTitle": "PrincipalDistributedSystemsReliabilityAndObservabilityEngineeringLead",
+        "date": "January2020UntilDecember2026WithoutSpaces",
+        "spacing": 18,
+        "descriptions": [
+          "Owned SERVICEIDENTIFIER_ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 and reduced recovery time across global production systems."
+        ]
+      }
+    ],
+    "educations": [
+      {
+        "school": "InternationalInstituteOfAdvancedTechnologyAndEngineeringWithoutSpaces",
+        "degree": "MasterOfDistributedComputingAndReliabilityEngineeringWithoutSpaces",
+        "date": "January2014UntilDecember2019WithoutSpaces",
+        "gpa": "FirstClassHonoursWithDistinction",
+        "spacing": 4,
+        "descriptions": []
+      }
+    ],
+    "projects": [
+      {
+        "project": "EnterpriseTransformationAndCustomerAnalyticsPlatformWithAnExtremelyLongProjectNameThatMustNeverOverlapTheDate",
+        "date": "January2024UntilDecember2026WithoutSpaces",
+        "spacing": 12,
+        "descriptions": [
+          "Repository: github.com/organisation/extremely-long-project-repository-name-without-a-safe-breakpoint"
+        ]
+      }
+    ],
+    "skills": {
+      "featuredSkills": [
+        {
+          "skill": "KubernetesTerraformObservabilityDistributedTracing",
+          "rating": 4
+        }
+      ],
+      "descriptions": [
+        "AmazonWebServicesGoogleCloudPlatformMicrosoftAzure",
+        "TypeScriptReactNextJSNodeJSPythonPostgreSQL"
+      ]
+    },
+    "custom": {
+      "descriptions": []
+    }
+  },
+  "settings": {
+    "themeColor": "#1D2E4D",
+    "fontFamily": "Helvetica",
+    "fontSize": "10",
+    "documentSize": "A4",
+    "formToShow": {
+      "workExperiences": true,
+      "educations": true,
+      "projects": true,
+      "skills": true,
+      "custom": false
+    },
+    "formToHeading": {
+      "workExperiences": "Work Experience",
+      "educations": "Education",
+      "projects": "Projects",
+      "skills": "Skills",
+      "custom": "Custom Section"
+    },
+    "formsOrder": [
+      "workExperiences",
+      "educations",
+      "projects",
+      "skills",
+      "custom"
+    ],
+    "showBulletPoints": {
+      "educations": true,
+      "projects": true,
+      "skills": true,
+      "custom": true
+    },
+    "sectionSpacing": {
+      "workExperiences": 24,
+      "educations": 24,
+      "projects": 24,
+      "skills": 24,
+      "custom": 24
+    }
+  }
+}

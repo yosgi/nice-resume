@@ -8,9 +8,13 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest --watch",
-    "test:ci": "jest --ci"
+    "test:ci": "jest --ci",
+    "test:pdf-layout": "jest --ci --runInBand --config jest.pdf.config.mjs"
   },
   "dependencies": {
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/sortable": "^10.0.0",
+    "@dnd-kit/utilities": "^3.2.2",
     "@heroicons/react": "^2.0.18",
     "@react-pdf/renderer": "^4.3.0",
     "@reduxjs/toolkit": "^1.9.5",

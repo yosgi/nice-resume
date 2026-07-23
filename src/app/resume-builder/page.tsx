@@ -10,11 +10,11 @@ export default function Create() {
     <Provider store={store}>
       <LanguageProvider>
         <main className="relative h-full w-full overflow-hidden bg-gray-50">
-          <div className="grid grid-cols-3 md:grid-cols-6">
-            <div className="col-span-3">
+          <div className="grid grid-cols-1 lg:grid-cols-12">
+            <div className="col-span-1 lg:col-span-5">
               <ResumeForm />
             </div>
-            <div className="col-span-3">
+            <div className="col-span-1 min-w-0 lg:col-span-7">
               <Resume />
             </div>
           </div>

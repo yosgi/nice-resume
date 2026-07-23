@@ -1,6 +1,9 @@
 import { useEffect } from "react";
 import { Font } from "@react-pdf/renderer";
-import { ENGLISH_FONT_FAMILIES, NON_ENGLISH_FONT_FAMILIES } from "components/fonts/constants";
+import {
+  ENGLISH_FONT_FAMILIES,
+  NON_ENGLISH_FONT_FAMILIES,
+} from "components/fonts/constants";
 import { getAllFontFamiliesToLoad } from "components/fonts/lib";
 
 /**
@@ -8,7 +11,10 @@ import { getAllFontFamiliesToLoad } from "components/fonts/lib";
  */
 export const useRegisterReactPDFFont = () => {
   useEffect(() => {
-    const allFontFamilies = [...ENGLISH_FONT_FAMILIES, ...NON_ENGLISH_FONT_FAMILIES];
+    const allFontFamilies = [
+      ...ENGLISH_FONT_FAMILIES,
+      ...NON_ENGLISH_FONT_FAMILIES,
+    ];
     // Register all fonts
     allFontFamilies.forEach((fontFamily) => {
       Font.register({
@@ -42,8 +48,8 @@ export const useRegisterReactPDFFont = () => {
 
 export const useRegisterReactPDFHyphenationCallback = (fontFamily: string) => {
   useEffect(() => {
-    // Disable hyphenation for English Font Family so the word wraps each line
-    // https://github.com/diegomura/react-pdf/issues/311#issuecomment-548301604
+    // Long unbroken user text receives deterministic newlines before render.
+    // Keep react-pdf from adding visible hyphens of its own.
     Font.registerHyphenationCallback((word) => [word]);
   }, [fontFamily]);
 };

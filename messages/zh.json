@@ -32,6 +32,7 @@
     "email": "邮箱",
     "phone": "电话",
     "website": "网站",
+    "websiteLabel": "显示名称（选填）",
     "location": "所在地",
     "namePlaceholder": "张三",
     "jobTitlePlaceholder": "全栈开发工程师",
@@ -39,10 +40,14 @@
     "emailPlaceholder": "zhangsan@example.com",
     "phonePlaceholder": "(555) 123-4567",
     "websitePlaceholder": "portfolio.zhangsan.com",
+    "websiteLabelPlaceholder": "LinkedIn、GitHub、作品集",
+    "websiteLabelHelp": "完整链接仍可点击；留空时会自动显示 LinkedIn、GitHub 或网站域名。",
     "locationPlaceholder": "上海，中国",
     "addAdditionalField": "添加新字段",
     "additionalField": "额外字段",
+    "additionalFieldLabel": "显示名称（选填）",
     "additionalFieldPlaceholder": "例如：linkedin.com/in/username",
+    "additionalFieldLabelPlaceholder": "LinkedIn、GitHub、作品集",
     "deleteAdditionalField": "删除字段"
   },
   "workExperience": {
@@ -123,11 +128,22 @@
   },
   "spacing": {
     "label": "间距",
-    "tooltip": "间距为 {{value}}pt"
+    "tooltip": "间距为 {{value}}pt",
+    "afterEntry": "此条目后的间距",
+    "afterEntryTooltip": "此条目后保留 {{value}}pt"
+  },
+  "preview": {
+    "exact": "精确 PDF 预览",
+    "exactHelp": "推荐使用。采用最终 PDF 渲染器，分页位置与下载文件完全一致。",
+    "downloadFiles": "下载文件",
+    "preparingDownload": "正在生成 PDF…"
+  },
+  "sorting": {
+    "drag": "拖动排序"
   },
   "hero": {
     "title": "轻松创建专业简历",
     "subtitle": "使用这个免费、开源且简单的简历构建器",
     "getStarted": "开始使用"
   }
-} 
+}

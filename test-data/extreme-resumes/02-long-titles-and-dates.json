@@ -1,0 +1,114 @@
+{
+  "resume": {
+    "profile": {
+      "name": "Morgan Avery",
+      "email": "morgan.avery@example.com",
+      "phone": "+1 (555) 123-4567",
+      "url": "morganavery.dev",
+      "summary": "Tests collisions between long left-hand titles and long right-hand dates.",
+      "location": "Wellington, New Zealand",
+      "title": "Engineering Leader",
+      "additionalFields": []
+    },
+    "workExperiences": [
+      {
+        "company": "A Very Long International Company Name Spanning Several Business Units and Regions",
+        "jobTitle": "Director of Engineering for Customer Identity, Fraud Prevention, Privacy, Security, and Global Platform Operations",
+        "date": "September 2018 - February 2026 (full-time, remote, international)",
+        "descriptions": [
+          "Led multiple engineering groups across several time zones.",
+          "Designed operating models for security-critical services."
+        ]
+      },
+      {
+        "company": "A Very Long International Company Name Spanning Several Business Units and Regions",
+        "jobTitle": "Senior Engineering Manager for Developer Productivity and Internal Platforms",
+        "date": "January 2016 - August 2018",
+        "descriptions": ["Built a paved road used by hundreds of engineers."]
+      }
+    ],
+    "educations": [
+      {
+        "school": "University of Technology, Design, Business, Public Policy, and Applied Sciences",
+        "degree": "Master of Science in Computer Science with Specialisation in Distributed Systems, Human-Computer Interaction, and Data Engineering",
+        "date": "February 2011 - November 2015 (part-time)",
+        "gpa": "Graduated with First Class Honours and the Dean's Award",
+        "descriptions": [
+          "Thesis focused on resilient distributed coordination."
+        ]
+      }
+    ],
+    "projects": [
+      {
+        "project": "Organisation-Wide Customer Identity Consolidation, Consent Management, Data Governance, and Regulatory Compliance Programme",
+        "date": "Q1 2022 - Q4 2025 (four-year programme)",
+        "descriptions": [
+          "Consolidated identity and consent workflows across twelve products."
+        ]
+      },
+      {
+        "project": "Global Developer Platform Migration and Reliability Improvement Initiative",
+        "date": "January 2020 - December 2023",
+        "descriptions": [
+          "Migrated critical services without customer-visible downtime."
+        ]
+      }
+    ],
+    "skills": {
+      "featuredSkills": [
+        {
+          "skill": "Engineering Leadership",
+          "rating": 4
+        }
+      ],
+      "descriptions": [
+        "Platform strategy",
+        "Security and privacy",
+        "Organisation design"
+      ]
+    },
+    "custom": {
+      "descriptions": []
+    }
+  },
+  "settings": {
+    "themeColor": "#2E4E43",
+    "fontFamily": "Helvetica",
+    "fontSize": "10",
+    "documentSize": "LETTER",
+    "formToShow": {
+      "workExperiences": true,
+      "educations": true,
+      "projects": true,
+      "skills": true,
+      "custom": false
+    },
+    "formToHeading": {
+      "workExperiences": "Professional Experience",
+      "educations": "Education and Research",
+      "projects": "Selected Strategic Programmes",
+      "skills": "Leadership Capabilities",
+      "custom": "Additional Information"
+    },
+    "formsOrder": [
+      "workExperiences",
+      "educations",
+      "projects",
+      "skills",
+      "custom"
+    ],
+    "showBulletPoints": {
+      "educations": true,
+      "projects": true,
+      "skills": true,
+      "custom": true
+    },
+    "sectionSpacing": {
+      "workExperiences": 20,
+      "educations": 20,
+      "projects": 20,
+      "skills": 20,
+      "custom": 20
+    }
+  }
+}

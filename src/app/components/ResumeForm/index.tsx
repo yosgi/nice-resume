@@ -13,7 +13,6 @@ import { ProjectsForm } from "components/ResumeForm/ProjectsForm";
 import { SkillsForm } from "components/ResumeForm/SkillsForm";
 import { ThemeForm } from "components/ResumeForm/ThemeForm";
 import { CustomForm } from "components/ResumeForm/CustomForm";
-import { FlexboxSpacer } from "components/FlexboxSpacer";
 import { cx } from "lib/cx";
 
 const formTypeToComponent: { [type in ShowForm]: () => JSX.Element } = {
@@ -40,7 +39,7 @@ export const ResumeForm = () => {
       onMouseOver={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     >
-      <section className="flex max-w-2xl flex-col gap-8 p-[var(--resume-padding)]">
+      <section className="flex w-full max-w-2xl flex-col gap-8 p-[var(--resume-padding)]">
         <ProfileForm />
         {formsOrder.map((form) => {
           const Component = formTypeToComponent[form];
@@ -49,7 +48,6 @@ export const ResumeForm = () => {
         <ThemeForm />
         <br />
       </section>
-      <FlexboxSpacer maxWidth={50} className="hidden md:block" />
     </div>
   );
 };

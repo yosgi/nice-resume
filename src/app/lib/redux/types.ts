@@ -1,12 +1,21 @@
+export type ResumeContactField =
+  | string
+  | {
+      value: string;
+      label?: string;
+    };
+
 export interface ResumeProfile {
   name: string;
   email: string;
   phone: string;
   url: string;
+  urlLabel: string;
   summary: string;
   location: string;
   title: string;
-  additionalFields: string[];
+  additionalFields: ResumeContactField[];
+  contactOrder: string[];
 }
 
 export interface ResumeWorkExperience {
@@ -14,6 +23,7 @@ export interface ResumeWorkExperience {
   jobTitle: string;
   date: string;
   descriptions: string[];
+  spacing?: number;
 }
 
 export interface ResumeEducation {
@@ -22,12 +32,14 @@ export interface ResumeEducation {
   date: string;
   gpa: string;
   descriptions: string[];
+  spacing?: number;
 }
 
 export interface ResumeProject {
   project: string;
   date: string;
   descriptions: string[];
+  spacing?: number;
 }
 
 export interface FeaturedSkill {

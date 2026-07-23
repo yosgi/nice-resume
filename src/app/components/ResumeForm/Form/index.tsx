@@ -105,10 +105,12 @@ export const Form = ({
           />
         </div>
         <div className="flex items-center gap-0.5">
-          <SpacingControl 
-            section={form}
-            value={settings.sectionSpacing[form]} 
-          />
+          {(form === "skills" || form === "custom") && (
+            <SpacingControl
+              section={form}
+              value={settings.sectionSpacing[form]}
+            />
+          )}
           {!isFirstForm && (
             <MoveIconButton type="up" onClick={handleMoveClick} />
           )}
@@ -125,9 +127,12 @@ export const Form = ({
         <div className="mt-2 flex justify-end">
           <button
             type="button"
-            onClick={onAddClick || (() => {
-              dispatch(addSectionInForm({ form }));
-            })}
+            onClick={
+              onAddClick ||
+              (() => {
+                dispatch(addSectionInForm({ form }));
+              })
+            }
             className="flex items-center rounded-md bg-white py-2 pl-3 pr-4 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
           >
             <PlusSmallIcon

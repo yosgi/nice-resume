@@ -1,0 +1,40 @@
+{
+  "resume": {
+    "profile": {
+      "name": "Legacy Import Compatibility",
+      "email": "legacy.import@example.com",
+      "phone": "",
+      "url": "",
+      "summary": "Tests JSON files exported before additional fields and newer settings were introduced.",
+      "location": "Remote",
+      "title": "Compatibility Test"
+    },
+    "workExperiences": [],
+    "educations": [],
+    "projects": [],
+    "skills": {
+      "featuredSkills": [
+        {
+          "skill": "FeaturedSkillMustRemainVisibleEvenWithoutDescriptions",
+          "rating": 4
+        }
+      ]
+    },
+    "custom": {
+      "descriptions": []
+    }
+  },
+  "settings": {
+    "themeColor": "#1D2E4D",
+    "fontFamily": "Helvetica",
+    "fontSize": "10",
+    "documentSize": "A4",
+    "formToShow": {
+      "workExperiences": false,
+      "educations": false,
+      "projects": false,
+      "skills": true,
+      "custom": false
+    }
+  }
+}

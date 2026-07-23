@@ -16,8 +16,10 @@ export const END_HOME_RESUME: Resume = {
     phone: "987-654-3210",
     location: "San Francisco, CA",
     url: "linkedin.com/in/jane-smith",
+    urlLabel: "",
     title: "Full-Stack Developer",
     additionalFields: [],
+    contactOrder: ["email", "phone", "url", "location"],
   },
   workExperiences: [
     {

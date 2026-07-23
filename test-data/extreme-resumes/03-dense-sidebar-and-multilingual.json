@@ -1,0 +1,117 @@
+{
+  "resume": {
+    "profile": {
+      "name": "陈嘉怡 Chen Jiayi",
+      "email": "jiayi.chen+engineering-platform-and-infrastructure@example-technology.co.nz",
+      "phone": "+86 138 0013 8000 / +64 21 987 654",
+      "url": "https://个人作品集.example.com/陈嘉怡/平台工程/案例研究",
+      "summary": "平台工程师，专注于高可用系统、开发者体验、云基础设施与跨团队技术协作。Experienced in multilingual products and globally distributed systems.",
+      "location": "中国上海 / Auckland, Aotearoa New Zealand",
+      "title": "高级平台工程师 / Senior Platform Engineer",
+      "additionalFields": [
+        "LinkedIn: linkedin.com/in/jiayi-chen-platform-infrastructure-engineering",
+        "GitHub: github.com/jiayi-chen/very-long-open-source-project-name",
+        "WeChat: jiayi_platform_engineering_2026",
+        "Portfolio mirror: portfolio-backup.example.net/research/case-studies/platform-reliability",
+        "Open-source maintainer and conference speaker"
+      ]
+    },
+    "workExperiences": [
+      {
+        "company": "国际云计算与数字产品有限公司 International Cloud and Digital Products Limited",
+        "jobTitle": "高级平台工程师 / Senior Platform Engineer",
+        "date": "2021年3月 - 至今 / March 2021 - Present",
+        "descriptions": [
+          "负责多区域 Kubernetes 平台、持续交付流水线和可观测性系统。",
+          "Improved deployment reliability for teams across Asia-Pacific and Europe."
+        ]
+      }
+    ],
+    "educations": [
+      {
+        "school": "上海交通大学 Shanghai Jiao Tong University",
+        "degree": "计算机科学与技术硕士 / Master of Computer Science",
+        "date": "2016年9月 - 2019年6月",
+        "gpa": "优秀毕业生",
+        "descriptions": ["研究方向：分布式系统与云计算。"]
+      }
+    ],
+    "projects": [
+      {
+        "project": "全球多区域服务可靠性与开发者平台升级计划 / Global Multi-Region Reliability and Developer Platform Modernisation",
+        "date": "2022年 - 2026年",
+        "descriptions": ["为二十多个团队提供统一平台能力。"]
+      }
+    ],
+    "skills": {
+      "featuredSkills": [
+        {
+          "skill": "平台工程 Platform Engineering",
+          "rating": 4
+        },
+        {
+          "skill": "分布式系统 Distributed Systems",
+          "rating": 4
+        },
+        {
+          "skill": "可观测性与可靠性 Observability and Reliability",
+          "rating": 4
+        },
+        {
+          "skill": "跨团队技术领导力 Cross-Team Technical Leadership",
+          "rating": 3
+        }
+      ],
+      "descriptions": [
+        "Kubernetes、Terraform、Helm、Argo CD",
+        "Go、TypeScript、Python、SQL",
+        "AWS、Google Cloud、Azure",
+        "Prometheus、Grafana、OpenTelemetry",
+        "中文（母语）、English（professional）"
+      ]
+    },
+    "custom": {
+      "descriptions": ["可提供中英文技术分享。"]
+    }
+  },
+  "settings": {
+    "themeColor": "#243B53",
+    "fontFamily": "NotoSansSC",
+    "fontSize": "9",
+    "documentSize": "A4",
+    "formToShow": {
+      "workExperiences": true,
+      "educations": true,
+      "projects": true,
+      "skills": true,
+      "custom": true
+    },
+    "formToHeading": {
+      "workExperiences": "工作经历 / Experience",
+      "educations": "教育经历 / Education",
+      "projects": "项目经验 / Projects",
+      "skills": "技能 / Skills",
+      "custom": "其他 / Additional"
+    },
+    "formsOrder": [
+      "workExperiences",
+      "educations",
+      "projects",
+      "custom",
+      "skills"
+    ],
+    "showBulletPoints": {
+      "educations": true,
+      "projects": true,
+      "skills": true,
+      "custom": true
+    },
+    "sectionSpacing": {
+      "workExperiences": 18,
+      "educations": 18,
+      "projects": 18,
+      "skills": 18,
+      "custom": 18
+    }
+  }
+}

@@ -22,18 +22,21 @@ const defaultHeadings = {
 
 // Get the default language from localStorage or use 'en' as fallback
 const getDefaultLanguage = () => {
-  if (typeof window === 'undefined') return 'en';
-  const savedLanguage = localStorage.getItem('language');
+  if (typeof window === "undefined") return "en";
+  const savedLanguage = localStorage.getItem("language");
   if (savedLanguage) return savedLanguage;
-  
-  const browserLang = navigator.language.split('-')[0];
-  console.log(browserLang,"browserLang");
-  return browserLang === 'zh' ? 'zh' : 'en';
+
+  const browserLang = navigator.language.split("-")[0];
+  return browserLang === "zh" ? "zh" : "en";
 };
 
 const getTranslatedHeading = (key: string) => {
   const language = getDefaultLanguage() as keyof typeof defaultHeadings;
-  return defaultHeadings[language][key as keyof typeof defaultHeadings[typeof language]] || key;
+  return (
+    defaultHeadings[language][
+      key as keyof (typeof defaultHeadings)[typeof language]
+    ] || key
+  );
 };
 
 export interface Settings {
@@ -137,7 +140,8 @@ export const settingsSlice = createSlice({
       } else if (field === "sectionSpacing") {
         Object.keys(draft.sectionSpacing).forEach((key) => {
           if (value[key as keyof typeof value] !== undefined) {
-            draft.sectionSpacing[key as keyof typeof draft.sectionSpacing] = value[key as keyof typeof value];
+            draft.sectionSpacing[key as keyof typeof draft.sectionSpacing] =
+              value[key as keyof typeof value];
           }
         });
       }

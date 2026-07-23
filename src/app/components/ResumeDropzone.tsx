@@ -14,6 +14,10 @@ import Image from "next/image";
 import { cx } from "lib/cx";
 import { deepClone } from "lib/deep-clone";
 import { useTranslation } from "../../../utils/translations";
+import {
+  getImportedSectionVisibility,
+  normalizeImportedResumeState,
+} from "lib/import-resume-state";
 
 const defaultFileState = {
   name: "",
@@ -94,32 +98,24 @@ export const ResumeDropzone = ({
       // Parse JSON file
       const response = await fetch(file.fileUrl);
       const json = await response.json();
-      resume = json.resume;
-      // Import settings from JSON if available
-      if (json.settings) {
-        settings = deepClone(json.settings);
-      }
+      const normalizedState = normalizeImportedResumeState(json);
+      resume = normalizedState.resume;
+      settings = normalizedState.settings;
     }
 
     // If the user has used the app before, show/hide form sections
     if (getHasUsedAppBefore()) {
       const sections = Object.keys(settings.formToShow) as ShowForm[];
-      const sectionVisibility: Record<ShowForm, boolean> = {
-        workExperiences: resume.workExperiences.length > 0,
-        educations: resume.educations.length > 0,
-        projects: resume.projects.length > 0,
-        skills: resume.skills.descriptions.length > 0,
-        custom: resume.custom.descriptions.length > 0,
-      };
+      const sectionVisibility = getImportedSectionVisibility(resume);
       for (const section of sections) {
         settings.formToShow[section] = sectionVisibility[section];
       }
     }
 
     // Add logs to check imported data
-    console.log('Importing resume:', resume);
-    console.log('Importing settings:', settings);
-    console.log('Section spacing:', settings.sectionSpacing);
+    console.log("Importing resume:", resume);
+    console.log("Importing settings:", settings);
+    console.log("Section spacing:", settings.sectionSpacing);
 
     saveStateToLocalStorage({ resume, settings });
     router.push("/resume-builder");
@@ -128,7 +124,7 @@ export const ResumeDropzone = ({
   return (
     <div
       className={cx(
-        "flex justify-center rounded-md border-2 border-dashed px-6 bg-[#FAFDFC] shadow-sm transition-colors",
+        "flex justify-center rounded-md border-2 border-dashed bg-[#FAFDFC] px-6 shadow-sm transition-colors",
         isHoveredOnDropzone ? "border-[#2E4E43]" : "border-gray-300",
         playgroundView ? "pb-6 pt-4" : "py-12",
         className
@@ -140,7 +136,12 @@ export const ResumeDropzone = ({
       onDragLeave={() => setIsHoveredOnDropzone(false)}
       onDrop={onDrop}
     >
-      <div className={cx("text-center", playgroundView ? "space-y-2" : "space-y-3")}>
+      <div
+        className={cx(
+          "text-center",
+          playgroundView ? "space-y-2" : "space-y-3"
+        )}
+      >
         {!playgroundView && (
           <Image
             src={addPdfSrc}
@@ -191,7 +192,9 @@ export const ResumeDropzone = ({
                 className={cx(
                   "relative inline-block cursor-pointer rounded-full px-6 py-2 font-semibold text-white shadow-sm transition-colors",
                   // If not playground, use the theme color
-                  !playgroundView ? "bg-[#2E4E43] hover:bg-[#276F5F]" : "border border-[#2E4E43] text-[#2E4E43]"
+                  !playgroundView
+                    ? "bg-[#2E4E43] hover:bg-[#276F5F]"
+                    : "border border-[#2E4E43] text-[#2E4E43]"
                 )}
               >
                 {t("import.dropzone.browseFile")}
@@ -217,7 +220,8 @@ export const ResumeDropzone = ({
                   className="inline-block rounded-full bg-[#2E4E43] px-6 py-2 font-semibold text-white transition-colors hover:bg-[#276F5F]"
                   onClick={onImportClick}
                 >
-                  {t("import.dropzone.importAndContinue")} <span aria-hidden="true">→</span>
+                  {t("import.dropzone.importAndContinue")}{" "}
+                  <span aria-hidden="true">→</span>
                 </button>
               )}
             </>

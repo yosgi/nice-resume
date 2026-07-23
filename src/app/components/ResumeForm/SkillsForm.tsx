@@ -1,33 +1,43 @@
-import { Form, FormSection } from "components/ResumeForm/Form";
+import { useRef } from "react";
+import { Form } from "components/ResumeForm/Form";
 import {
   BulletListTextarea,
-  Input,
   InputGroupWrapper,
 } from "components/ResumeForm/Form/InputGroup";
 import { FeaturedSkillInput } from "components/ResumeForm/Form/FeaturedSkillInput";
-import { BulletListIconButton, MoveIconButton } from "components/ResumeForm/Form/IconButton";
-import type { CreateHandleChangeArgsWithDescriptions } from "components/ResumeForm/types";
+import { BulletListIconButton } from "components/ResumeForm/Form/IconButton";
 import { useAppDispatch, useAppSelector } from "lib/redux/hooks";
-import { selectSkills, changeSkills, moveSectionInForm } from "lib/redux/resumeSlice";
-import type { ResumeSkills } from "lib/redux/types";
+import {
+  selectSkills,
+  changeSkills,
+  reorderSectionInForm,
+} from "lib/redux/resumeSlice";
 import {
   selectShowBulletPoints,
   changeShowBulletPoints,
   selectThemeColor,
-  selectSettings,
 } from "lib/redux/settingsSlice";
-import { SpacingControl } from "./common/SpacingControl";
 import { useTranslation } from "../../../../utils/translations";
+import { SortableList } from "./common/SortableList";
+import type { FeaturedSkill } from "lib/redux/types";
 
 export const SkillsForm = () => {
   const skills = useAppSelector(selectSkills);
-  const settings = useAppSelector(selectSettings);
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const { featuredSkills, descriptions } = skills;
   const form = "skills";
   const showBulletPoints = useAppSelector(selectShowBulletPoints(form));
   const themeColor = useAppSelector(selectThemeColor) || "#38bdf8";
+  const featuredSkillIds = useRef(new WeakMap<FeaturedSkill, string>());
+  const nextFeaturedSkillId = useRef(0);
+  const getFeaturedSkillId = (featuredSkill: FeaturedSkill) => {
+    const existingId = featuredSkillIds.current.get(featuredSkill);
+    if (existingId) return existingId;
+    const id = `featured-skill-${nextFeaturedSkillId.current++}`;
+    featuredSkillIds.current.set(featuredSkill, id);
+    return id;
+  };
   const handleSkillsChange = (field: "descriptions", value: string[]) => {
     dispatch(changeSkills({ field, value }));
   };
@@ -64,7 +74,7 @@ export const SkillsForm = () => {
             </div>
           </div>
         </div>
-        <div className="mb-4 mt-6 -mx-6 border-t-2 border-dotted border-gray-200" />
+        <div className="-mx-6 mb-4 mt-6 border-t-2 border-dotted border-gray-200" />
         <div className="grid grid-cols-6 gap-3">
           <InputGroupWrapper
             label={t("skills.featuredSkills")}
@@ -75,30 +85,37 @@ export const SkillsForm = () => {
             </p>
           </InputGroupWrapper>
 
-          {featuredSkills.map(({ skill, rating }, idx) => {
-            const showMoveUp = idx !== 0;
-            const showMoveDown = idx !== featuredSkills.length - 1;
-            const handleMoveClick = (direction: "up" | "down") => {
-              dispatch(moveSectionInForm({ form, direction, idx }));
-            };
-
-            return (
-              <div key={idx} className="col-span-3 mb-4 rounded-lg border border-gray-200 bg-gray-50 p-3">
-                <FeaturedSkillInput
-                  skill={skill}
-                  rating={rating}
-                  setSkillRating={(newSkill, newRating) => {
-                    handleFeaturedSkillsChange(idx, newSkill, newRating);
-                  }}
-                  placeholder={`${t("skills.featuredSkillPlaceholder")} ${idx + 1}`}
-                  circleColor={themeColor}
-                  showMoveUp={showMoveUp}
-                  showMoveDown={showMoveDown}
-                  onMoveClick={handleMoveClick}
-                />
+          <SortableList
+            items={featuredSkills}
+            getKey={getFeaturedSkillId}
+            onReorder={(fromIdx, toIdx) =>
+              dispatch(reorderSectionInForm({ form, fromIdx, toIdx }))
+            }
+            className="col-span-full grid grid-cols-6 gap-3"
+            itemClassName="col-span-3 mb-4 rounded-lg border border-gray-200 bg-gray-50 p-3 transition-[box-shadow,opacity,transform] duration-200"
+            dragLabel={t("sorting.drag")}
+            strategy="rect"
+            renderItem={({ skill, rating }, idx, dragHandle) => (
+              <div className="flex items-stretch gap-2">
+                <div className="flex shrink-0 items-center border-r border-gray-200 pr-2">
+                  {dragHandle}
+                </div>
+                <div className="min-w-0 flex-1">
+                  <FeaturedSkillInput
+                    skill={skill}
+                    rating={rating}
+                    setSkillRating={(newSkill, newRating) => {
+                      handleFeaturedSkillsChange(idx, newSkill, newRating);
+                    }}
+                    placeholder={`${t("skills.featuredSkillPlaceholder")} ${
+                      idx + 1
+                    }`}
+                    circleColor={themeColor}
+                  />
+                </div>
               </div>
-            );
-          })}
+            )}
+          />
         </div>
       </Form>
     </section>

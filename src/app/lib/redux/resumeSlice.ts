@@ -10,6 +10,11 @@ import type {
   ResumeWorkExperience,
 } from "lib/redux/types";
 import type { ShowForm } from "lib/redux/settingsSlice";
+import {
+  getContactOrder,
+  getContactOrderAfterAdditionalFieldDeletion,
+  type ContactOrderKey,
+} from "lib/contact-order";
 
 export const initialProfile: ResumeProfile = {
   name: "",
@@ -18,8 +23,10 @@ export const initialProfile: ResumeProfile = {
   phone: "",
   location: "",
   url: "",
+  urlLabel: "",
   title: "",
   additionalFields: [],
+  contactOrder: ["email", "phone", "url", "location"],
 };
 
 export const initialWorkExperience: ResumeWorkExperience = {
@@ -27,6 +34,7 @@ export const initialWorkExperience: ResumeWorkExperience = {
   jobTitle: "",
   date: "",
   descriptions: [],
+  spacing: 6,
 };
 
 export const initialEducation: ResumeEducation = {
@@ -35,12 +43,14 @@ export const initialEducation: ResumeEducation = {
   gpa: "",
   date: "",
   descriptions: [],
+  spacing: 6,
 };
 
 export const initialProject: ResumeProject = {
   project: "",
   date: "",
   descriptions: [],
+  spacing: 6,
 };
 
 export const initialFeaturedSkill: FeaturedSkill = { skill: "", rating: 4 };
@@ -82,29 +92,50 @@ export const resumeSlice = createSlice({
       action: PayloadAction<{ field: keyof ResumeProfile; value: string }>
     ) => {
       const { field, value } = action.payload;
-      if (field === "additionalFields") {
-        return; // additionalFields should be handled by separate actions
+      if (field === "additionalFields" || field === "contactOrder") {
+        return; // Structured profile fields are handled by separate actions
       }
       draft.profile[field] = value;
     },
     addProfileAdditionalField: (draft) => {
-      draft.profile.additionalFields.push("");
+      const newIndex = draft.profile.additionalFields.length;
+      draft.profile.additionalFields.push({ value: "", label: "" });
+      draft.profile.contactOrder.push(`additional-${newIndex}`);
     },
     deleteProfileAdditionalField: (
       draft,
       action: PayloadAction<{ idx: number }>
     ) => {
-      draft.profile.additionalFields.splice(action.payload.idx, 1);
+      const { idx } = action.payload;
+      const currentOrder = getContactOrder(draft.profile as ResumeProfile);
+      draft.profile.additionalFields.splice(idx, 1);
+      draft.profile.contactOrder = getContactOrderAfterAdditionalFieldDeletion(
+        currentOrder,
+        idx
+      );
     },
     changeProfileAdditionalField: (
       draft,
       action: PayloadAction<{
         idx: number;
+        field: "value" | "label";
         value: string;
       }>
     ) => {
-      const { idx, value } = action.payload;
-      draft.profile.additionalFields[idx] = value;
+      const { idx, field, value } = action.payload;
+      const currentField = draft.profile.additionalFields[idx];
+      const normalizedField =
+        typeof currentField === "string"
+          ? { value: currentField, label: "" }
+          : currentField;
+      normalizedField[field] = value;
+      draft.profile.additionalFields[idx] = normalizedField;
+    },
+    setProfileContactOrder: (
+      draft,
+      action: PayloadAction<{ order: ContactOrderKey[] }>
+    ) => {
+      draft.profile.contactOrder = action.payload.order;
     },
     changeWorkExperiences: (
       draft,
@@ -114,7 +145,7 @@ export const resumeSlice = createSlice({
     ) => {
       const { idx, field, value } = action.payload;
       const workExperience = draft.workExperiences[idx];
-      workExperience[field] = value as any;
+      (workExperience as any)[field] = value;
     },
     changeEducations: (
       draft,
@@ -122,7 +153,7 @@ export const resumeSlice = createSlice({
     ) => {
       const { idx, field, value } = action.payload;
       const education = draft.educations[idx];
-      education[field] = value as any;
+      (education as any)[field] = value;
     },
     changeProjects: (
       draft,
@@ -130,7 +161,7 @@ export const resumeSlice = createSlice({
     ) => {
       const { idx, field, value } = action.payload;
       const project = draft.projects[idx];
-      project[field] = value as any;
+      (project as any)[field] = value;
     },
     changeSkills: (
       draft,
@@ -162,6 +193,29 @@ export const resumeSlice = createSlice({
       const { value } = action.payload;
       draft.custom.descriptions = value;
     },
+    changeSectionItemSpacing: (
+      draft,
+      action: PayloadAction<{
+        form: "workExperiences" | "educations" | "projects";
+        idx: number;
+        value: number;
+      }>
+    ) => {
+      const { form, idx, value } = action.payload;
+      draft[form][idx].spacing = value;
+    },
+    reorderSectionInForm: (
+      draft,
+      action: PayloadAction<{
+        form: "skills";
+        fromIdx: number;
+        toIdx: number;
+      }>
+    ) => {
+      const { fromIdx, toIdx } = action.payload;
+      const [item] = draft.skills.featuredSkills.splice(fromIdx, 1);
+      draft.skills.featuredSkills.splice(toIdx, 0, item);
+    },
     addSectionInForm: (draft, action: PayloadAction<{ form: ShowForm }>) => {
       const { form } = action.payload;
       switch (form) {
@@ -178,7 +232,9 @@ export const resumeSlice = createSlice({
           return draft;
         }
         case "skills": {
-          draft.skills.featuredSkills.push(structuredClone(initialFeaturedSkill));
+          draft.skills.featuredSkills.push(
+            structuredClone(initialFeaturedSkill)
+          );
           return draft;
         }
       }
@@ -195,14 +251,14 @@ export const resumeSlice = createSlice({
       if (form === "custom") {
         return draft;
       }
-      
+
       let array: any[];
       if (form === "skills") {
         array = draft.skills.featuredSkills;
       } else {
         array = draft[form];
       }
-      
+
       if (
         (idx === 0 && direction === "up") ||
         (idx === array.length - 1 && direction === "down")
@@ -250,6 +306,9 @@ export const {
   addProfileAdditionalField,
   deleteProfileAdditionalField,
   changeProfileAdditionalField,
+  setProfileContactOrder,
+  changeSectionItemSpacing,
+  reorderSectionInForm,
 } = resumeSlice.actions;
 
 export const selectResume = (state: RootState) => state.resume;
