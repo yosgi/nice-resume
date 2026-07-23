@@ -38,6 +38,8 @@ export interface ResumeEducation {
 export interface ResumeProject {
   project: string;
   date: string;
+  linkName: string;
+  url: string;
   descriptions: string[];
   spacing?: number;
 }

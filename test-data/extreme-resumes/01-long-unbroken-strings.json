@@ -50,6 +50,8 @@
       {
         "project": "EnterpriseTransformationAndCustomerAnalyticsPlatformWithAnExtremelyLongProjectNameThatMustNeverOverlapTheDate",
         "date": "January2024UntilDecember2026WithoutSpaces",
+        "linkName": "Project demo",
+        "url": "example.com/projects/enterprise-transformation-and-customer-analytics-platform/demo",
         "spacing": 12,
         "descriptions": [
           "Repository: github.com/organisation/extremely-long-project-repository-name-without-a-safe-breakpoint"

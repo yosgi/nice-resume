@@ -32,6 +32,7 @@ const expectedSentinelsByFile: Record<string, string[]> = {
     "firstname.lastname.with.an.extremely.long.department@very-long-company-domain.example.com",
     "Professional profile",
     "Source code",
+    "Project demo",
     "EnterpriseTransformationAndCustomerAnalyticsPlatformWithAnExtremelyLongProjectNameThatMustNeverOverlapTheDate",
     "January2024UntilDecember2026WithoutSpaces",
   ],
@@ -63,6 +64,7 @@ const expectedLinkTargetsByFile: Partial<Record<string, string[]>> = {
   "01-long-unbroken-strings.json": [
     "https://www.linkedin.com/in/an-extremely-long-linkedin-profile-name-with-many-segments-and-identifiers",
     "https://github.com/organisation/repository-with-an-extremely-long-name-and-deep-path/tree/main/packages/application",
+    "https://example.com/projects/enterprise-transformation-and-customer-analytics-platform/demo",
   ],
 };
 

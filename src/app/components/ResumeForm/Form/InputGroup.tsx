@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import ContentEditable from "react-contenteditable";
+import type { ClipboardEvent } from "react";
 import { useAutosizeTextareaHeight } from "lib/hooks/useAutosizeTextareaHeight";
 
 interface InputProps<K extends string, V extends string | string[]> {
@@ -11,6 +10,7 @@ interface InputProps<K extends string, V extends string | string[]> {
   value?: V;
   placeholder: string;
   onChange: (name: K, value: V) => void;
+  onPaste?: (e: ClipboardEvent<HTMLTextAreaElement>) => void;
 }
 
 /**
@@ -64,6 +64,7 @@ export const Textarea = <T extends string>({
   value = "",
   placeholder,
   onChange,
+  onPaste,
 }: InputProps<T, string>) => {
   const textareaRef = useAutosizeTextareaHeight({ value });
 
@@ -76,6 +77,7 @@ export const Textarea = <T extends string>({
         placeholder={placeholder}
         value={value}
         onChange={(e) => onChange(name, e.target.value)}
+        onPaste={onPaste}
       />
     </InputGroupWrapper>
   );
@@ -84,65 +86,7 @@ export const Textarea = <T extends string>({
 export const BulletListTextarea = <T extends string>(
   props: InputProps<T, string[]> & { showBulletPoints?: boolean }
 ) => {
-  const [showFallback, setShowFallback] = useState(false);
-
-  useEffect(() => {
-    const isFirefox = navigator.userAgent.includes("Firefox");
-    const isSafari =
-      navigator.userAgent.includes("Safari") &&
-      !navigator.userAgent.includes("Chrome"); // Note that Chrome also includes Safari in its userAgent
-    if (isFirefox || isSafari) {
-      setShowFallback(true);
-    }
-  }, []);
-
-  if (showFallback) {
-    return <BulletListTextareaFallback {...props} />;
-  }
-  return <BulletListTextareaGeneral {...props} />;
-};
-
-/**
- * BulletListTextareaGeneral is a textarea where each new line starts with a bullet point.
- *
- * In its core, it uses a div with contentEditable set to True. However, when
- * contentEditable is True, user can paste in any arbitrary html and it would
- * render. So to make it behaves like a textarea, it strips down all html while
- * keeping only the text part.
- *
- * Reference: https://stackoverflow.com/a/74998090/7699841
- */
-const BulletListTextareaGeneral = <T extends string>({
-  label,
-  labelClassName: wrapperClassName,
-  name,
-  value: bulletListStrings = [],
-  placeholder,
-  onChange,
-  showBulletPoints = false,
-}: InputProps<T, string[]> & { showBulletPoints?: boolean }) => {
-  const html = getHTMLFromBulletListStrings(bulletListStrings);
-  return (
-    <InputGroupWrapper label={label} className={wrapperClassName}>
-      <ContentEditable
-        contentEditable={true}
-        className={`${INPUT_CLASS_NAME} cursor-text [&>div]:list-item ${
-          false ? "pl-7" : "[&>div]:list-['']"
-        }`}
-        // Note: placeholder currently doesn't work
-        placeholder={placeholder}
-        onChange={(e) => {
-          if (e.type === "input") {
-            const { innerText } = e.currentTarget as HTMLDivElement;
-            const newBulletListStrings =
-              getBulletListStringsFromInnerText(innerText);
-            onChange(name, newBulletListStrings);
-          }
-        }}
-        html={html}
-      />
-    </InputGroupWrapper>
-  );
+  return <BulletListTextareaFallback {...props} />;
 };
 
 const NORMALIZED_LINE_BREAK = "\n";
@@ -154,39 +98,12 @@ const NORMALIZED_LINE_BREAK = "\n";
  */
 const normalizeLineBreak = (str: string) =>
   str.replace(/\r?\n/g, NORMALIZED_LINE_BREAK);
-const dedupeLineBreak = (str: string) =>
-  str.replace(/\n\n/g, NORMALIZED_LINE_BREAK);
 const getStringsByLineBreak = (str: string) => str.split(NORMALIZED_LINE_BREAK);
 
-const getBulletListStringsFromInnerText = (innerText: string) => {
-  const innerTextWithNormalizedLineBreak = normalizeLineBreak(innerText);
-
-  // In Windows Chrome, pressing enter creates 2 line breaks "\n\n"
-  // This dedupes it into 1 line break "\n"
-  let newInnerText = dedupeLineBreak(innerTextWithNormalizedLineBreak);
-
-  // Handle the special case when content is empty
-  if (newInnerText === NORMALIZED_LINE_BREAK) {
-    newInnerText = "";
-  }
-
-  return getStringsByLineBreak(newInnerText);
-};
-
-const getHTMLFromBulletListStrings = (bulletListStrings: string[]) => {
-  // If bulletListStrings is an empty array, make it an empty div
-  if (bulletListStrings.length === 0) {
-    return "<div></div>";
-  }
-
-  return bulletListStrings.map((text) => `<div>${text}</div>`).join("");
-};
-
 /**
- * BulletListTextareaFallback is a fallback for BulletListTextareaGeneral to work around
- * content editable div issue in some browsers. For example, in Firefox, if user enters
- * space in the content editable div at the end of line, Firefox returns it as a new
- * line character \n instead of space in innerText.
+ * A textarea is more predictable than contenteditable for controlled React state:
+ * browser selection is preserved on delete, and paste can be normalized before
+ * it reaches the form state.
  */
 const BulletListTextareaFallback = <T extends string>({
   label,
@@ -195,12 +112,39 @@ const BulletListTextareaFallback = <T extends string>({
   value: bulletListStrings = [],
   placeholder,
   onChange,
-  showBulletPoints = true,
+  showBulletPoints = false,
 }: InputProps<T, string[]> & { showBulletPoints?: boolean }) => {
   const textareaValue = getTextareaValueFromBulletListStrings(
     bulletListStrings,
     showBulletPoints
   );
+  const handlePaste = (e: ClipboardEvent<HTMLTextAreaElement>) => {
+    const pastedText = e.clipboardData.getData("text/plain");
+    if (!pastedText) return;
+
+    e.preventDefault();
+
+    const textarea = e.currentTarget;
+    const { selectionStart, selectionEnd } = textarea;
+    const pastedTextareaValue = getTextareaValueFromBulletListStrings(
+      getBulletListStringsFromPastedText(pastedText),
+      showBulletPoints
+    );
+    const nextTextareaValue =
+      textarea.value.slice(0, selectionStart) +
+      pastedTextareaValue +
+      textarea.value.slice(selectionEnd);
+
+    onChange(
+      name,
+      getBulletListStringsFromTextareaValue(nextTextareaValue, showBulletPoints)
+    );
+
+    const nextCursorPosition = selectionStart + pastedTextareaValue.length;
+    requestAnimationFrame(() => {
+      textarea.setSelectionRange(nextCursorPosition, nextCursorPosition);
+    });
+  };
 
   return (
     <Textarea
@@ -215,6 +159,7 @@ const BulletListTextareaFallback = <T extends string>({
           getBulletListStringsFromTextareaValue(value, showBulletPoints)
         );
       }}
+      onPaste={handlePaste}
     />
   );
 };
@@ -273,4 +218,17 @@ const getBulletListStringsFromTextareaValue = (
   }
 
   return strings;
+};
+
+const getBulletListStringsFromPastedText = (pastedText: string) => {
+  const pastedTextWithNormalizedLineBreak = normalizeLineBreak(pastedText)
+    .replace(/\u00a0/g, " ")
+    .replace(/\t/g, "  ");
+
+  return getStringsByLineBreak(pastedTextWithNormalizedLineBreak).map((line) =>
+    line
+      .replace(/^[\s>*-]*(?:[•●◦▪▫‣⁃*-]|\d+[.)])\s*/, "")
+      .replace(/[ ]{2,}/g, " ")
+      .trim()
+  );
 };

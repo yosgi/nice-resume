@@ -49,6 +49,8 @@ export const initialEducation: ResumeEducation = {
 export const initialProject: ResumeProject = {
   project: "",
   date: "",
+  linkName: "",
+  url: "",
   descriptions: [],
   spacing: 6,
 };

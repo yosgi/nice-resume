@@ -86,6 +86,7 @@ export const ResumePDF = ({
         projects={projects}
         themeColor={themeColor}
         customSpacing={settings.sectionSpacing.projects}
+        isPDF={isPDF}
       />
     ),
     skills: () => <></>,
